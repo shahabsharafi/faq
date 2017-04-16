@@ -1,3 +1,3 @@
 start brackets .
 e:
-cd E:\Shahab\Project\faq6
+cd E:\Shahab\workspace\faq
