@@ -1,12 +1,12 @@
 const express = require('express');
-const morgan = require('morgan'); 
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require("path");
-const mongoose    = require('mongoose');
+const mongoose = require('mongoose');
 
 const config = require('./config'); // get our config file
 const middleware = require('./web/middleware');
-const router   = require('./web/router'); // get our mongoose model
+const router = require('./web/router'); // get our mongoose model
 
 const app = express();
 
@@ -18,11 +18,17 @@ mongoose.connect(config.database); // connect to database
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(morgan('dev'));
 
-router.register({ express: express, app: app, config: config });
+router.register({
+    express: express,
+    app: app,
+    config: config
+});
 /*
 app.use(function (req, res, next) {
     if (path.extname(req.path).length > 0) {
@@ -35,6 +41,6 @@ app.use(function (req, res, next) {
     }
 });
 */
-app.listen(app.get('port'), function() {
-    console.log('Angular2 fullstack listening on port '+app.get('port'));
+app.listen(app.get('port'), function () {
+    console.log('Angular2 fullstack listening on port ' + app.get('port'));
 });

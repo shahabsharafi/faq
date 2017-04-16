@@ -1,14 +1,14 @@
 var register = function (option) {
-    
+
     const fs = require('fs');
     const p = require("path");
     var features = {};
-    
+
     function loadModules(path) {
-        fs.lstat(path, function(err, stat) {
+        fs.lstat(path, function (err, stat) {
             if (stat.isDirectory()) {
                 // we have a directory: do a tree walk
-                fs.readdir(path, function(err, files) {
+                fs.readdir(path, function (err, files) {
                     var f, l = files.length;
                     for (var i = 0; i < l; i++) {
                         f = p.join(path, files[i]);
@@ -24,14 +24,14 @@ var register = function (option) {
                         feature.register(option);
                         features[feature.name] = feature;
                     }
-                }                
+                }
             }
         });
     }
-    
+
     loadModules(__dirname);
 }
 
 module.exports = {
-  register: register
+    register: register
 }
