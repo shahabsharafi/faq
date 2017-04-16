@@ -1,0 +1,1 @@
+"C:\Program Files\MongoDB\Server\3.3\bin\mongod.exe" --config="E:\Shahab\Project\faq6\data\mongo.config"
