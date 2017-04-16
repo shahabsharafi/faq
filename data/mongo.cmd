@@ -1,1 +1,1 @@
-"C:\Program Files\MongoDB\Server\3.3\bin\mongod.exe" --config="E:\Shahab\workspace\faq\data\mongo.config"
+"C:\Program Files\MongoDB\Server\3.3\bin\mongod.exe" --config="mongo.config"
