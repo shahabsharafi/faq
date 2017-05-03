@@ -2,3 +2,5 @@
 /data/log/
 /node_modules/
 /dist/
+.angular-cli.json
+.editorconfig.json
