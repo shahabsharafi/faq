@@ -6,7 +6,13 @@ var Schema = mongoose.Schema;
 module.exports = mongoose.model('User', new Schema({
     username: String,
     password: String,
-    person: {
+    email: String,
+    sms: String,
+    activation: {
+        state: Boolean,
+        code: String
+    },
+    profile: {
         firstName: String,
         lastName: String,
         fatherName: String,
@@ -33,6 +39,8 @@ module.exports = mongoose.model('User', new Schema({
         universities: String,
         level: String
     },
-    language: Number,
-    dialect: Number
+    extra: {
+        language: String,
+        dialect: String
+    }
 }));

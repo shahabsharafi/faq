@@ -9,10 +9,11 @@ var register = function (option) {
     // route to authenticate a user (POST http://localhost:8080/api/authenticate)
     router.post('/authenticate', function (req, res) {
         // find the user
+        console.log(req.body.username);
         User.findOne({
             username: req.body.username
         }, function (err, user) {
-
+            console.log(user);
             if (err) throw err;
 
             if (!user) {
@@ -51,7 +52,18 @@ var register = function (option) {
     router.get('/users', function (req, res) {
         //res.json([1,2,3]);
         User.find({}, function (err, users) {
-            res.json(users);
+            var list = [];
+            for (var i = 0; i < users.length; i++) {
+                var item = users[i];
+                list.push({
+                    username: item.username,
+                    password: item.password,
+                    firstName: item.profile.firstName,
+                    lastName: item.profile.lastName
+                });
+            }
+            console.log(list);
+            res.json(list);
         });
     });
 
@@ -61,7 +73,45 @@ var register = function (option) {
             // create a sample user
             var nick = new User({
                 username: 'admin',
-                password: 'password'
+                password: '123456',
+                email: 'shahab.sharafi@gmail.com',
+                sms: '09124301687',
+                activation: {
+                    state: false,
+                    code: '1234'
+                },
+                profile: {
+                    firstName: 'شهاب',
+                    lastName: 'شرفی',
+                    fatherName: 'Azim',
+                    birthDay: '1980.4.18',
+                    no: '16',
+                    placeOfIssues: 'Sary',
+                    nationalCode: '1234567890',
+                    birthPlace: 'Sary',
+                    status: 1
+                },
+                contact: {
+                    mobile: '09124301687',
+                    house: '01244876598',
+                    work: '02188765432',
+                    email: 'shahab.sharafi@gmail.com',
+                    contry: 'ایران',
+                    city: 'تهران',
+                    address: 'ستاری - پیامبر',
+                    pcode: '874367466'
+                },
+                education: {
+                    type: 1,
+                    grade: 'مهندسی',
+                    majors: 'صنایع',
+                    universities: 'علم و صنعت',
+                    level: ''
+                },
+                extra: {
+                    language: 'فارسی',
+                    dialect: 'آذری'
+                }
             });
 
             // save the sample user
