@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import { AuthenticationService } from './index';
 import { User } from '../_models/index';
-import { BaseService } from './base.service';
+import { AuthenticationService, BaseService } from './index';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class UserService extends BaseService<User> {
@@ -13,4 +14,5 @@ export class UserService extends BaseService<User> {
     {
         super(http, authenticationService, '/api/user/users');
     }
+
 }

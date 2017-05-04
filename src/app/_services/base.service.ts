@@ -14,7 +14,7 @@ export class BaseService<T> {
     constructor(
         protected http: Http,
         protected authenticationService: AuthenticationService,
-        private baseUrl) 
+        protected baseUrl)
     {            
             // add authorization header with jwt token
             this.headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -24,7 +24,8 @@ export class BaseService<T> {
     getList(): Promise<T[]> {
         return this.http.get(this.baseUrl, this.options)
                 .toPromise()
-                .then(res => <T[]> res.json().data)
+                .then(res => <T[]> res.json())
                 .then(data => { return data; });
     }
+
 }

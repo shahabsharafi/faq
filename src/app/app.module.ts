@@ -1,20 +1,20 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {RouterModule} from '@angular/router';
-import {HttpModule} from '@angular/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DataTableModule} from 'primeng/primeng';
+import { RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataTableModule, SharedModule } from 'primeng/primeng';
 
-import {AppComponent} from './app.component';
-import {WelcomeComponent} from './welcome/welcome.component';
-import {AccountListComponent} from './account-list/account-list.component';
-import { routing }        from './app.routing';
+import { AppComponent } from './app.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AccountListComponent } from './account-list/account-list.component';
+import { routing } from './app.routing';
 import { AuthGuard } from './_guards/index';
-import { AuthenticationService, UserService } from './_services/index';
+import { AuthenticationService, UserService, Logger } from './_services/index';
 import { LoginComponent } from './login/index';
 
-import {enableProdMode} from '@angular/core';
+import { enableProdMode } from '@angular/core';
 enableProdMode();
 
 @NgModule({
@@ -25,6 +25,7 @@ enableProdMode();
         HttpModule,
         FormsModule,
         ReactiveFormsModule,
+        SharedModule,
         DataTableModule
     ],
     declarations: [
@@ -34,11 +35,11 @@ enableProdMode();
         LoginComponent
     ],
     providers: [
-        AuthGuard,        
+        AuthGuard,
+        Logger,
         AuthenticationService,
         UserService
     ],
-    //providers: [],
     bootstrap: [AppComponent]
 })
 
