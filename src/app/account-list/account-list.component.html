@@ -11,9 +11,7 @@
     </div>
     <h3 class="first">Basic</h3>
     <p-dataTable [value]="users">
-        <p-column field="username" header="username"></p-column>
-        <p-column field="firstName" header="firstName"></p-column>
-        <p-column field="lastName" header="lastName"></p-column>
+        <p-column *ngFor="let col of userColumns" [field]="col.field" [header]="col.header"></p-column>
     </p-dataTable>
     <p><a [routerLink]="['/login']">Logout</a></p>
 </div>

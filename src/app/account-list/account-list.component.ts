@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from '../_models/index';
-import { UserService, Logger } from '../_services/index';
+import { UserService, ResourceService, Logger } from '../_services/index';
 
 @Component({
     selector:'account-list',
@@ -9,11 +9,18 @@ import { UserService, Logger } from '../_services/index';
 })
 export class AccountListComponent implements OnInit {
     users: User[];
+    userColumns: any[];
 
     constructor(private userService: UserService,
-        protected logger: Logger) {  }
+        protected logger: Logger,
+        protected resourceService: ResourceService) {  }
     
     ngOnInit() {
+        this.userColumns = [
+            {field: 'username', header: this.resourceService.getCaption('username')},
+            {field: 'firstName', header: this.resourceService.getCaption('firstName')},
+            {field: 'lastName', header: this.resourceService.getCaption('lastName')}
+        ];
         this.userService.getList().then(users => this.users = users);
     }
     
