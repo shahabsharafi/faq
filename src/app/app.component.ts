@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {ResourceService} from "./_services/index"
+import {ResourceService} from "./services/index"
 
 @Component({
     selector:'app-root',

@@ -10,8 +10,8 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountListComponent } from './account-list/account-list.component';
 import { routing } from './app.routing';
-import { AuthGuard } from './_guards/index';
-import { AuthenticationService, UserService, ResourceService, Logger } from './_services/index';
+import { AuthGuard } from './guards/index';
+import { AuthenticationService, UserService, ResourceService, Logger } from './services/index';
 import { LoginComponent } from './login/index';
 
 import { enableProdMode } from '@angular/core';
