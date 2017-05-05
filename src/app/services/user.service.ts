@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 import { User } from '../models/index';
-import { AuthenticationService, BaseService } from './index';
-import 'rxjs/add/operator/toPromise';
+import { AuthenticationService, BaseCrudService } from './index';
 
 @Injectable()
-export class UserService extends BaseService<User> {
+export class UserService extends BaseCrudService<User> {
     constructor(
-        protected http: Http,
-        protected authenticationService: AuthenticationService)
+        protected authenticationService: AuthenticationService,
+        protected http: Http)
     {
-        super(http, authenticationService, '/api/user/users');
+        super(authenticationService, http, '/api/user/users');
     }
 
 }
