@@ -15,3 +15,16 @@
 </body>
 
 </html>
+<script>
+    $(function() {
+        $('.nav-toggle').on('click', function(e) {
+            $('.sideNav').toggleClass('open');
+            e.stopPropagation();
+            return false;
+        });
+        $('*:not(.nav-toggle)').on('click', function() {
+            $('.sideNav').removeClass('open');
+        });
+    });
+
+</script>
