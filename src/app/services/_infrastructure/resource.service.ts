@@ -17,7 +17,7 @@ export class ResourceService {
                 .then(data => { this.data = data; });
     }
 
-    getCaption(key): string {
-        return this.data[key] + ':';
+    getValue(key): string {
+        return this.data[key];
     }
 }

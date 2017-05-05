@@ -1,3 +1,4 @@
+export * from './_infrastructure/index';
 export * from './app.component';
 export * from './login/index';
 export * from './account-list/index';

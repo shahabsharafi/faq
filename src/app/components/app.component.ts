@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {ResourceService} from "./../services/index"
+import { ResourceService } from './../services/index';
 
 @Component({
     selector:'app-root',
@@ -7,7 +7,7 @@ import {ResourceService} from "./../services/index"
 })
 export class AppComponent implements OnInit {
 
-    constructor (private resourceService: ResourceService) { }
+    constructor (protected resourceService: ResourceService) { }
 
     ngOnInit() {
         this.resourceService.load();
