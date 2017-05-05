@@ -7,12 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 
 import { AppComponent, WelcomeComponent, AccountListComponent, LoginComponent } from './components/index';
-//import { WelcomeComponent } from './components/welcome/welcome.component';
-//import { AccountListComponent } from './components/account-list/account-list.component';
 import { routing } from './app.routing';
-import { AuthGuard } from './guards/index';
-import { AuthenticationService, UserService, ResourceService, Logger } from './services/index';
-//import { LoginComponent } from './components/login/index';
+import { AuthGuard, AuthenticationService, UserService, ResourceService, Logger } from './services/index';
 
 import { enableProdMode } from '@angular/core';
 enableProdMode();
