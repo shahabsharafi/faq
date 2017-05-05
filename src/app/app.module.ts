@@ -6,13 +6,13 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule, SharedModule } from 'primeng/primeng';
 
-import { AppComponent } from './app.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { AccountListComponent } from './account-list/account-list.component';
+import { AppComponent } from './components/app.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { AccountListComponent } from './components/account-list/account-list.component';
 import { routing } from './app.routing';
 import { AuthGuard } from './guards/index';
 import { AuthenticationService, UserService, ResourceService, Logger } from './services/index';
-import { LoginComponent } from './login/index';
+import { LoginComponent } from './components/login/index';
 
 import { enableProdMode } from '@angular/core';
 enableProdMode();
