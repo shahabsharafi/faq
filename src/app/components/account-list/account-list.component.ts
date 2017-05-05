@@ -14,7 +14,7 @@ export class AccountListComponent implements OnInit {
     constructor(private userService: UserService,
         protected logger: Logger,
         protected resourceService: ResourceService) {  }
-    
+
     ngOnInit() {
         this.userColumns = [
             {field: 'username', header: this.resourceService.getCaption('username')},
@@ -23,5 +23,5 @@ export class AccountListComponent implements OnInit {
         ];
         this.userService.getList().then(users => this.users = users);
     }
-    
+
 }
