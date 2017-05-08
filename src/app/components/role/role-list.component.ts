@@ -10,6 +10,7 @@ import { BaseComponent } from '../index';
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
     roles: Role[];
+    selectedRole: Role = <Role>{};;
     roleColumns: any[];
 
     constructor(
@@ -25,6 +26,13 @@ export class RoleListComponent extends BaseComponent implements OnInit {
             {field: 'name', header: this.getHeader('role-name')}
         ];
         this.roleService.getList().then(roles => this.roles = roles);
+    }
+
+    onRowSelect(event) {
+        this.selectedRole = {
+            _id: event.data._id,
+            name: event.data.name
+        }
     }
 
 }

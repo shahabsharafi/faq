@@ -3,8 +3,9 @@
 
     <div class="col-md-6 col-md-offset-3">
         <h3 class="first">Roles</h3>
-        <p-dataTable [value]="roles">
+        <p-dataTable [value]="roles" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single">
             <p-column *ngFor="let col of roleColumns" [field]="col.field" [header]="col.header"></p-column>
         </p-dataTable>
+        <input id="in" pInputText [(ngModel)]="selectedRole.name" />
     </div>
 </div>

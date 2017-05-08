@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTableModule, SharedModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule } from 'primeng/primeng';
 
 import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, LoginComponent } from './components/index';
 import { Routing } from './app.routing';
@@ -22,7 +22,8 @@ enableProdMode();
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        DataTableModule
+        DataTableModule,
+        InputTextModule
     ],
     declarations: [
         AppComponent,

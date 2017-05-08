@@ -17,6 +17,7 @@ var register = function (option) {
             for (var i = 0; i < roles.length; i++) {
                 var item = roles[i];
                 list.push({
+                    _id: item._id,
                     name: item.name,
                     access: item.access
                 });

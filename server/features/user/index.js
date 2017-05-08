@@ -54,6 +54,7 @@ var register = function (option) {
             for (var i = 0; i < users.length; i++) {
                 var item = users[i];
                 list.push({
+                    _id: item._id,
                     username: item.username,
                     firstName: item.profile.firstName,
                     lastName: item.profile.lastName,
