@@ -2,6 +2,6 @@ import {Component} from "@angular/core";
 
 @Component({
     selector:'welcome',
-    template: '<h1>Welcome to landing page</h1>'
+    template: '<div class="bootstrap-iso"><h1>Welcome to landing page1</h1></div>'
 })
 export class WelcomeComponent{}

@@ -9,11 +9,9 @@ var register = function (option) {
     // route to authenticate a user (POST http://localhost:8080/api/authenticate)
     router.post('/authenticate', function (req, res) {
         // find the user
-        console.log(req.body.username);
         User.findOne({
             username: req.body.username
         }, function (err, user) {
-            console.log(user);
             if (err) throw err;
 
             if (!user) {
@@ -57,12 +55,11 @@ var register = function (option) {
                 var item = users[i];
                 list.push({
                     username: item.username,
-                    password: item.password,
                     firstName: item.profile.firstName,
-                    lastName: item.profile.lastName
+                    lastName: item.profile.lastName,
+                    access: item.access
                 });
             }
-            console.log(list);
             res.json(list);
         });
     });
@@ -74,6 +71,7 @@ var register = function (option) {
             var nick = new User({
                 username: 'admin',
                 password: '123456',
+                access: ['dashboard', 'discont'],
                 email: 'shahab.sharafi@gmail.com',
                 sms: '09124301687',
                 activation: {

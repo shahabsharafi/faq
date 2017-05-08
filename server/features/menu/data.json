@@ -1,0 +1,57 @@
+[
+    {
+        "name": "dashboard",
+        "access": "dashboard",
+        "url": "/dashboard"
+    },
+    {
+        "name": "user",
+        "access": "user",
+        "url": "/user"
+    },
+    {
+        "name": "role",
+        "access": "role",
+        "url": "/role"
+    },
+    {
+        "name": "department",
+        "access": "department",
+        "url": "/department"
+    },
+    {
+        "name": "discont",
+        "access": "discont",
+        "url": "/discont"
+    },
+    {
+        "name": "donate",
+        "access": "donate",
+        "url": "/donate"
+    },
+    {
+        "name": "message",
+        "access": "message",
+        "url": "/message"
+    },
+    {
+        "name": "question",
+        "access": "question",
+        "url": "/question"
+    },
+    {
+        "name": "poll",
+        "access": "poll",
+        "url": "/poll"
+    },
+    {
+        "name": "salary",
+        "access": "salary",
+        "url": "/salary"
+    },
+    {
+        "name": "setting",
+        "access": "setting",
+        "url": "/setting"
+    }
+]

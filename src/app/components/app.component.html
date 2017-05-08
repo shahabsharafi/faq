@@ -1,24 +1,43 @@
 <div>
-    <!--<nav class='navbar navbar-default'>
-        <div class='container-fluid'>
-            <a class='navbar-brand'>{{pageTitle}}</a>
-            <ul class='nav navbar-nav navbar-right'>
-                <li><a [routerLink]="['/']">Home</a></li>
-                <li><a [routerLink]="['/account-list']">Account List</a></li>
-            </ul>
-        </div>
-    </nav>-->
-    <div>
-        <button class="nav-toggle">Menu</button>
-        <nav class="sideNav">
-            <ul>
-                <li>jsfhjdfhfghdf</li>
-                <li>sefsgdfg</li>
-                <li>dfdsgdfgxfgfg</li>
-            </ul>
+    <div class="bootstrap-iso">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header navbar-right">
+                    <a class="navbar-brand" href="#">WebSiteName</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a [routerLink]="['/account-list']">Account</a></li>
+                    <li><a [routerLink]="['/role-list']">Role</a></li>
+                    <li><a [routerLink]="['']">Welcome</a></li>
+                </ul>
+            </div>
         </nav>
+        <!--
+        <nav class='navbar navbar-default'>
+            <div class='container-fluid'>
+                <a class='navbar-brand'>{{pageTitle}}</a>
+                <ul class='nav navbar-nav navbar-right'>
+                    <li><a [routerLink]="['/account-list']">Account List</a></li>
+                    <li><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></li>
+                </ul>
+            </div>
+        </nav>
+        -->
     </div>
-    <div class='container'>
+    <!--
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+    -->
+
+
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <div id="main" class='container'>
         <router-outlet></router-outlet>
     </div>
 </div>

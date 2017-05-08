@@ -5,11 +5,11 @@
     "scripts": {
         "ng": "ng",
         "_start_": "ng serve",
-        "build": "ng build",
+        "build": "ng build -w",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "start": "concurrently \"webpack --watch --colors\" \"node server/main.js\""
+        "start": "concurrently \"webpack --watch --colors\" \"nodemon server/main.js\""
     },
     "private": true,
     "dependencies": {
@@ -52,6 +52,8 @@
         "karma-coverage-istanbul-reporter": "^0.2.0",
         "karma-jasmine": "~1.1.0",
         "karma-jasmine-html-reporter": "^0.2.2",
+        "less": "2.7.2",
+        "nodemon": "1.11.0",
         "protractor": "~5.1.0",
         "ts-node": "~2.0.0",
         "tslint": "~4.4.2",

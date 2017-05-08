@@ -1,5 +1,34 @@
 {
-    "username": "نام کاربری",
-    "firstName": "نام",
-    "lastName": "نام خانوادگی"
+    "account-username": "نام کاربری",
+    "account-user-firstName": "نام",
+    "account-lastName": "نام خانوادگی",
+
+    "role-name": "نقش",
+
+    "dashboard": "داشبورد",
+    "dashboard-view": "نمایش",
+    "user": "کاربران",
+    "user-view": "نمایش",
+    "user-modify": "تغییر",
+    "user-report": "گزارش",
+    "role": "نقش",
+    "role-view": "نمایش",
+    "role-modify": "تغییر",
+    "department": "دپارتمان",
+    "department-view": "نمایش",
+    "department-modify": "تغییر",
+    "discont": "بن",
+    "discont-view": "نمایش",
+    "discont-modify": "تغییر",
+    "donate": "دیوار مهربانی",
+    "donate-view": "نمایش",
+    "donate-modify": "تغییر",
+    "message": "پیغام",
+    "message-view": "نمایش",
+    "message-modify": "تغییر",
+    "poll": "نظرسنجی",
+    "poll-result": "نتایج نظرسنجی",
+    "poll-create": "ایجاد نظرسنجی",
+    "salarie": "دستمزد",
+    "setting": "تنظیمات"
 }

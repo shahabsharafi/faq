@@ -1,0 +1,71 @@
+[
+    {
+        "name": "dashboard",
+        "items": [
+            "dashboard-view"
+        ]
+    },
+    {
+        "name": "user",
+        "items": [
+            "user-view",
+            "user-modify",
+            "user-report"
+        ]
+    },
+    {
+        "name": "role",
+        "items": [
+            "role-view",
+            "role-modify"
+        ]
+    },
+    {
+        "name": "department",
+        "items": [
+            "department-view",
+            "department-modify"
+        ]
+    },
+    {
+        "name": "discont",
+        "items": [
+            "discont-view",
+            "discont-modify"
+        ]
+    },
+    {
+        "name": "donate",
+        "items": [
+            "donate-view",
+            "discont-modify"
+        ]
+    },
+    {
+        "name": "message",
+        "items": [
+            "message-view",
+            "message-modify"
+        ]
+    },
+    {
+        "name": "question",
+        "items": [
+            "question-view",
+            "question-modify"
+        ]
+    },
+    {
+        "name": "poll",
+        "items": [
+            "poll-result",
+            "poll-create"
+        ]
+    },
+    {
+        "name": "salary"
+    },
+    {
+        "name": "setting"
+    }
+]

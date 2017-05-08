@@ -23,9 +23,9 @@ export class AccountListComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         super.ngOnInit();
         this.userColumns = [
-            {field: 'username', header: this.getHeader('username')},
-            {field: 'firstName', header: this.getHeader('firstName')},
-            {field: 'lastName', header: this.getHeader('lastName')}
+            {field: 'username', header: this.getHeader('account-username')},
+            {field: 'firstName', header: this.getHeader('account-firstName')},
+            {field: 'lastName', header: this.getHeader('account-lastName')}
         ];
         this.userService.getList().then(users => this.users = users);
     }
