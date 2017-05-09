@@ -7,5 +7,9 @@
             <p-column *ngFor="let col of roleColumns" [field]="col.field" [header]="col.header"></p-column>
         </p-dataTable>
         <input id="in" pInputText [(ngModel)]="selectedRole.name" />
+        <button pButton type="button" label="Save" (click)="onSave()"></button>
+        <button pButton type="button" label="Delete" (click)="onRemove()"></button>
+        <button pButton type="button" label="New" (click)="onNew()"></button>
+
     </div>
 </div>

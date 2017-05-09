@@ -6,12 +6,12 @@ var register = function (option) {
     var router = option.express.Router();
 
     // route to authenticate a role (POST http://localhost:8080/api/role)
-    router.post('/role', function (req, res) {
+    router.post('/roles', function (req, res) {
 
     });
 
     // route to return all roles (GET http://localhost:8080/api/roles)
-    router.get('/roles', function (req, res) {
+    router.get('/', function (req, res) {
         Role.find({}, function (err, roles) {
             var list = [];
             for (var i = 0; i < roles.length; i++) {
@@ -23,6 +23,59 @@ var register = function (option) {
                 });
             }
             res.json(list);
+        });
+    });
+
+    router.get('/:_id', function (req, res) {
+        console.log(req.params._id)
+        Role.findOne({
+            _id: req.params._id
+        }, function (err, role) {
+            if (err) throw err;
+
+            res.json(role);
+        });
+    });
+
+    router.post('/', function (req, res) {
+        if (req.body._id) {
+            Role.findOne({
+                _id: req.body._id
+            }, function (err, role) {
+                if (err) throw err;
+
+                role.name = req.body.name;
+                role.save(function (err) {
+                    if (err) throw err;
+
+                    res.json(role);
+                });
+            });
+        } else {
+
+            var role = new Role({
+                name: req.body.name,
+                access: []
+            });
+            role.save(function (err) {
+                if (err) throw err;
+
+                res.json(role);
+            });
+        }
+    });
+
+    router.delete('/', function (req, res) {
+        console.log(req.query._id);
+        Role.remove({
+            _id: req.query._id
+        }, function (err, role) {
+            if (err) return res.send(err);
+
+            console.log('deleting');
+            res.json({
+                message: 'Deleted'
+            });
         });
     });
 
@@ -48,7 +101,7 @@ var register = function (option) {
 
     });
 
-    option.app.use('/api/role', router);
+    option.app.use('/api/roles', router);
 }
 
 module.exports = {

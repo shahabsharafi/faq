@@ -10,7 +10,7 @@ import { BaseComponent } from '../index';
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
     roles: Role[];
-    selectedRole: Role = <Role>{};;
+    selectedRole: Role = <Role>{};
     roleColumns: any[];
 
     constructor(
@@ -20,19 +20,44 @@ export class RoleListComponent extends BaseComponent implements OnInit {
         super(resourceService);
     }
 
+    load() {
+        this.roleService.getList().then(roles => this.roles = roles);
+    }
+
+    clear() {
+        this.selectedRole = <Role>{};
+    }
+
     ngOnInit() {
         super.ngOnInit();
         this.roleColumns = [
             {field: 'name', header: this.getHeader('role-name')}
         ];
-        this.roleService.getList().then(roles => this.roles = roles);
+        this.load();
     }
 
     onRowSelect(event) {
-        this.selectedRole = {
-            _id: event.data._id,
-            name: event.data.name
-        }
+        this.roleService.getItem(event.data._id).then(role => {
+            this.selectedRole = {
+                _id: role._id,
+                name: role.name,
+                access: null
+            }
+        });
+
     }
 
+    onSave() {
+        this.roleService.save(this.selectedRole).then(role => { this.load(); });
+        this.clear();
+    }
+
+    onRemove() {
+        this.roleService.remove(this.selectedRole._id).then(message => { this.load(); });
+        this.clear();
+    }
+
+    onNew() {
+        this.clear();
+    }
 }

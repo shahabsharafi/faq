@@ -10,7 +10,7 @@ export class RoleService extends BaseCrudService<Role> {
         protected authenticationService: AuthenticationService,
         protected http: Http)
     {
-        super(authenticationService, http, '/api/role/roles');
+        super(authenticationService, http, '/api/roles');
     }
 
 }
