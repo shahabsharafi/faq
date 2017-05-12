@@ -1,15 +1,22 @@
-<div class="bootstrap-iso">
+<div>
     <h1>Roles</h1>
-
-    <div class="col-md-6 col-md-offset-3">
-        <h3 class="first">Roles</h3>
-        <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single">
-            <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
-        </p-dataTable>
-        <input id="in" pInputText [(ngModel)]="item.name" />
-        <button pButton type="button" label="Save" (click)="onSave()"></button>
-        <button pButton type="button" label="Delete" (click)="onRemove()"></button>
-        <button pButton type="button" label="New" (click)="onNew()"></button>
-
+    <div class="ui-g">
+        <div  class="ui-g-2">
+            <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single">
+                <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+            </p-dataTable>
+        </div>
+        <div  class="ui-g-10">
+            <input id="in" pInputText [(ngModel)]="item.name" />
+        </div>
+    </div>
+    <div class="ui-g">
+        <div  class="ui-g-2">
+            <button pButton type="button" [label]="res.action_new" (click)="onNew()"></button>
+        </div>
+        <div  class="ui-g-10">
+            <button pButton type="button" [label]="res.action_save" (click)="onSave()"></button>
+            <button pButton type="button" [label]="res.action_delete" (click)="onRemove()"></button>
+        </div>
     </div>
 </div>

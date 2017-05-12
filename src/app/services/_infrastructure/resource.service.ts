@@ -20,4 +20,8 @@ export class ResourceService {
     getValue(key): string {
         return this.data[key];
     }
+    
+    getData(): any {
+        return this.data;
+    }
 }

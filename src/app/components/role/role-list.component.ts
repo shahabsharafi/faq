@@ -18,8 +18,9 @@ export class RoleListComponent extends CrudComponent<Role> implements OnInit {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.cols = [
-            {field: 'name', header: this.getCaption('role-name')}
+            {field: 'name', header: this.res.role_name}
         ];
         this.load();
     }

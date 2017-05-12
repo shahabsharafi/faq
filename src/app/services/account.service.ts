@@ -15,11 +15,7 @@ export class AccountService extends BaseCrudService<Account> {
     
     map(src, dst: Account) {
         super.map(src, dst);
-        dst._id = src._id;
-        dst.username = src.username;
-        dst.firstName = src.profile.firstName;
-        dst.lastName = src.profile.lastName;
-        dst.access = src.access;
+        Object.assign(dst, src);
     }
     
     getKey(obj: Account): any {

@@ -52,3 +52,7 @@
 .ui-treenode-content .fa-caret-right:before {
     content: "\F0D9";
 }
+
+.ui-tabview .ui-tabview-nav li {
+    float: right;
+}

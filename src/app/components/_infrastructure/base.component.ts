@@ -3,10 +3,12 @@ import { ResourceService } from './../../services/index';
 
 export class BaseComponent {
 
+    res: any;    
+
     constructor (protected resourceService: ResourceService) { }
 
     ngOnInit() {
-
+        this.res = this.resourceService.getData();
     }
 
     getLabel(key: string): string {

@@ -22,6 +22,7 @@ module.exports = mongoose.model('Account', new Schema({
         placeOfIssues: String,
         nationalCode: String,
         birthPlace: String,
+        sex: Number,
         status: Number
     },
     contact: {
@@ -36,8 +37,8 @@ module.exports = mongoose.model('Account', new Schema({
     },
     education: {
         grade: String,
-        majors: String,
-        universities: String,
+        major: String,
+        university: String,
         level: String
     },
     extra: {

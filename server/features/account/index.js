@@ -82,8 +82,8 @@ var register = function (option) {
             education: {
                 type: 1,
                 grade: 'مهندسی',
-                majors: 'صنایع',
-                universities: 'علم و صنعت',
+                major: 'صنایع',
+                university: 'علم و صنعت',
                 level: ''
             },
             extra: {

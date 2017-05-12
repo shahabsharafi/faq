@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Account } from '../../models/index';
+import { Account, Profile, Contact, Education, Extra } from '../../models/index';
 import { AccountService, ResourceService, AccessService } from '../../services/index';
 import { BaseComponent, CrudComponent } from '../index';
 import { TreeNode } from 'primeng/primeng';
@@ -12,6 +12,7 @@ import { TreeNode } from 'primeng/primeng';
 export class AccountListComponent extends CrudComponent<Account> implements OnInit {
 
     treeData: TreeNode[];
+    caption: any;
     
     constructor(
         private accountService: AccountService,
@@ -19,15 +20,21 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         protected accessService: AccessService)
     {
         super(resourceService, accountService);
+        this.item.profile = <Profile>{};
+        this.item.contact = <Contact>{};
+        this.item.education = <Education>{};
+        this.item.extra = <Extra>{};
     }
 
     ngOnInit() {
         var me = this;
+        super.ngOnInit();
         this.cols = [
-            {field: 'username', header: this.getCaption('account-username')},
-            {field: 'profile.firstName', header: this.getCaption('account-firstName')},
-            {field: 'profile.lastName', header: this.getCaption('account-lastName')}
+            {field: 'username', header: this.res.account_username},
+            {field: 'profile.firstName', header: this.res.account_firstName},
+            {field: 'profile.lastName', header: this.res.account_lastName}
         ];
+        
         this.load();
         this.accessService.getList().then(list => {  
         
