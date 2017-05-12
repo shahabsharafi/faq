@@ -4,11 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTableModule, SharedModule, InputTextModule, ButtonModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule, ButtonModule, TreeModule } from 'primeng/primeng';
 
 import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, LoginComponent } from './components/index';
 import { Routing } from './app.routing';
-import { AuthGuard, AuthenticationService, UserService, RoleService, MenuService, ResourceService, Logger } from './services/index';
+import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, MenuService, ResourceService, Logger } from './services/index';
 
 import { enableProdMode } from '@angular/core';
 enableProdMode();
@@ -24,7 +24,8 @@ enableProdMode();
         SharedModule,
         DataTableModule,
         InputTextModule,
-        ButtonModule
+        ButtonModule,
+        TreeModule        
     ],
     declarations: [
         AppComponent,
@@ -38,8 +39,9 @@ enableProdMode();
         ResourceService,
         Logger,
         AuthenticationService,
-        UserService,
+        AccountService,
         RoleService,
+        AccessService,
         MenuService
     ],
     bootstrap: [AppComponent]

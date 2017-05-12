@@ -1,65 +1,65 @@
 [
     {
         "name": "dashboard",
-        "items": [
-            "dashboard-view"
+        "children": [
+            { "name": "dashboard-view" }
         ]
     },
     {
         "name": "user",
-        "items": [
-            "user-view",
-            "user-modify",
-            "user-report"
+        "children": [
+            { "name": "user-view" },
+            { "name": "user-modify" },
+            { "name": "user-report" }
         ]
     },
     {
         "name": "role",
-        "items": [
-            "role-view",
-            "role-modify"
+        "children": [
+            { "name": "role-view" },
+            { "name": "role-modify" }
         ]
     },
     {
         "name": "department",
-        "items": [
-            "department-view",
-            "department-modify"
+        "children": [
+            { "name": "department-view" },
+            { "name": "department-modify" }
         ]
     },
     {
         "name": "discont",
-        "items": [
-            "discont-view",
-            "discont-modify"
+        "children": [
+            { "name": "discont-view" },
+            { "name": "discont-modify" }
         ]
     },
     {
         "name": "donate",
-        "items": [
-            "donate-view",
-            "discont-modify"
+        "children": [
+            { "name": "donate-view" },
+            { "name": "discont-modify" }
         ]
     },
     {
         "name": "message",
-        "items": [
-            "message-view",
-            "message-modify"
+        "children": [
+            { "name": "message-view" },
+            { "name": "message-modify" }
         ]
     },
     {
         "name": "question",
-        "items": [
-            "question-view",
-            "question-modify"
+        "children": [
+            { "name": "question-view" },
+            { "name": "question-modify" }
         ]
     },
     {
         "name": "poll",
-        "items": [
-            "poll-result",
-            "poll-create"
+        "children": [
+            { "name": "poll-result" },
+            { "name": "poll-create" }
         ]
     },
     {

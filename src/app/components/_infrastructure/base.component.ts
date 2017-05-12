@@ -9,11 +9,11 @@ export class BaseComponent {
 
     }
 
-    getCaption(key: string): string {
-    return this.resourceService.getValue(key) + ':';
+    getLabel(key: string): string {
+        return this.resourceService.getValue(key) + ':';
     }
 
-    getHeader(key: string): string {
+    getCaption(key: string): string {
         return this.resourceService.getValue(key);
     }
 }

@@ -1,104 +1,55 @@
 var register = function (option) {
 
+    const objectMerge = require('object-merge');
+    const Repository = require('../_infrastructure/repository');
     const Role = require('./role');
 
-    // get an instance of the router for api routes
     var router = option.express.Router();
+    var repository = new Repository(Role)
 
-    // route to authenticate a role (POST http://localhost:8080/api/role)
-    router.post('/roles', function (req, res) {
-
-    });
-
-    // route to return all roles (GET http://localhost:8080/api/roles)
     router.get('/', function (req, res) {
-        Role.find({}, function (err, roles) {
-            var list = [];
-            for (var i = 0; i < roles.length; i++) {
-                var item = roles[i];
-                list.push({
-                    _id: item._id,
-                    name: item.name,
-                    access: item.access
-                });
-            }
+        repository.FindAll({}, function (err, list) {
+            if (err) res.send(err);
             res.json(list);
-        });
+        })
     });
 
-    router.get('/:_id', function (req, res) {
-        console.log(req.params._id)
-        Role.findOne({
-            _id: req.params._id
-        }, function (err, role) {
-            if (err) throw err;
-
-            res.json(role);
-        });
+    router.get('/item/:key', function (req, res) {
+        repository.FindById(req.params.key, function (err, obj) {
+            if (err) res.send(err);
+            res.json(obj);
+        })
     });
 
     router.post('/', function (req, res) {
         if (req.body._id) {
-            Role.findOne({
-                _id: req.body._id
-            }, function (err, role) {
+            //var obj = { name: req.body.name };
+            repository.Update(req.body._id, req.body, function(err, obj) {
                 if (err) throw err;
-
-                role.name = req.body.name;
-                role.save(function (err) {
-                    if (err) throw err;
-
-                    res.json(role);
-                });
+                res.json(obj);
             });
         } else {
-
-            var role = new Role({
-                name: req.body.name,
-                access: []
-            });
-            role.save(function (err) {
+            var obj = new Role(req.body)
+            repository.Save(obj, function(err) {
                 if (err) throw err;
-
-                res.json(role);
+                res.json(obj);
             });
         }
     });
 
-    router.delete('/', function (req, res) {
-        console.log(req.query._id);
-        Role.remove({
-            _id: req.query._id
-        }, function (err, role) {
-            if (err) return res.send(err);
-
-            console.log('deleting');
-            res.json({
-                message: 'Deleted'
-            });
+    router.delete('/item/:key', function (req, res) {
+        repository.Delete(req.params.key, function(err) {
+            if (err) res.send(err);
+            res.json({ success: true });
         });
     });
 
     router.get('/setup', function (req, res) {
-
-        Role.remove({}, function (err) {
-            // create a sample user
-            var nick = new Role({
-                name: 'admin',
-                access: ['dashboard', 'user']
-            });
-
-            // save the sample user
-            nick.save(function (err) {
-                if (err) throw err;
-
-                console.log('User saved successfully');
-                res.json({
-                    success: true
-                });
-            });
+        var obj = new Role({ name: 'admin', access: ['dashboard', 'user'] });
+        repository.Setup(obj, function(err) {
+            if (err) res.send(err);
+            res.json({ success: true });
         });
-
     });
 
     option.app.use('/api/roles', router);

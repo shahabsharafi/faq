@@ -23,7 +23,7 @@ export class BaseCrudService<T> extends BaseTokenService {
     }
 
     getItem(id): Promise<T> {
-        return this.http.get(this.baseUrl + '/' + id, this.options)
+        return this.http.get(this.baseUrl + '/item/' + id, this.options)
                 .toPromise()
                 .then(res => <T> res.json())
                 .then(data => { return data; });
@@ -36,14 +36,18 @@ export class BaseCrudService<T> extends BaseTokenService {
                 .then(data => { return data; });
     }
 
-    remove(id): Promise<string> {
-        let params = new URLSearchParams();
-        params.append('_id', id);
-        this.options.params = params;
-        return this.http.delete(this.baseUrl, this.options)
+    remove(obj: T): Promise<string> {
+        return this.http.delete(this.baseUrl + '/item/' + this.getKey(obj), this.options)
                 .toPromise()
                 .then(res => res.json())
                 .then(data => { return data; });
     }
 
+    map(src, dst: T): void {
+        
+    } 
+    
+    getKey(obj: T): any {
+        return null;
+    }
 }

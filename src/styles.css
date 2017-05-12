@@ -44,3 +44,11 @@
     }
 }
 */
+.ui-tree .ui-treenode-children {
+    margin: 0;
+    padding: 0 1em 0 0;
+}
+
+.ui-treenode-content .fa-caret-right:before {
+    content: "\F0D9";
+}
