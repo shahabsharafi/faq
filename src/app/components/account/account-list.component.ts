@@ -11,8 +11,10 @@ import { TreeNode } from 'primeng/primeng';
 })
 export class AccountListComponent extends CrudComponent<Account> implements OnInit {
 
+    treeRef: TreeNode[];
     treeData: TreeNode[];
     caption: any;
+    selectedItems: TreeNode[];
     
     constructor(
         private accountService: AccountService,
@@ -24,6 +26,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         this.item.contact = <Contact>{};
         this.item.education = <Education>{};
         this.item.extra = <Extra>{};
+        this.item.access = new Array<String>();
     }
 
     ngOnInit() {
@@ -37,7 +40,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         
         this.load();
         this.accessService.getList().then(list => {  
-        
+            var refList = [];
             var _fn = function(list) {
                 var accessList = [];
                 for (var i = 0; i < list.length; i++) {
@@ -47,13 +50,26 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
                     access.data = obj.name;
                     if (obj.children) 
                         access.children = <TreeNode[]> _fn(obj.children);
+                    refList.push(access);
                     accessList.push(access);
                 }
                 return accessList;
             }
             this.treeData = <TreeNode[]> _fn(list);
-        
+            this.treeRef = <TreeNode[]> refList;
         });        
+    }
+
+    onSelect() {
+        this.selectedItems = new Array<TreeNode>();
+        for (var i = 0; i < this.item.access.length; i++) {
+            var accessItem = this.item.access[i];
+            for (var j = 0; j < this.treeRef.length; j++) {
+                var access = this.treeRef[j];
+                if (access.data == accessItem)
+                    this.selectedItems.push(access);
+            }
+        }
     }
 
     onRowSelect(event) {
@@ -61,7 +77,12 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onSave() {
-        //this.save();
+        this.item.access = new Array<String>();
+        for (var i = 0; i < this.selectedItems.length; i++) {
+            var accessItem = this.selectedItems[i];
+            this.item.access.push(accessItem.data);
+        }
+        this.save();
     }
 
     onRemove() {

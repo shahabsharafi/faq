@@ -49,13 +49,6 @@
         ]
     },
     {
-        "name": "question",
-        "children": [
-            { "name": "question_view" },
-            { "name": "question_modify" }
-        ]
-    },
-    {
         "name": "poll",
         "children": [
             { "name": "poll_result" },

@@ -33,7 +33,7 @@ export interface Extra {
 export interface Account {
     _id;
     username: String;
-    access: [String];
+    access: Array<String>;
     email: String;
     sms: String;
     profile: Profile;

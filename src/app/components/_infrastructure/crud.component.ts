@@ -19,15 +19,27 @@ export class CrudComponent<T> extends BaseComponent {
     }
     
     load() {
-        this.service.getList().then(list => this.list = list);
+        this.service.getList().then(list => {
+            this.list = list;
+            this.onLoad();
+        });
+    }
+
+    onLoad() {
+
     }
 
     selectOne(id) {
         this.service.getItem(id).then(item => {
             this.service.map(item, this.item);
+            this.onSelect();
         });
     }
     
+    onSelect() {
+
+    }
+
     save() {
         this.service.save(this.item).then(item => { this.load(); });
         this.clear();
