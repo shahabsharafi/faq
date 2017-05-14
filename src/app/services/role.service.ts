@@ -13,11 +13,10 @@ export class RoleService extends BaseCrudService<Role> {
         super(authenticationService, http, '/api/roles');
     }
 
-    map(src, dst: Role) {
-        super.map(src, dst);
-        dst._id = src._id;
-        dst.name = src.name;
-        dst.access = src.access;
+    copy(src): Role {
+        var dst = <Role>{};
+        Object.assign(dst, src);
+        return dst;
     }
     
     getKey(obj: Role): any {

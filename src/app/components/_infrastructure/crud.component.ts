@@ -31,8 +31,7 @@ export class CrudComponent<T> extends BaseComponent {
 
     selectOne(id) {
         this.service.getItem(id).then(item => {
-            this.item = <T> {};
-            this.service.map(item, this.item);
+            this.item = this.service.copy(item);
             this.onSelect();
         });
     }

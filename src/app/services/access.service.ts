@@ -12,14 +12,6 @@ export class AccessService extends BaseCrudService<Access> {
     {
         super(authenticationService, http, '/api/access');
     }
-    
-    map(src, dst: Access) {
-        super.map(src, dst);
-    }
-    
-    getKey(obj: Access): any {
-        return null;
-    }
 
 }
 

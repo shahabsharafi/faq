@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </p-tabPanel>
-                <p-tabPanel [header]="res.account_profile">
+                <p-tabPanel [header]="res.account_profile" *ngIf="item.profile">
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_firstName}}</span>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </p-tabPanel>
-                <p-tabPanel [header]="res.account_contact">
+                <p-tabPanel [header]="res.account_contact" *ngIf="item.contact">
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_mobile}}</span>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                 </p-tabPanel>
-                <p-tabPanel [header]="res.account_education">
+                <p-tabPanel [header]="res.account_education" *ngIf="item.education">
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_grade}}</span>
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                 </p-tabPanel>
-                <p-tabPanel [header]="res.account_extra">
+                <p-tabPanel [header]="res.account_extra" *ngIf="item.extra">
                     Content 2
                 </p-tabPanel>
             </p-tabView>

@@ -13,9 +13,10 @@ export class AccountService extends BaseCrudService<Account> {
         super(authenticationService, http, '/api/accounts');
     }
     
-    map(src, dst: Account) {
-        super.map(src, dst);
+    copy(src): Account {
+        var dst = new Account();
         Object.assign(dst, src);
+        return dst;
     }
     
     getKey(obj: Account): any {

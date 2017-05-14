@@ -13,6 +13,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
 
     treeData: TreeNode[];
     caption: any;
+    scrollWidth: String;
     
     constructor(
         private accountService: AccountService,
@@ -52,9 +53,15 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     ngAfterViewInit() {
+        var me = this;
         var m = $('.ui-datatable-scrollable-header-box').css('margin-right');
-        $('.ui-datatable-scrollable-header-box').css('margin-left', m + 'px');
-        $('.ui-datatable-scrollable-header-box').css('margin-right', '0px');
+        if (m && m != '0px') {
+            me.scrollWidth = m;
+            $('.ui-datatable-scrollable-header-box').css({'margin-left': me.scrollWidth, 'margin-right': '0px'});
+        }
+        $('.ui-datatable-scrollable-body').on( "scroll", function () {
+            $('.ui-datatable-scrollable-header-box').css({'margin-left': me.scrollWidth, 'margin-right': '0px'});
+        });
     }
 
     onRowSelect(event) {

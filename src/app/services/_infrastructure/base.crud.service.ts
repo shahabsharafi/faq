@@ -43,8 +43,8 @@ export class BaseCrudService<T> extends BaseTokenService {
                 .then(data => { return data; });
     }
 
-    map(src, dst: T): void {
-        
+    copy(src): T {
+        return null;
     } 
     
     getKey(obj: T): any {
