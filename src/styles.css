@@ -44,6 +44,7 @@
     }
 }
 */
+
 .ui-tree .ui-treenode-children {
     margin: 0;
     padding: 0 1em 0 0;
@@ -55,4 +56,15 @@
 
 .ui-tabview .ui-tabview-nav li {
     float: right;
+}
+
+.account-list .ui-tree-container {
+    height: 250px;
+    overflow-y: scroll;
+    display: block;
+}
+
+.account-list .ui-tabview-panels {
+    height: 400px;
+    display: block;
 }

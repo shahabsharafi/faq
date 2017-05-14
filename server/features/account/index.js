@@ -25,15 +25,16 @@ var register = function (option) {
     });
 
     router.post('/', function (req, res) {
+        console.log(req.body);
         if (req.body._id) {
             //var obj = { name: req.body.name };
-            repository.Update(req.body._id, req.body, function(err, obj) {
+            repository.Update(req.body._id, req.body, function (err, obj) {
                 if (err) throw err;
                 res.json(obj);
             });
         } else {
-            var obj = new Role(req.body)
-            repository.Save(obj, function(err) {
+            var obj = new Account(req.body)
+            repository.Save(obj, function (err) {
                 if (err) throw err;
                 res.json(obj);
             });
@@ -41,9 +42,11 @@ var register = function (option) {
     });
 
     router.delete('/item/:key', function (req, res) {
-        repository.Delete(req.params.key, function(err) {
+        repository.Delete(req.params.key, function (err) {
             if (err) res.send(err);
-            res.json({ success: true });
+            res.json({
+                success: true
+            });
         });
     });
 
@@ -91,9 +94,11 @@ var register = function (option) {
                 dialect: 'آذری'
             }
         });
-        repository.Setup(obj, function(err) {
+        repository.Setup(obj, function (err) {
             if (err) res.send(err);
-            res.json({ success: true });
+            res.json({
+                success: true
+            });
         });
     });
 

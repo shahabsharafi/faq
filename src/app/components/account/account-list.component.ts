@@ -51,6 +51,12 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         });        
     }
 
+    ngAfterViewInit() {
+        var m = $('.ui-datatable-scrollable-header-box').css('margin-right');
+        $('.ui-datatable-scrollable-header-box').css('margin-left', m + 'px');
+        $('.ui-datatable-scrollable-header-box').css('margin-right', '0px');
+    }
+
     onRowSelect(event) {
         this.selectOne(event.data._id);
     }
@@ -64,7 +70,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onNew() {
-        this.add();
+        this.clear();
         this.item = new Account();
     }
 

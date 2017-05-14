@@ -41,11 +41,6 @@ export class CrudComponent<T> extends BaseComponent {
 
     }
 
-    add() {
-        this.clear();
-        this.item = <T> {};
-    }
-
     save() {
         this.service.save(this.item).then(item => { this.load(); });
         this.clear();
