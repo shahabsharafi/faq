@@ -30,7 +30,14 @@ export interface Extra {
     language: String;
     dialect: String
 }
-export interface Account {
+export class Account {
+    constructor () {
+        this.profile = <Profile>{};
+        this.contact = <Contact>{};
+        this.education = <Education>{};
+        this.extra = <Extra>{};
+        this.access = new Array<String>();
+    }
     _id;
     username: String;
     access: Array<String>;

@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule, SharedModule, InputTextModule, ButtonModule, TreeModule, TabViewModule } from 'primeng/primeng';
 
-import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, LoginComponent } from './components/index';
+import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, LoginComponent, TreeComponent } from './components/index';
 import { Routing } from './app.routing';
 import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, MenuService, ResourceService, Logger } from './services/index';
 
@@ -33,7 +33,8 @@ enableProdMode();
         WelcomeComponent,
         AccountListComponent,
         RoleListComponent,
-        LoginComponent
+        LoginComponent,
+        TreeComponent
     ],
     providers: [
         AuthGuard,

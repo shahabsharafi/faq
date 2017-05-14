@@ -4,7 +4,7 @@ import { BaseComponent } from './index';
 
 export class CrudComponent<T> extends BaseComponent {
     list: T[];
-    item: T = <T>{};
+    item: T;
     cols: any[];
 
     constructor (
@@ -15,7 +15,7 @@ export class CrudComponent<T> extends BaseComponent {
     }
 
     clear() {
-        this.item = <T>{};
+        this.item = null;
     }
     
     load() {
@@ -31,6 +31,7 @@ export class CrudComponent<T> extends BaseComponent {
 
     selectOne(id) {
         this.service.getItem(id).then(item => {
+            this.item = <T> {};
             this.service.map(item, this.item);
             this.onSelect();
         });
@@ -38,6 +39,11 @@ export class CrudComponent<T> extends BaseComponent {
     
     onSelect() {
 
+    }
+
+    add() {
+        this.clear();
+        this.item = <T> {};
     }
 
     save() {

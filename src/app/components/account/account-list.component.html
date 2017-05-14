@@ -6,7 +6,7 @@
                 <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
             </p-dataTable>
         </div>
-        <div  class="ui-g-8">
+        <div  class="ui-g-8" *ngIf="item">
             <p-tabView>
                 <p-tabPanel [header]="res.account_account">
                     <div class="ui-g">
@@ -26,7 +26,7 @@
                     <div class="ui-g">
                         <div class="ui-g-12">
                             <span>{{res.account_access}}</span>
-                            <p-tree [value]="treeData" selectionMode="checkbox" [(selection)]="selectedItems"></p-tree>
+                            <c-tree [value]="treeData" selectionMode="checkbox" [(selection)]="item.access"></c-tree>
                         </div>
                     </div>
                 </p-tabPanel>
