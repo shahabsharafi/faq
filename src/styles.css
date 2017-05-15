@@ -64,7 +64,6 @@
     display: block;
 }
 
-.account-list .ui-tabview-panels {
-    height: 400px;
-    display: block;
+.account-list .account-list-top {
+    height: 415px;
 }

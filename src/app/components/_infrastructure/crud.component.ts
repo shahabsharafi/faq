@@ -1,15 +1,16 @@
 import {Component, OnInit} from "@angular/core";
-import { ResourceService, BaseCrudService } from './../../services/index';
+import { ResourceService, CrudService } from './../../services/index';
 import { BaseComponent } from './index';
 
 export class CrudComponent<T> extends BaseComponent {
     list: T[];
+    totalRecords: number;
     item: T;
     cols: any[];
 
     constructor (
         protected resourceService: ResourceService,
-        protected service: BaseCrudService<T>) 
+        protected service: CrudService<T>)
     { 
         super(resourceService);
     }
@@ -19,8 +20,9 @@ export class CrudComponent<T> extends BaseComponent {
     }
     
     load() {
-        this.service.getList(null).then(list => {
-            this.list = list;
+        this.service.getPagedList(null).then(data => {
+            this.list = data.docs;
+            this.totalRecords = data.total;
             this.onLoad();
         });
     }

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Account } from '../models/index';
-import { AuthenticationService, BaseCrudService } from './index';
+import { AuthenticationService, CrudService } from './index';
 
 @Injectable()
-export class AccountService extends BaseCrudService<Account> {
+export class AccountService extends CrudService<Account> {
     constructor(
         protected authenticationService: AuthenticationService,
         protected http: Http)

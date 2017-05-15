@@ -11,7 +11,13 @@ var register = function (option) {
     var repository = new Repository(Account)
 
     router.get('/', function (req, res) {
+        /*
         repository.FindAll(req.params, function (err, list) {
+            if (err) res.send(err);
+            res.json(list);
+        })
+        */
+        repository.Find(req.query, function (err, list) {
             if (err) res.send(err);
             res.json(list);
         })

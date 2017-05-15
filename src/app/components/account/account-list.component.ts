@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Account, Profile, Contact, Education, Extra } from '../../models/index';
 import { AccountService, ResourceService, AccessService } from '../../services/index';
 import { BaseComponent, CrudComponent, TreeComponent } from '../index';
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode, LazyLoadEvent } from 'primeng/primeng';
 
 @Component({
     selector:'account-list',
@@ -61,6 +61,21 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         }
         $('.ui-datatable-scrollable-body').on( "scroll", function () {
             $('.ui-datatable-scrollable-header-box').css({'margin-left': me.scrollWidth, 'margin-right': '0px'});
+        });
+    }
+
+    loadCarsLazy(event: LazyLoadEvent) {
+        //in a real application, make a remote request to load data using state metadata from event
+        //event.first = First row offset
+        //event.rows = Number of rows per page
+        //event.sortField = Field name to sort with
+        //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
+        //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
+
+        this.service.getPagedList({ offset: event.first, limit: event.rows }).then(data => {
+            this.list = data.docs;
+            this.totalRecords = data.total;
+            this.onLoad();
         });
     }
 
