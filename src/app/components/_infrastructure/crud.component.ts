@@ -19,7 +19,7 @@ export class CrudComponent<T> extends BaseComponent {
     }
     
     load() {
-        this.service.getList().then(list => {
+        this.service.getList(null).then(list => {
             this.list = list;
             this.onLoad();
         });

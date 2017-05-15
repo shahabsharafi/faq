@@ -31,6 +31,7 @@
     "jquery": "3.2.1",
     "jsonwebtoken": "7.4.0",
     "mongoose": "4.9.7",
+    "mongoose-paginate": "^5.0.3",
     "morgan": "1.8.1",
     "object-merge": "^2.5.1",
     "primeng": "^4.0.0-rc.2",

@@ -15,7 +15,25 @@ export class BaseCrudService<T> extends BaseTokenService {
             super(authenticationService);
     }
 
-    getList(): Promise<T[]> {
+    /*
+        Parameter:                          
+            option: { 
+                query: { 'profile.name': 'Ghost' },
+                select: { username: 1 },
+                sort: { username: -1 },
+                offset: 0 or page: 1,
+                limit: 10
+            }
+        Result:
+            {
+                docs: {...} 
+                total: 152
+                limit: 10 
+                page: 1 
+                pages:16 
+            }
+    */
+    getList(option: any): Promise<T[]> {
         return this.http.get(this.baseUrl, this.options)
                 .toPromise()
                 .then(res => <T[]> res.json())

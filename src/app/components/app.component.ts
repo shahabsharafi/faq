@@ -21,6 +21,6 @@ constructor (
     ngOnInit() {
         this.resourceService.load();
 
-        this.menuService.getList().then(menuItems => this.menuItems = menuItems);
+        this.menuService.getList(null).then(menuItems => this.menuItems = menuItems);
     }
 }

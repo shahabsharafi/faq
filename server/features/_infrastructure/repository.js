@@ -24,6 +24,10 @@ var repository = function (model) {
     });
   };
 
+  self.Find = function (params, cb) {
+      self.Model.paginate({ page: 1, limit: 10 }, params.option, cb);
+  }
+
   self.FindAll = function (params, cb, lean) {
     if (!lean) {
         self.Model.find(params).exec(cb);

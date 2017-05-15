@@ -15,8 +15,6 @@ app.set('port', (process.env.PORT || config.port));
 app.set('superSecret', config.secret); // secret variable
 mongoose.connect(config.database); // connect to database
 
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true

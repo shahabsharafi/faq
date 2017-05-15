@@ -1,9 +1,13 @@
 // get an instance of mongoose and mongoose.Schema
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
-// set up a mongoose model and pass it using module.exports
-module.exports = mongoose.model('Role', new Schema({
+var schema = new mongoose.Schema({
     name: String,
     access: [String]
-}));
+});
+
+schema.plugin(mongoosePaginate);
+
+// set up a mongoose model and pass it using module.exports
+module.exports = mongoose.model('Role', schema);
