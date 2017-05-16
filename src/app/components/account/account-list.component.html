@@ -3,7 +3,7 @@
     <div class="ui-g account-list-top ui-fluid">
         <div class="ui-g-4">
             <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
-                <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+                <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
             </p-dataTable>
         </div>
         <div class="ui-g-8" *ngIf="item">

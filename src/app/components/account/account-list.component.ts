@@ -28,9 +28,9 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         var me = this;
         super.ngOnInit();
         this.cols = [
-            {field: 'username', header: this.res.account_username},
-            {field: 'profile.firstName', header: this.res.account_firstName},
-            {field: 'profile.lastName', header: this.res.account_lastName}
+            {field: 'username', header: this.res.account_username, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
+            {field: 'profile.firstName', header: this.res.account_firstName, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
+            {field: 'profile.lastName', header: this.res.account_lastName, filter: 'true', filterMatchMode: 'contains', sortable: 'true'}
         ];
         
         this.load();
@@ -71,8 +71,31 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         //event.sortField = Field name to sort with
         //event.sortOrder = Sort order as number, 1 for asc and -1 for dec
         //filters: FilterMetadata object having field as key and filter value, filter matchMode as value
-
-        this.service.getPagedList({ offset: event.first, limit: event.rows }).then(data => {
+        var filterString = '';
+        for (var key in event.filters) {
+            var filter = event.filters[key];
+            if (filter.value != undefined) {
+                    if (filterString)
+                        filterString += '+and+';
+                var field = key.replace(/\./, '_');
+                switch (filter.matchMode) {
+                    case 'contains':
+                        filterString += "substringof(" + field + ",'" + filter.value + "')";
+                        break;
+                    case 'equals':
+                        filterString += field + "+eq+'" + filter.value + "'";
+                        break;
+                    case 'endsWith':
+                        filterString += "endswith(" + field + ",'" + filter.value + "')";
+                        break;
+                    default:
+                        filterString += "startswith(" + field + ",'" + filter.value + "')";
+                }
+            }
+        }
+        if (filterString)
+            filterString = '$filter=' + filterString;
+        this.service.getPagedList({ filters: filterString, offset: event.first, limit: event.rows }).then(data => {
             this.list = data.docs;
             this.totalRecords = data.total;
             this.onLoad();
