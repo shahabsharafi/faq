@@ -95,7 +95,14 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         }
         if (filterString)
             filterString = '$filter=' + filterString;
-        this.service.getPagedList({ filters: filterString, offset: event.first, limit: event.rows }).then(data => {
+
+        this.service.getPagedList({
+            filters: filterString,
+            sortField: event.sortField,
+            sortOrder: event.sortOrder,
+            offset: event.first,
+            limit: event.rows
+        }).then(data => {
             this.list = data.docs;
             this.totalRecords = data.total;
             this.onLoad();

@@ -26,39 +26,9 @@ var repository = function (model) {
     };
 
     self.Find = function (params, cb) {
-        var query = {};
-        if (params && params.filters) {
-            var f = params.filters.replace(/\+/, ' ');
-            var filterObj = parser.parse(f);
-            var _fn = function (filterObj) {
-                var str = '';
-                if (filterObj.type == 'and') {
-                    str += _fn(filterObj.right);
-                    str += ", " + _fn(filterObj.left);
-                } else if (filterObj.type == 'functioncall' && filterObj.args && filterObj.args.length == 2) {
-                    var key = filterObj.args[0].name.replace(/\_/, '.');
-                    var val = filterObj.args[1].value;
-
-                    switch (filterObj.func) {
-                        case 'substringof':
-                            str += ' "' + key + '": { "$regex": "' + val + '" } ';
-                            break;
-                        case 'endswith':
-                            str += ' "' + key + '": { "$regex": "' + val + '^" } ';
-                            break;
-                        default:
-                            str += ' "' + key + '": { "$regex": "^' + val + '" } ';
-                    }
-                }
-
-                return str;
-            }
-            query = JSON.parse('{ ' + _fn(filterObj.$filter) + ' }');
-        }
-        self.Model.paginate(query, {
-            offset: params.offset | 0,
-            limit: params.limit | 10
-        }, cb);
+        var query = parseQuery(params);
+        var option = parseOption(params);
+        self.Model.paginate(query, option, cb);
     }
 
     self.FindAll = function (params, cb, lean) {
@@ -105,6 +75,50 @@ var repository = function (model) {
                 cb(err);
             });
         });
+    }
+
+    var parseQuery = function (params) {
+        var query = {};
+        if (params && params.filters) {
+            var f = params.filters.replace(/\+/, ' ');
+            var filterObj = parser.parse(f);
+            var _fn = function (filterObj) {
+                var str = '';
+                if (filterObj.type == 'and') {
+                    str += _fn(filterObj.right);
+                    str += ", " + _fn(filterObj.left);
+                } else if (filterObj.type == 'functioncall' && filterObj.args && filterObj.args.length == 2) {
+                    var key = filterObj.args[0].name.replace(/\_/, '.');
+                    var val = filterObj.args[1].value;
+
+                    switch (filterObj.func) {
+                        case 'substringof':
+                            str += ' "' + key + '": { "$regex": "' + val + '" } ';
+                            break;
+                        case 'endswith':
+                            str += ' "' + key + '": { "$regex": "' + val + '^" } ';
+                            break;
+                        default:
+                            str += ' "' + key + '": { "$regex": "^' + val + '" } ';
+                    }
+                }
+
+                return str;
+            }
+            query = JSON.parse('{ ' + _fn(filterObj.$filter) + ' }');
+        }
+        return query;
+    }
+
+    parseOption = function (params) {
+        var sortObj = {};
+        if (params.sortField)
+            sortObj = JSON.parse('{ "' + params.sortField + '": "' + params.sortOrder + '" }');
+        return {
+            sort: sortObj,
+            offset: params.offset | 0,
+            limit: params.limit | 10
+        }
     }
 
 };
