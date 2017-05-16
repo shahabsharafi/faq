@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Nazanin';
+    src: url('../fonts/Nazanin.eot?#') format('eot'), url('../fonts/Nazanin.woff') format('woff'), url('../fonts/Nazanin.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Badr';
+    src: url('../fonts/Badr.eot?#') format('eot'), url('../fonts/Badr.woff') format('woff'), url('../fonts/Badr.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Yekan';
+    src: url('../fonts/Yekan.eot?#') format('eot'), url('../fonts/Yekan.woff') format('woff'), url('../fonts/Yekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Zar';
+    src: url('../fonts/Zar.eot?#') format('eot'), url('../fonts/Zar.woff') format('woff'), url('../fonts/Zar.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ui-widget {
+    font-family: Nazanin, Tahoma;
+}

@@ -1,5 +1,4 @@
 <div class="account-list">
-    <h1>Roles</h1>
     <div class="ui-g account-list-top ui-fluid">
         <div class="ui-g-4">
             <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
