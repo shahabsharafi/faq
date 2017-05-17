@@ -15,12 +15,51 @@ export class CrudComponent<T> extends BaseComponent {
         super(resourceService);
     }
 
+    getODataFilter(filters: { [s: string]: any; }): String {
+        var filterString = '';
+        for (var key in filters) {
+            var filter = filters[key];
+            if (filter.value != undefined) {
+                    if (filterString)
+                        filterString += '+and+';
+                var field = key.replace(/\./, '_');
+                switch (filter.matchMode) {
+                    case 'contains':
+                        filterString += "substringof(" + field + ",'" + filter.value + "')";
+                        break;
+                    case 'equals':
+                        filterString += field + "+eq+'" + filter.value + "'";
+                        break;
+                    case 'endsWith':
+                        filterString += "endswith(" + field + ",'" + filter.value + "')";
+                        break;
+                    default:
+                        filterString += "startswith(" + field + ",'" + filter.value + "')";
+                }
+            }
+        }
+        if (filterString)
+            filterString = '$filter=' + filterString;
+        return filterString;
+    }
+
     clear() {
         this.item = null;
     }
     
-    load() {
-        this.service.getPagedList(null).then(data => {
+    load(option) {
+        var opt = {};
+        if (option) {
+            var filterString = this.getODataFilter(option.filters);
+            opt = {
+                filters: filterString,
+                sortField: option.sortField || '',
+                sortOrder: option.sortOrder || 0,
+                offset: option.first || 0,
+                limit: option.rows || 10
+            };
+        }
+        this.service.getPagedList(opt).then(data => {
             this.list = data.docs;
             this.totalRecords = data.total;
             this.onLoad();
@@ -43,12 +82,12 @@ export class CrudComponent<T> extends BaseComponent {
     }
 
     save() {
-        this.service.save(this.item).then(item => { this.load(); });
+        this.service.save(this.item).then(item => { this.load(null); });
         this.clear();
     }
 
     remove() {
-        this.service.remove(this.item).then(message => { this.load(); });
+        this.service.remove(this.item).then(message => { this.load(null); });
         this.clear();
     }
 

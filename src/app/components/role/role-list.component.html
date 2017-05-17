@@ -1,20 +1,19 @@
 <div>
-    <h1>Roles</h1>
-    <div class="ui-g">
-        <div  class="ui-g-2">
-            <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single">
-                <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header"></p-column>
+    <div class="ui-g ui-fluid">
+        <div class="ui-g-2">
+            <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
+                <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
             </p-dataTable>
         </div>
-        <div  class="ui-g-10">
+        <div class="ui-g-10" *ngIf="item">
             <input id="in" pInputText [(ngModel)]="item.name" />
         </div>
     </div>
     <div class="ui-g">
-        <div  class="ui-g-2">
+        <div class="ui-g-2">
             <button pButton type="button" [label]="res.action_new" (click)="onNew()"></button>
         </div>
-        <div  class="ui-g-10">
+        <div class="ui-g-10">
             <button pButton type="button" [label]="res.action_save" (click)="onSave()"></button>
             <button pButton type="button" [label]="res.action_delete" (click)="onRemove()"></button>
         </div>
