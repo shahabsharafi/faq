@@ -1,9 +1,6 @@
 var register = function (option) {
 
-    const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-
-
-
+    const jwt = require('jsonwebtoken');
     const Repository = require('../_infrastructure/repository');
     const Account = require('./account');
 
@@ -17,6 +14,8 @@ var register = function (option) {
             res.json(list);
         })
         */
+        console.log(req.query);
+        console.log(req.params);
         repository.Find(req.query, function (err, list) {
             if (err) res.send(err);
             res.json(list);
@@ -31,9 +30,7 @@ var register = function (option) {
     });
 
     router.post('/', function (req, res) {
-        console.log(req.body);
         if (req.body._id) {
-            //var obj = { name: req.body.name };
             repository.Update(req.body._id, req.body, function (err, obj) {
                 if (err) throw err;
                 res.json(obj);

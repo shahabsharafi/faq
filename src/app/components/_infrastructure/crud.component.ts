@@ -21,14 +21,14 @@ export class CrudComponent<T> extends BaseComponent {
             var filter = filters[key];
             if (filter.value != undefined) {
                     if (filterString)
-                        filterString += '+and+';
+                        filterString += ' and ';
                 var field = key.replace(/\./, '_');
                 switch (filter.matchMode) {
                     case 'contains':
                         filterString += "substringof(" + field + ",'" + filter.value + "')";
                         break;
                     case 'equals':
-                        filterString += field + "+eq+'" + filter.value + "'";
+                        filterString += field + " eq '" + filter.value + "'";
                         break;
                     case 'endsWith':
                         filterString += "endswith(" + field + ",'" + filter.value + "')";
@@ -38,8 +38,6 @@ export class CrudComponent<T> extends BaseComponent {
                 }
             }
         }
-        if (filterString)
-            filterString = '$filter=' + filterString;
         return filterString;
     }
 
@@ -51,19 +49,32 @@ export class CrudComponent<T> extends BaseComponent {
         var opt = {};
         if (option) {
             var filterString = this.getODataFilter(option.filters);
-            opt = {
-                filters: filterString,
-                sortField: option.sortField || '',
-                sortOrder: option.sortOrder || 0,
-                offset: option.first || 0,
-                limit: option.rows || 10
+            /*
+            opt = { odata:
+                (filterString ? ('$filter=' + filterString) : '') +
+                (option.sortField ? ('$orderby=' + option.sortField + (option.sortOrder == -1 ? ' desc' : ' asc')) : '') +
+                '$top=' + (option ? (option.first || 0) : 0) +
+                '$skip=' + (option ? (option.rows || 10) : 10)
             };
+            */
+            opt = {
+                $filter: filterString,
+                $orderby: option.sortField ? (option.sortField + (option.sortOrder == -1 ? ' desc' : ' asc')) : '',
+                $top: option.first || 0,
+                $skip: option.rows || 10
+            };
+
         }
         this.service.getPagedList(opt).then(data => {
             this.list = data.docs;
             this.totalRecords = data.total;
             this.onLoad();
         });
+    }
+
+    lookupLoad(query) {
+        //var q = "$filter=startswith(" + query.field + ",'" + query.value + "')";
+        //this.service.getList(q)
     }
 
     onLoad() {

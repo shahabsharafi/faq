@@ -1,5 +1,5 @@
-<div>
-    <div class="ui-g ui-fluid">
+<div class="role-list">
+    <div class="ui-g role-list-top ui-fluid">
         <div class="ui-g-2">
             <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
                 <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
@@ -9,7 +9,7 @@
             <input id="in" pInputText [(ngModel)]="item.name" />
         </div>
     </div>
-    <div class="ui-g">
+    <div class="ui-g role-list-bottom">
         <div class="ui-g-2">
             <button pButton type="button" [label]="res.action_new" (click)="onNew()"></button>
         </div>

@@ -26,9 +26,9 @@ var repository = function (model) {
     };
 
     self.Find = function (params, cb) {
-        var query = parseQuery(params);
-        var option = parseOption(params);
-        self.Model.paginate(query, option, cb);
+        var oData = parseOData(params);
+        //var option = parseOption(params);
+        self.Model.paginate(oData.query, oData.option, cb);
     }
 
     self.FindAll = function (params, cb, lean) {
@@ -77,11 +77,15 @@ var repository = function (model) {
         });
     }
 
-    var parseQuery = function (params) {
+    var parseOData = function (params) {
         var query = {};
-        if (params && params.filters) {
-            var f = params.filters.replace(/\+/, ' ');
-            var filterObj = parser.parse(f);
+        var option = {};
+        if (params && params.odata) {
+            console.log('params:');
+            console.log(params);
+            //var f = params.replace(/\+/, ' ');
+            var filterObj = parser.parse(params.odata);
+            console.log(filterObj);
             var _fn = function (filterObj) {
                 var str = '';
                 if (filterObj.type == 'and') {
@@ -106,8 +110,21 @@ var repository = function (model) {
                 return str;
             }
             query = JSON.parse('{ ' + _fn(filterObj.$filter) + ' }');
+            /*
+            if (params.sortField)
+                sortObj = JSON.parse('{ "' + params.sortField + '": "' + params.sortOrder + '" }');
+            return {
+                sort: sortObj,
+                offset: params.$top | 0,
+                limit: params.$skip | 10
+            }
+            */
         }
-        return query;
+
+        return {
+            query: query,
+            option: option
+        };
     }
 
     parseOption = function (params) {
@@ -116,8 +133,8 @@ var repository = function (model) {
             sortObj = JSON.parse('{ "' + params.sortField + '": "' + params.sortOrder + '" }');
         return {
             sort: sortObj,
-            offset: params.offset | 0,
-            limit: params.limit | 10
+            offset: params.$top | 0,
+            limit: params.$skip | 10
         }
     }
 

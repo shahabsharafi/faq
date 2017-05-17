@@ -1,5 +1,5 @@
 export interface Role {
-    _id,
+    _id;
     name;
     access;
 }

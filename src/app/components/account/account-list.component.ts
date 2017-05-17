@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Account } from '../../models/index';
-import { AccountService, ResourceService, AccessService } from '../../services/index';
+import { AccountService, ResourceService, AccessService, AttributeService } from '../../services/index';
 import { BaseComponent, CrudComponent, TreeComponent } from '../index';
 import { TreeNode, LazyLoadEvent } from 'primeng/primeng';
 
@@ -18,7 +18,8 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     constructor(
         private accountService: AccountService,
         protected resourceService: ResourceService,
-        protected accessService: AccessService)
+        protected accessService: AccessService,
+        protected attributeService: AttributeService)
     {
         super(resourceService, accountService);
 
