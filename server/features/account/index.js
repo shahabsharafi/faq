@@ -3,6 +3,8 @@ var register = function (option) {
     const jwt = require('jsonwebtoken');
     const Repository = require('../_infrastructure/repository');
     const Account = require('./account');
+    const URL = require('url');
+    const parser = require("odata-parser");
 
     var router = option.express.Router();
     var repository = new Repository(Account)
@@ -14,9 +16,10 @@ var register = function (option) {
             res.json(list);
         })
         */
-        console.log(req.query);
-        console.log(req.params);
-        repository.Find(req.query, function (err, list) {
+        var queryString = URL.parse(req.url).query;
+        var f = decodeURIComponent(queryString);
+        var oData = parser.parse(f);
+        repository.Find(oData, function (err, list) {
             if (err) res.send(err);
             res.json(list);
         })

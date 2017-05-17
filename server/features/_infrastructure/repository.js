@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var parser = require("odata-parser");
 
 var repository = function (model) {
 
@@ -25,8 +24,8 @@ var repository = function (model) {
         });
     };
 
-    self.Find = function (params, cb) {
-        var oData = parseOData(params);
+    self.Find = function (query, cb) {
+        var oData = parseOData(query);
         //var option = parseOption(params);
         self.Model.paginate(oData.query, oData.option, cb);
     }
@@ -77,25 +76,18 @@ var repository = function (model) {
         });
     }
 
-    var parseOData = function (params) {
-        var query = {};
-        var option = {};
-        if (params && params.odata) {
-            console.log('params:');
-            console.log(params);
-            //var f = params.replace(/\+/, ' ');
-            var filterObj = parser.parse(params.odata);
-            console.log(filterObj);
-            var _fn = function (filterObj) {
+    var parseOData = function (oData) {
+        if (oData) {
+            var _fn = function (filter) {
                 var str = '';
-                if (filterObj.type == 'and') {
-                    str += _fn(filterObj.right);
-                    str += ", " + _fn(filterObj.left);
-                } else if (filterObj.type == 'functioncall' && filterObj.args && filterObj.args.length == 2) {
-                    var key = filterObj.args[0].name.replace(/\_/, '.');
-                    var val = filterObj.args[1].value;
+                if (filter.type == 'and') {
+                    str += _fn(filter.right);
+                    str += ", " + _fn(filter.left);
+                } else if (filter.type == 'functioncall' && filter.args && filter.args.length == 2) {
+                    var key = filter.args[0].name.replace(/\_/, '.');
+                    var val = filter.args[1].value;
 
-                    switch (filterObj.func) {
+                    switch (filter.func) {
                         case 'substringof':
                             str += ' "' + key + '": { "$regex": "' + val + '" } ';
                             break;
@@ -109,33 +101,23 @@ var repository = function (model) {
 
                 return str;
             }
-            query = JSON.parse('{ ' + _fn(filterObj.$filter) + ' }');
-            /*
-            if (params.sortField)
-                sortObj = JSON.parse('{ "' + params.sortField + '": "' + params.sortOrder + '" }');
-            return {
-                sort: sortObj,
-                offset: params.$top | 0,
-                limit: params.$skip | 10
+            var query = {};
+            if (oData.$filter)
+                query = JSON.parse('{ ' + _fn(oData.$filter) + ' }');
+
+            var option = {
+                offset: oData.$top | 0,
+                limit: oData.$skip | 10
             }
-            */
+            if (oData.$orderby && oData.$orderby.length)
+                option.sort = oData.$orderby[0];
+
         }
 
         return {
             query: query,
             option: option
         };
-    }
-
-    parseOption = function (params) {
-        var sortObj = {};
-        if (params.sortField)
-            sortObj = JSON.parse('{ "' + params.sortField + '": "' + params.sortOrder + '" }');
-        return {
-            sort: sortObj,
-            offset: params.$top | 0,
-            limit: params.$skip | 10
-        }
     }
 
 };

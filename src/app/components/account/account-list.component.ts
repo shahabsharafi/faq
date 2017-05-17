@@ -66,21 +66,6 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        /*
-        var filterString = this.getODataFilter(event.filters);
-
-        this.service.getPagedList({
-            filters: filterString,
-            sortField: event.sortField,
-            sortOrder: event.sortOrder,
-            offset: event.first,
-            limit: event.rows
-        }).then(data => {
-            this.list = data.docs;
-            this.totalRecords = data.total;
-            this.onLoad();
-        });
-        */
         this.load(event);
     }
 

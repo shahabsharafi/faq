@@ -2,6 +2,8 @@ var register = function (option) {
 
     const Repository = require('../_infrastructure/repository');
     const Role = require('./role');
+    const URL = require('url');
+    const parser = require("odata-parser");
 
     var router = option.express.Router();
     var repository = new Repository(Role)
@@ -13,7 +15,10 @@ var register = function (option) {
             res.json(list);
         })
         */
-        repository.Find(req.query, function (err, list) {
+        var queryString = URL.parse(req.url).query;
+        var f = decodeURIComponent(queryString);
+        var oData = parser.parse(f);
+        repository.Find(oData, function (err, list) {
             if (err) res.send(err);
             res.json(list);
         })

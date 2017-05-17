@@ -46,24 +46,14 @@ export class CrudComponent<T> extends BaseComponent {
     }
     
     load(option) {
-        var opt = {};
+        var opt: any = {};
+        opt = {};
         if (option) {
             var filterString = this.getODataFilter(option.filters);
-            /*
-            opt = { odata:
-                (filterString ? ('$filter=' + filterString) : '') +
-                (option.sortField ? ('$orderby=' + option.sortField + (option.sortOrder == -1 ? ' desc' : ' asc')) : '') +
-                '$top=' + (option ? (option.first || 0) : 0) +
-                '$skip=' + (option ? (option.rows || 10) : 10)
-            };
-            */
-            opt = {
-                $filter: filterString,
-                $orderby: option.sortField ? (option.sortField + (option.sortOrder == -1 ? ' desc' : ' asc')) : '',
-                $top: option.first || 0,
-                $skip: option.rows || 10
-            };
-
+            if (filterString) opt.$filter = filterString;
+            if (option.sortField) opt.$orderby = option.sortField + (option.sortOrder == -1 ? ' desc' : ' asc')
+            if (option.first) opt.$top = option.first;
+            if (option.rows) opt.$skip = option.rows;
         }
         this.service.getPagedList(opt).then(data => {
             this.list = data.docs;
