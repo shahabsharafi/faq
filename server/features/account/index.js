@@ -83,8 +83,8 @@ var register = function (option) {
                 house: '01244876598',
                 work: '02188765432',
                 email: 'shahab.sharafi@gmail.com',
-                contry: 'ایران',
-                city: 'تهران',
+                province: 'تهران',
+                city: 'ورامین',
                 address: 'ستاری - پیامبر',
                 pcode: '874367466'
             },

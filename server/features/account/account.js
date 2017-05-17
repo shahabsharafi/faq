@@ -28,7 +28,7 @@ var schema = new mongoose.Schema({
         house: String,
         work: String,
         email: String,
-        contry: String,
+        province: String,
         city: String,
         address: String,
         pcode: String

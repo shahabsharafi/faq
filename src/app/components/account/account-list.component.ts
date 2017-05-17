@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Account } from '../../models/index';
+import { Account, Attribute } from '../../models/index';
 import { AccountService, ResourceService, AccessService, AttributeService } from '../../services/index';
 import { BaseComponent, CrudComponent, TreeComponent } from '../index';
 import { TreeNode, LazyLoadEvent } from 'primeng/primeng';
@@ -14,6 +14,8 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     treeData: TreeNode[];
     caption: any;
     scrollWidth: String;
+    provinces: Attribute[];
+    cities: Attribute[];
     
     constructor(
         private accountService: AccountService,
@@ -67,6 +69,26 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
 
     loadCarsLazy(event: LazyLoadEvent) {
         this.load(event);
+    }
+
+    onSearchProvince(event) {
+        var opt = {
+            $filter: "startswith(caption,'" + query.value + "') and type eq 'province'",
+            &$orderby: 'caption'
+        }
+        this.attributeService.getPagedList(opt).then(data => {
+            this.provinces = data.docs;
+        });
+    }
+
+    onSearchCity(event) {
+        var opt = {
+            $filter: "startswith(caption,'" + query.value + "') and type eq 'city'",
+            &$orderby: 'caption'
+        }
+        this.attributeService.getPagedList(opt).then(data => {
+            this.cities = data.docs;
+        });
     }
 
     onRowSelect(event) {

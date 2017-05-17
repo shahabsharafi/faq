@@ -83,6 +83,14 @@
                             <span>{{res.account_email}}</span>
                             <input id="in" pInputText [(ngModel)]="item.contact.email" />
                         </div>
+                        <div class="ui-g-12 ui-lg-3 ui-md-6">
+                            <span>{{res.account_province}}</span>
+                            <p-autoComplete [(ngModel)]="item.province" [suggestions]="provinces" (completeMethod)="onSearchProvince($event)"></p-autoComplete>
+                        </div>
+                        <div class="ui-g-12 ui-lg-3 ui-md-6">
+                            <span>{{res.account_city}}</span>
+                            <p-autoComplete [(ngModel)]="item.city" [suggestions]="cities" (completeMethod)="onSearchCity($event)"></p-autoComplete>
+                        </div>
                     </div>
                 </p-tabPanel>
                 <p-tabPanel [header]="res.account_education" *ngIf="item.education">

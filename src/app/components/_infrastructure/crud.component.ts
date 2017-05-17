@@ -61,11 +61,11 @@ export class CrudComponent<T> extends BaseComponent {
             this.onLoad();
         });
     }
-
-    lookupLoad(query) {
-        //var q = "$filter=startswith(" + query.field + ",'" + query.value + "')";
-        //this.service.getList(q)
-    }
+    /*var opt = {
+            $filter: "startswith(" + query.field + ",'" + query.value + "')",
+            &$orderby: query.field
+        }
+        service.getPagedList(opt).then(data => { if (callback) callback() });*/
 
     onLoad() {
 
