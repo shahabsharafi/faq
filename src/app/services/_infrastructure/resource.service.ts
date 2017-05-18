@@ -10,11 +10,14 @@ export class ResourceService {
 
     constructor(private http: Http) { }
 
-    load(): void {
-        this.http.get('/resources/fa.json')
+    load(): Promise<any> {
+        return this.http.get('/resources/fa.json')
                 .toPromise()
                 .then(res => res.json())
-                .then(data => { this.data = data; });
+                .then(data => {
+                    this.data = data;
+                    return data;
+                });
     }
 
     getValue(key): string {

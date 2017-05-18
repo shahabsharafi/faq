@@ -5,14 +5,14 @@
         "url": "/dashboard"
     },
     {
-        "name": "user",
-        "access": "user",
-        "url": "/user"
+        "name": "account",
+        "access": "account_view",
+        "url": "/account-list"
     },
     {
         "name": "role",
-        "access": "role",
-        "url": "/role"
+        "access": "role_view",
+        "url": "/role-list"
     },
     {
         "name": "department",

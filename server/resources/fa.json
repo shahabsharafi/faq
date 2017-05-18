@@ -3,7 +3,7 @@
     "action_save": "ثبت",
     "action_delete": "حذف",
 
-    "account_account": "طلاعات کاربری",
+    "account_account": "اطلاعات کاربری",
     "account_profile": "اطلاعات شخصی",
     "account_contact": "اطلاعات تماس",
     "account_education": "اطلاعات تحصیلی",
@@ -42,10 +42,10 @@
 
     "dashboard": "داشبورد",
     "dashboard_view": "نمایش",
-    "user": "کاربران",
-    "user_view": "نمایش",
-    "user_modify": "تغییر",
-    "user_report": "گزارش",
+    "account": "کاربران",
+    "account_view": "نمایش",
+    "account_modify": "تغییر",
+    "account_report": "گزارش",
     "role": "نقش",
     "role_view": "نمایش",
     "role_modify": "تغییر",

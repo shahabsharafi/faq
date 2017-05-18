@@ -6,11 +6,11 @@
         ]
     },
     {
-        "name": "user",
+        "name": "account",
         "children": [
-            { "name": "user_view" },
-            { "name": "user_modify" },
-            { "name": "user_report" }
+            { "name": "account_view" },
+            { "name": "account_modify" },
+            { "name": "account_report" }
         ]
     },
     {

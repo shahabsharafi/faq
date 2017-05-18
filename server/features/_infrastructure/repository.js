@@ -6,27 +6,22 @@ var repository = function (model) {
 
     self.Model = model;
 
-    self.FindById = function (id, cb) {
-        self.FindOne({
-            _id: id
-        }, function (err, entity) {
-            cb(err, entity);
+    self.FindById = function (id, query, cb) {
+        var oData = parseOData(query);
+        var option = oData ? (oData.option || {}) : {};
+        self.Model.paginate({ _id: id }, oData.option, function (err, list) {
+            if (cb) cb(err, list.docs[0]);
         });
     };
 
-    self.FindOne = function (params, cb) {
-        self.Model.findOne(params, function (err, entity) {
-            if (!err && !entity) {
-                err = true;
-            }
-
-            cb(err, entity);
-        });
+    self.FindOne = function (query, cb) {
+        var oData = parseOData(query);
+        var option = oData ? (oData.option || {}) : {};
+        self.Model.findOne(option, cb);
     };
 
     self.Find = function (query, cb) {
         var oData = parseOData(query);
-        //var option = parseOption(params);
         self.Model.paginate(oData.query, oData.option, cb);
     }
 
@@ -46,7 +41,7 @@ var repository = function (model) {
     };
 
     self.Update = function (id, entity, cb) {
-        self.FindById(id, function (err, oldEntity) {
+        self.Model.findOne({ _id: id }, function (err, oldEntity) {
             if (err) {
                 cb(err);
             } else {
@@ -57,7 +52,7 @@ var repository = function (model) {
     };
 
     self.Delete = function (id, cb) {
-        self.FindById(id, function (err, oldEntity) {
+        self.Model.findOne({ _id: id }, function (err, oldEntity) {
             if (err) {
                 cb(err);
             } else {
@@ -84,9 +79,8 @@ var repository = function (model) {
                     str += _fn(filter.right);
                     str += ", " + _fn(filter.left);
                 } else if (filter.type == 'functioncall' && filter.args && filter.args.length == 2) {
-                    var key = filter.args[0].name.replace(/\_/, '.');
+                    var key = filter.args[0].name.replace(/\_/g, '.');
                     var val = filter.args[1].value;
-
                     switch (filter.func) {
                         case 'substringof':
                             str += ' "' + key + '": { "$regex": "' + val + '" } ';
@@ -97,11 +91,15 @@ var repository = function (model) {
                         default:
                             str += ' "' + key + '": { "$regex": "^' + val + '" } ';
                     }
+                } else if (filter.type == 'eq') {
+                    var key = filter.left.name.replace(/\_/g, '.');
+                    var val = filter.right.value;
+                    str += ' "' + key + '": "' + val + '" ';
                 }
-
                 return str;
             }
             var query = {};
+
             if (oData.$filter)
                 query = JSON.parse('{ ' + _fn(oData.$filter) + ' }');
 
@@ -109,9 +107,26 @@ var repository = function (model) {
                 offset: oData.$top | 0,
                 limit: oData.$skip | 10
             }
+
             if (oData.$orderby && oData.$orderby.length)
                 option.sort = oData.$orderby[0];
 
+            if (oData.$select && oData.$select.length) {
+                var select = {};
+                for (var i = 0; i < oData.$select.length; i++) {
+                    select[oData.$select[i].replace(/\_/g, '.')] = 1
+                }
+                option.select = select;
+            }
+
+            if (oData.$expand && oData.$expand.length) {
+                //var populate = {};
+                //for (var i = 0; i < oData.$expand.length; i++) {
+                //    populate[oData.$expand[i].replace(/\_/g, '.')] = 1
+                //}
+                var populate = oData.$expand.join(' ').replace(/\_/g, '.');
+                option.populate = populate;
+            }
         }
 
         return {

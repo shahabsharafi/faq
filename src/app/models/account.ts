@@ -15,8 +15,8 @@ export interface Contact {
     house: String;
     work: String;
     email: String;
-    province: String;
-    city: String;
+    province: { _id: String, caption: String },
+    city: { _id: String, caption: String },
     address: String;
     pcode: String
 }

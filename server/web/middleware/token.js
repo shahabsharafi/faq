@@ -17,7 +17,7 @@ var register = function (option) {
 
     router.use(function (req, res, next) {
 
-        if (req.url == '/accounts/authenticate' || req.url == '/accounts/setup' || req.url == '/roles/setup' || req.url == '/access') {
+        if (req.url == '/accounts/authenticate' || req.url == '/accounts/setup' || req.url == '/roles/setup' || req.url == '/attributes/setup' || req.url == '/access') {
             console.log('go to next')
             next();
         } else {

@@ -7,6 +7,7 @@ var schema = new mongoose.Schema({
     access: [String],
     email: String,
     sms: String,
+    isAdmin: Boolean,
     activation: {
         state: Boolean,
         code: String
@@ -28,8 +29,8 @@ var schema = new mongoose.Schema({
         house: String,
         work: String,
         email: String,
-        province: String,
-        city: String,
+        province: { type: String, ref: 'Attribute' },
+        city: { type: String, ref: 'Attribute' },
         address: String,
         pcode: String
     },

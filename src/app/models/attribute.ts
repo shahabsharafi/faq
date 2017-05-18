@@ -1,7 +1,7 @@
 
 export interface Attribute {
     _id;
-    parentId;
-    language;
+    type;
     caption;
+    children;
 }

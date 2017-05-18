@@ -45,15 +45,18 @@ export class CrudComponent<T> extends BaseComponent {
         this.item = null;
     }
     
-    load(option) {
+    load(option, extraOption = null) {
         var opt: any = {};
-        opt = {};
         if (option) {
             var filterString = this.getODataFilter(option.filters);
             if (filterString) opt.$filter = filterString;
             if (option.sortField) opt.$orderby = option.sortField + (option.sortOrder == -1 ? ' desc' : ' asc')
             if (option.first) opt.$top = option.first;
             if (option.rows) opt.$skip = option.rows;
+        }
+        if (extraOption) {
+            if (extraOption.select) opt.$select = extraOption.select;
+            if (extraOption.expand) opt.$expand = extraOption.expand;
         }
         this.service.getPagedList(opt).then(data => {
             this.list = data.docs;
@@ -71,8 +74,13 @@ export class CrudComponent<T> extends BaseComponent {
 
     }
 
-    selectOne(id) {
-        this.service.getItem(id).then(item => {
+    selectOne(id, extraOption = null) {
+        var opt: any = {};
+        if (extraOption) {
+            if (extraOption.select) opt.$select = extraOption.select;
+            if (extraOption.expand) opt.$expand = extraOption.expand;
+        }
+        this.service.getItem(id, opt).then(item => {
             this.item = this.service.copy(item);
             this.onSelect();
         });

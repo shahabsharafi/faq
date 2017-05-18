@@ -85,11 +85,11 @@
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_province}}</span>
-                            <p-autoComplete [(ngModel)]="item.province" [suggestions]="provinces" (completeMethod)="onSearchProvince($event)"></p-autoComplete>
+                            <p-autoComplete [(ngModel)]="item.contact.province" [suggestions]="provinces" (completeMethod)="onSearchProvince($event)" (onSelect)="onSelectProvince($event)" field="caption"></p-autoComplete>
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_city}}</span>
-                            <p-autoComplete [(ngModel)]="item.city" [suggestions]="cities" (completeMethod)="onSearchCity($event)"></p-autoComplete>
+                            <p-autoComplete [(ngModel)]="item.contact.city" [suggestions]="cities" (completeMethod)="onSearchCity($event)" field="caption"></p-autoComplete>
                         </div>
                     </div>
                 </p-tabPanel>

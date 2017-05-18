@@ -6,7 +6,7 @@ var register = function (option) {
     const parser = require("odata-parser");
 
     var router = option.express.Router();
-    var repository = new Repository(Role)
+    var repository = new Repository(Role);
 
     router.get('/', function (req, res) {
         /*
@@ -15,9 +15,12 @@ var register = function (option) {
             res.json(list);
         })
         */
+        var oData = null;
         var queryString = URL.parse(req.url).query;
-        var f = decodeURIComponent(queryString);
-        var oData = parser.parse(f);
+        if (queryString) {
+            var f = decodeURIComponent(queryString);
+            oData = parser.parse(f);
+        }
         repository.Find(oData, function (err, list) {
             if (err) res.send(err);
             res.json(list);

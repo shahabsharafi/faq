@@ -10,7 +10,7 @@ export class AttributeService extends CrudService<Attribute> {
         protected authenticationService: AuthenticationService,
         protected http: Http)
     {
-        super(authenticationService, http, '/api/atributes');
+        super(authenticationService, http, '/api/attributes');
     }
 
     copy(src): Attribute {

@@ -49,7 +49,8 @@ export class CrudService<T> extends TokenService {
                 .then(data => { return data; });
     }
 
-    getItem(id): Promise<T> {
+    getItem(id, options): Promise<T> {
+        this.options.params = options;
         return this.http.get(this.baseUrl + '/item/' + id, this.options)
                 .toPromise()
                 .then(res => <T> res.json())

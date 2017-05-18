@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTableModule, SharedModule, InputTextModule, ButtonModule, TreeModule, TabViewModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule, AutoCompleteModule, ButtonModule, TreeModule, TabViewModule } from 'primeng/primeng';
 import * as $ from 'jquery';
 
 import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, LoginComponent, TreeComponent } from './components/index';
@@ -25,6 +25,7 @@ enableProdMode();
         SharedModule,
         DataTableModule,
         InputTextModule,
+        AutoCompleteModule,
         ButtonModule,
         TreeModule,
         TabViewModule

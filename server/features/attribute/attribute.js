@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
 var schema = new mongoose.Schema({
-    parentId: Number,
-    language: String,
-    caption: String
+    type: String,
+    caption: String,
+    parentId: String
 });
 
 schema.plugin(mongoosePaginate);

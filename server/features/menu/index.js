@@ -10,10 +10,15 @@ var register = function (option) {
         var list = [];
         for (var i = 0; i < data.length; i++) {
             var itemi = data[i];
-            for (var j = 0; j < data.length; j++) {
-                var itemj = req.decoded._doc.access[j];
-                if (itemi.name == itemj)
-                    list.push(itemi);
+            if (req.decoded._doc.isAdmin) {
+                list.push(itemi);
+            } else {
+                for (var j = 0; j < req.decoded._doc.access.length; j++) {
+                    var itemj = req.decoded._doc.access[j];
+                    if (itemi.access == itemj) {
+                        list.push(itemi);
+                    }
+                }
             }
         }
         res.json(list);

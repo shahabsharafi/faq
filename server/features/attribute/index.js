@@ -2,9 +2,11 @@ var register = function (option) {
 
     const Repository = require('../_infrastructure/repository');
     const Attribute = require('./attribute');
+    const URL = require('url');
+    const parser = require("odata-parser");
 
     var router = option.express.Router();
-    var repository = new Repository(Attribute)
+    var repository = new Repository(Attribute);
 
     router.get('/', function (req, res) {
         /*
@@ -13,7 +15,13 @@ var register = function (option) {
             res.json(list);
         })
         */
-        repository.Find(req.query, function (err, list) {
+        var oData = null;
+        var queryString = URL.parse(req.url).query;
+        if (queryString) {
+            var f = decodeURIComponent(queryString);
+            oData = parser.parse(f);
+        }
+        repository.Find(oData, function (err, list) {
             if (err) res.send(err);
             res.json(list);
         })
@@ -51,16 +59,67 @@ var register = function (option) {
     });
 
     router.get('/setup', function (req, res) {
-        var obj = new Attribute({
-            parentId: null,
-            type: 'country',
-            caption: 'ایران'
-        });
-        repository.Setup(obj, function (err) {
-            if (err) res.send(err);
-            res.json({
-                success: true
+        Attribute.remove({}, function (err) {
+            var treeInfo = [
+                {
+                    content:  new Attribute({ type: 'province', caption: 'تهران' }),
+                    children: [
+                        { content: new Attribute({ type: 'city', caption: 'تهران' }) },
+                        { content: new Attribute({ type: 'city', caption: 'ورامین' }) }
+                    ]
+                },
+                {
+                    content:  new Attribute({ type: 'province', caption: 'مازندران' }),
+                    children: [
+                        { content: new Attribute({ type: 'city', caption: 'ساری' }) },
+                        { content: new Attribute({ type: 'city', caption: 'قائم شهر' }) }
+                    ]
+                }
+            ]
+
+            var _insertObject = function (obj, callback) {
+                obj.content.save(function (err, doc) {
+                    if (err) throw err;
+                    if (obj.children) {
+                        _insertList(obj.children, doc._id, callback);
+                    } else {
+                        if (callback)
+                            callback();
+                    }
+                });
+            }
+
+            var _insertList = function (list, parentId, callback) {
+                if (list.length == 0) {
+                    if (callback)
+                        callback();
+                } else {
+                    var item = list.pop();
+                    console.log(list.length);
+                    if (parentId) item.content.parentId = parentId;
+                    _insertObject(item, function () {
+                        _insertList(list, parentId, callback)
+                    });
+                }
+            }
+
+            _insertList(treeInfo);
+            /*
+            var city1_1 = new Attribute({ type: 'city', caption: 'تهران' });
+            var city1_2 = new Attribute({ type: 'city', caption: 'ورامین' });
+            var province1 = new Attribute({ type: 'province', caption: 'تهران', children: [city1_1, city1_2] });
+
+            var city2_1 = new Attribute({ type: 'city', caption: 'ساری' });
+            var city2_2 = new Attribute({ type: 'city', caption: 'قائم شهر' });
+            var province2 = new Attribute({ type: 'province', caption: 'مازندران', children: [city2_1, city2_2] });
+
+            province1.save(function (err) {
+                if (err) res.send(err);
+                province2.save(function (err) {
+                    if (err) res.send(err);
+                });
             });
+            */
         });
     });
 

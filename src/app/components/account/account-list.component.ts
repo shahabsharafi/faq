@@ -68,31 +68,43 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        this.load(event);
+        this.load(event, { expand: 'province,city' });
     }
 
     onSearchProvince(event) {
         var opt = {
-            $filter: "startswith(caption,'" + query.value + "') and type eq 'province'",
-            &$orderby: 'caption'
+            $select: 'caption',
+            $filter: event.query ? ("startswith(caption,'" + event.query + "') and type eq 'province'") : "type eq 'province'",
+            $orderby: 'caption'
         }
         this.attributeService.getPagedList(opt).then(data => {
             this.provinces = data.docs;
         });
     }
 
+    onSelectProvince(event) {
+        if (this.item && this.item.contact)
+            this.item.contact.city = null;
+    }
+
     onSearchCity(event) {
-        var opt = {
-            $filter: "startswith(caption,'" + query.value + "') and type eq 'city'",
-            &$orderby: 'caption'
+        if (this.item && this.item.contact && this.item.contact.province) {
+
+            var q = "parentId eq '" + this.item.contact.province._id + "'";
+            var opt = {
+                $select: 'caption',
+                $filter: event.query ? ("startswith(caption,'" + event.query + "') and " + q) : q,
+                $orderby: 'caption'
+            }
+            this.attributeService.getPagedList(opt).then(data => {
+                this.cities = data.docs;
+            });
+
         }
-        this.attributeService.getPagedList(opt).then(data => {
-            this.cities = data.docs;
-        });
     }
 
     onRowSelect(event) {
-        this.selectOne(event.data._id);
+        this.selectOne(event.data._id, { expand: 'contact_province,contact_city' });
     }
 
     onSave() {
