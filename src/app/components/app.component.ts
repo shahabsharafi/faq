@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { Response } from '@angular/http';
+import { Router, NavigationEnd  } from '@angular/router';
 
 import { MenuItem } from '../models/index';
 import { MenuService, ResourceService, Logger } from '../services/index';
@@ -17,13 +19,34 @@ export class AppComponent extends BaseComponent implements OnInit {
 
 constructor (
     private menuService: MenuService,
-    protected resourceService: ResourceService)
+    protected resourceService: ResourceService,
+    private router: Router)
 {
     super(resourceService);
+    var me = this;
+    /*
+    router.events.subscribe(event => {
+        if(event instanceof NavigationEnd) {
+            this.menuService.getList(null).then(menuItems =>
+                this.menuItems = menuItems.map(function(obj)
+                {
+                    obj.name = me.res[obj.name];
+                    return obj;
+                })
+            ).catch(this.handleError);
+        }
+        // NavigationStart
+        // NavigationEnd
+        // NavigationCancel
+        // NavigationError
+        // RoutesRecognized
+    });
+    */
 }
 
     ngOnInit() {
         var me = this;
+
         this.resourceService.load().then(data => {
             super.ngOnInit();
             this.menuService.getList(null).then(menuItems =>
@@ -34,5 +57,6 @@ constructor (
                 })
             );
         });
+
     }
 }

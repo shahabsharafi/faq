@@ -6,9 +6,7 @@
                     <a class="navbar-brand" href="#">WebSiteName</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li *ngFor="let menuItem of menuItems"><a [routerLink]="menuItem.url">{{menuItem.name}}</a></li>
-                    <li><a [routerLink]="['/role-list']">Role</a></li>
-                    <li class="active"><a [routerLink]="['']">Welcome</a></li>
+                    <li *ngFor="let menuItem of menuItems" routerLinkActive="active"><a [routerLink]="menuItem.url">{{menuItem.name}}</a></li>
                 </ul>
             </div>
         </nav>

@@ -35,9 +35,9 @@
         "url": "/message"
     },
     {
-        "name": "question",
-        "access": "question",
-        "url": "/question"
+        "name": "faq",
+        "access": "faq",
+        "url": "/faq"
     },
     {
         "name": "poll",
