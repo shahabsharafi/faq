@@ -3,16 +3,18 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header navbar-right">
-                    <a class="navbar-brand" href="#">WebSiteName</a>
+                    <a class="navbar-brand" href="#">{{res.website_name}}</a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li *ngFor="let menuItem of menuItems" routerLinkActive="active"><a [routerLink]="menuItem.url">{{menuItem.name}}</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li *ngIf="currentInfo"><a [routerLink]="['/signin']">{{res.signout}} ({{currentInfo.username}})</a></li>
                 </ul>
             </div>
         </nav>
     </div>
     <div id="main" class='container'>
         <router-outlet></router-outlet>
-        <a [routerLink]="['/signin']">Logout</a>
     </div>
 </div>

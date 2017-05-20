@@ -2,20 +2,12 @@ var register = function (option) {
 
     const Repository = require('../_infrastructure/repository');
     const utility = require('../_infrastructure/utility');
-    const Role = require('./role');
+    const Department = require('./department');
     const URL = require('url');
     const parser = require("odata-parser");
 
     var router = option.express.Router();
-    var repository = new Repository(Role);
-
-    router.get('/', function (req, res) {
-        var oData = utility.getODataInfo(req.url);
-        repository.Find(oData, function (err, list) {
-            if (err) res.send(err);
-            res.json(list);
-        })
-    });
+    var repository = new Repository(Department);
 
     router.get('/item/:key', function (req, res) {
         var oData = utility.getODataInfo(req.url);
@@ -32,7 +24,7 @@ var register = function (option) {
                 res.json(obj);
             });
         } else {
-            var obj = new Role(req.body)
+            var obj = new Attribute(req.body)
             repository.Save(obj, function (err) {
                 if (err) throw err;
                 res.json(obj);
@@ -49,23 +41,10 @@ var register = function (option) {
         });
     });
 
-    router.get('/setup', function (req, res) {
-        var obj = new Role({
-            name: 'admin',
-            access: ['dashboard', 'user']
-        });
-        repository.Setup(obj, function (err) {
-            if (err) res.send(err);
-            res.json({
-                success: true
-            });
-        });
-    });
-
-    option.app.use('/api/roles', router);
+    option.app.use('/api/departments', router);
 }
 
 module.exports = {
-    name: 'role',
+    name: 'attribute',
     register: register
 };

@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 
 import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, SigninComponent, SignupComponent, TreeComponent } from './components/index';
 import { Routing } from './app.routing';
-import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, AttributeService, MenuService, ResourceService, Logger } from './services/index';
+import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, DepartmentService, AttributeService, MenuService, ResourceService, Logger } from './services/index';
 
 import { enableProdMode } from '@angular/core';
 enableProdMode();
@@ -48,6 +48,7 @@ enableProdMode();
         AccountService,
         RoleService,
         AccessService,
+        DepartmentService,
         AttributeService,
         MenuService
     ],

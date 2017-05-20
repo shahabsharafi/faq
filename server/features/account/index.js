@@ -109,36 +109,39 @@ var register = function (option) {
     });
 
     router.post('/authenticate', function (req, res) {
-        // find the user
+        // find the account
         Account.findOne({
             username: req.body.username
-        }, function (err, user) {
+        }, function (err, account) {
             if (err) throw err;
 
-            if (!user) {
+            if (!account) {
                 res.json({
                     success: false,
-                    message: 'Authentication failed. User not found.'
+                    message: 'Authentication failed. Account not found.'
                 });
-            } else if (user) {
+            } else if (account) {
 
                 // check if password matches
-                if (user.password != req.body.password) {
+                if (account.password != req.body.password) {
                     res.json({
                         success: false,
                         message: 'Authentication failed. Wrong password.'
                     });
                 } else {
 
-                    // if user is found and password is right
+                    // if account is found and password is right
                     // create a token
-                    var token = jwt.sign(user, option.app.get('superSecret'), {});
+                    var token = jwt.sign(account, option.app.get('superSecret'), {});
 
                     // return the information including token as JSON
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',
-                        token: token
+                        token: token,
+                        username: account.username,
+                        firstName: account.profile.firstName,
+                        lastName: account.profile.lastName
                     });
                 }
             }

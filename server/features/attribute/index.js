@@ -1,6 +1,7 @@
 var register = function (option) {
 
     const Repository = require('../_infrastructure/repository');
+    const utility = require('../_infrastructure/utility');
     const Attribute = require('./attribute');
     const URL = require('url');
     const parser = require("odata-parser");
@@ -9,18 +10,7 @@ var register = function (option) {
     var repository = new Repository(Attribute);
 
     router.get('/', function (req, res) {
-        /*
-        repository.FindAll(req.params, function (err, list) {
-            if (err) res.send(err);
-            res.json(list);
-        })
-        */
-        var oData = null;
-        var queryString = URL.parse(req.url).query;
-        if (queryString) {
-            var f = decodeURIComponent(queryString);
-            oData = parser.parse(f);
-        }
+        var oData = utility.getODataInfo(req.url);
         repository.Find(oData, function (err, list) {
             if (err) res.send(err);
             res.json(list);
@@ -28,7 +18,8 @@ var register = function (option) {
     });
 
     router.get('/item/:key', function (req, res) {
-        repository.FindById(req.params.key, function (err, obj) {
+        var oData = utility.getODataInfo(req.url);
+        repository.FindById(req.params.key, oData, function (err, obj) {
             if (err) res.send(err);
             res.json(obj);
         })

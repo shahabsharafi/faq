@@ -1,4 +1,6 @@
 {
+    "website_name": "پرسانه",
+
     "action_new": "ایجاد",
     "action_save": "ثبت",
     "action_delete": "حذف",
@@ -48,6 +50,7 @@
     "account_modify": "تغییر",
     "account_report": "گزارش",
     "signup": "ثبت نام",
+    "signout": "خروج",
     "role": "نقش",
     "role_view": "نمایش",
     "role_modify": "تغییر",

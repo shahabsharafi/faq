@@ -15,6 +15,7 @@ export class AppComponent extends BaseComponent implements OnInit {
     //@ViewChild(SlideMenu) slideMenu: SlideMenu;
 
     private menuItems: MenuItem[];
+    private currentInfo: any;
     //private sliderItems: MenuItem[];
 
 constructor (
@@ -29,20 +30,21 @@ constructor (
     router.events.subscribe(event => {
         if(event instanceof NavigationEnd) {
 
-            this.resourceService.load().then(data => {
-                this.res = this.resourceService.getData();
-                if (this.authenticationService.isAuthenticated()) {
-                    this.menuService.getList().then(menuItems =>
-                        this.menuItems = menuItems.map(function(obj)
+            me.resourceService.load().then(data => {
+                me.res = me.resourceService.getData();
+                if (me.authenticationService.isAuthenticated()) {
+                    me.currentInfo = me.authenticationService.getCurrentInfo();
+                    me.menuService.getList().then(menuItems =>
+                        me.menuItems = menuItems.map(function(obj)
                         {
                             obj.name = me.res[obj.name];
                             return obj;
                         })
                     ).catch(error => function(err) {
-                        this.menuItems = null;
+                        me.menuItems = null;
                     });
                 } else {
-                    this.menuItems = null;
+                    me.menuItems = null;
                 }
             });
         }

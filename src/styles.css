@@ -45,6 +45,33 @@
 }
 */
 
+
+
+body {
+    font-family: Nazanin, Tahoma;
+}
+
+.ui-widget {
+    font-family: Nazanin, Tahoma;
+}
+
+.bootstrap-iso {
+    font-family: Nazanin, Tahoma;
+}
+
+.ui-tabview-nav, .ui-column-title, .ui-button-text, .bootstrap-iso .navbar-nav li, .navbar-brand {
+    font-family: Yekan, Tahoma;
+    font-weight: bold;
+}
+
+.bootstrap-iso .navbar-brand {
+    font-size: 30px;
+}
+
+.bootstrap-iso .navbar-nav li {
+    font-size: 14px;
+}
+
 .ui-tree .ui-treenode-children {
     margin: 0;
     padding: 0 1em 0 0;

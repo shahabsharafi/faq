@@ -1,0 +1,23 @@
+<div class="account-list">
+    <div class="ui-g account-list-top ui-fluid">
+        <div class="ui-g-3" *ngFor="let item of list">
+            <div *ngIf="!item.editing">
+                <div>{{item.caption}}</div>
+                <div class="ui-g">
+                    <div *ngFor="let tag of item.tags">{{tag}}</div>
+                </div>
+            </div>
+            <div *ngIf="item.editing">
+            </div>
+        </div>
+    </div>
+    <div class="ui-g account-list-bottom">
+        <div class="ui-g-4">
+            <button pButton type="button" icon="fa-plus" iconPos="right" [label]="res.action_new" (click)="onNew()"></button>
+        </div>
+        <div class="ui-g-8">
+            <button pButton type="button" icon="fa-floppy-o" iconPos="right" [label]="res.action_save" (click)="onSave()"></button>
+            <button pButton type="button" icon="fa-trash-o" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
+        </div>
+    </div>
+</div>
