@@ -11,6 +11,7 @@
 
     "account_username": "نام کاربری",
     "account_password": "کلمه عبور",
+    "account_confirm": "تایید کلمه عبور",
     "account_access": "دسترسی",
     "account_sms": "پیغام",
     "account_firstName": "نام",
@@ -46,6 +47,7 @@
     "account_view": "نمایش",
     "account_modify": "تغییر",
     "account_report": "گزارش",
+    "signup": "ثبت نام",
     "role": "نقش",
     "role_view": "نمایش",
     "role_modify": "تغییر",

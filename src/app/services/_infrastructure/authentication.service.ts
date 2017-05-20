@@ -13,7 +13,7 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
     }
 
-    login(username: string, password: string): Observable<boolean> {
+    signin(username: string, password: string): Observable<boolean> {
         return this.http.post('/api/accounts/authenticate', { username: username, password: password })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
@@ -34,7 +34,7 @@ export class AuthenticationService {
             });
     }
 
-    logout(): void {
+    signout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
         localStorage.removeItem('currentUser');

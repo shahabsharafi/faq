@@ -10,6 +10,11 @@
         "url": "/account-list"
     },
     {
+        "name": "signup",
+        "access": "signup",
+        "url": "/signup"
+    },
+    {
         "name": "role",
         "access": "role_view",
         "url": "/role-list"

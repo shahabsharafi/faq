@@ -5,10 +5,10 @@ import { AuthenticationService, ResourceService } from '../../services/index';
 import { BaseComponent } from '../_infrastructure/index';
 
 @Component({
-    templateUrl: './login.component.html',
+    templateUrl: './signin.component.html',
 })
 
-export class LoginComponent extends BaseComponent implements OnInit {
+export class SigninComponent extends BaseComponent implements OnInit {
     model: any = {};
     loading = false;
     error = '';
@@ -23,12 +23,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     ngOnInit() {
         super.ngOnInit();
-        this.authenticationService.logout();
+        this.authenticationService.signout();
     }
 
-    login() {
+    signin() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.authenticationService.signin(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result === true) {
                     this.router.navigate(['/#']);
