@@ -37,7 +37,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         ];
         
         this.load(null);
-        this.accessService.getList(null).then(list => {
+        this.accessService.getList().then(list => {
             var _fn = function(list) {
                 var accessList = [];
                 for (var i = 0; i < list.length; i++) {

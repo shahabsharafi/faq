@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { Router, NavigationEnd  } from '@angular/router';
 
 import { MenuItem } from '../models/index';
-import { MenuService, ResourceService, Logger } from '../services/index';
+import { MenuService, ResourceService, AuthenticationService, Logger } from '../services/index';
 import { BaseComponent } from './index';
 
 @Component({
@@ -18,22 +18,33 @@ export class AppComponent extends BaseComponent implements OnInit {
     //private sliderItems: MenuItem[];
 
 constructor (
+    protected authenticationService: AuthenticationService,
     private menuService: MenuService,
     protected resourceService: ResourceService,
     private router: Router)
 {
     super(resourceService);
     var me = this;
-    /*
+
     router.events.subscribe(event => {
         if(event instanceof NavigationEnd) {
-            this.menuService.getList(null).then(menuItems =>
-                this.menuItems = menuItems.map(function(obj)
-                {
-                    obj.name = me.res[obj.name];
-                    return obj;
-                })
-            ).catch(this.handleError);
+
+            this.resourceService.load().then(data => {
+                this.res = this.resourceService.getData();
+                if (this.authenticationService.isAuthenticated()) {
+                    this.menuService.getList().then(menuItems =>
+                        this.menuItems = menuItems.map(function(obj)
+                        {
+                            obj.name = me.res[obj.name];
+                            return obj;
+                        })
+                    ).catch(error => function(err) {
+                        this.menuItems = null;
+                    });
+                } else {
+                    this.menuItems = null;
+                }
+            });
         }
         // NavigationStart
         // NavigationEnd
@@ -41,22 +52,8 @@ constructor (
         // NavigationError
         // RoutesRecognized
     });
-    */
+
 }
 
-    ngOnInit() {
-        var me = this;
-
-        this.resourceService.load().then(data => {
-            super.ngOnInit();
-            this.menuService.getList(null).then(menuItems =>
-                this.menuItems = menuItems.map(function(obj)
-                {
-                    obj.name = me.res[obj.name];
-                    return obj;
-                })
-            );
-        });
-
-    }
+    ngOnInit() { }
 }

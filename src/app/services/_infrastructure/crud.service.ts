@@ -1,71 +1,64 @@
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Response } from '@angular/http';
+import { Http, URLSearchParams, Response, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Pagination } from './../../models/index';
-import { AuthenticationService, TokenService } from './index';
+import { AuthenticationService } from './index';
 
 @Injectable()
-export class CrudService<T> extends TokenService {
+export class CrudService<T> {
 
     constructor(
         protected authenticationService: AuthenticationService,
         protected http: Http,
         private baseUrl)
     {
-            super(authenticationService);
+
     }
 
-    /*
-        Parameter:
-            option: {
-                query: { 'profile.name': 'Ghost' },
-                select: { username: 1 },
-                sort: { username: -1 },
-                offset: 0 or page: 1,
-                limit: 10
-            }
-        Result:
-            {
-                docs: {...}
-                total: 152
-                limit: 10
-                page: 1
-                pages:16
-            }
-    */
-    getList(options: any): Promise<T[]> {
-        return this.http.get(this.baseUrl, this.options)
+    getOption(params: any): RequestOptions{
+        var headers: Headers = new Headers({ 'x-access-token': this.authenticationService.token });
+        var options: RequestOptions = new RequestOptions({ headers: headers });
+        if (params)
+            options.params = params;
+        return options;
+    }
+
+    getList(): Promise<T[]> {
+        var options = this.getOption(null);
+        return this.http.get(this.baseUrl, options)
                 .toPromise()
                 .then(res => <T[]> res.json())
                 .then(data => { return data; });
     }
 
-    getPagedList(options: any): Promise<Pagination<T>> {
-        this.options.params = options;
-        return this.http.get(this.baseUrl, this.options)
+    getPagedList(params: any): Promise<Pagination<T>> {
+        var options = this.getOption(params);
+        return this.http.get(this.baseUrl, options)
                 .toPromise()
                 .then(res => <Pagination<T>> res.json())
                 .then(data => { return data; });
     }
 
-    getItem(id, options): Promise<T> {
-        this.options.params = options;
-        return this.http.get(this.baseUrl + '/item/' + id, this.options)
+    getItem(id, params): Promise<T> {
+        var options = this.getOption(params);
+        return this.http.get(this.baseUrl + '/item/' + id, options)
                 .toPromise()
                 .then(res => <T> res.json())
                 .then(data => { return data; });
     }
 
     save(obj: T): Promise<T> {
-        return this.http.post(this.baseUrl, obj, this.options)
+        var options = this.getOption(null);
+        return this.http.post(this.baseUrl, obj, options)
                 .toPromise()
                 .then(res => <T> res.json())
                 .then(data => { return data; });
     }
 
     remove(obj: T): Promise<string> {
-        return this.http.delete(this.baseUrl + '/item/' + this.getKey(obj), this.options)
+        var options = this.getOption(null);
+        return this.http.delete(this.baseUrl + '/item/' + this.getKey(obj), options)
                 .toPromise()
                 .then(res => res.json())
                 .then(data => { return data; });
