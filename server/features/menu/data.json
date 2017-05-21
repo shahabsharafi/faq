@@ -1,62 +1,80 @@
 [
     {
-        "name": "dashboard",
-        "access": "dashboard",
-        "url": "/dashboard"
+        "name": "administration",
+        "icon": "fa-cogs",
+        "children": [
+            {
+                "name": "dashboard",
+                "access": "dashboard",
+                "url": "/dashboard"
+            },
+            {
+                "name": "account",
+                "access": "account_view",
+                "url": "/account-list"
+            },
+            {
+                "name": "role",
+                "access": "role_view",
+                "url": "/role-list"
+            },
+            {
+                "name": "salary",
+                "access": "salary",
+                "url": "/salary"
+            },
+            {
+                "name": "setting",
+                "access": "setting",
+                "url": "/setting"
+            }
+        ]
     },
     {
-        "name": "account",
-        "access": "account_view",
-        "url": "/account-list"
+        "name": "services",
+        "icon": "fa-tablet",
+        "children": [
+            {
+                "name": "department",
+                "access": "department",
+                "url": "/department"
+            },
+            {
+                "name": "discont",
+                "access": "discont",
+                "url": "/discont"
+            },
+            {
+                "name": "donate",
+                "access": "donate",
+                "url": "/donate"
+            },
+            {
+                "name": "message",
+                "access": "message",
+                "url": "/message"
+            },
+            {
+                "name": "faq",
+                "access": "faq",
+                "url": "/faq"
+            },
+            {
+                "name": "poll",
+                "access": "poll",
+                "url": "/poll"
+            }
+        ]
     },
     {
-        "name": "signup",
-        "access": "signup",
-        "url": "/signup"
-    },
-    {
-        "name": "role",
-        "access": "role_view",
-        "url": "/role-list"
-    },
-    {
-        "name": "department",
-        "access": "department",
-        "url": "/department"
-    },
-    {
-        "name": "discont",
-        "access": "discont",
-        "url": "/discont"
-    },
-    {
-        "name": "donate",
-        "access": "donate",
-        "url": "/donate"
-    },
-    {
-        "name": "message",
-        "access": "message",
-        "url": "/message"
-    },
-    {
-        "name": "faq",
-        "access": "faq",
-        "url": "/faq"
-    },
-    {
-        "name": "poll",
-        "access": "poll",
-        "url": "/poll"
-    },
-    {
-        "name": "salary",
-        "access": "salary",
-        "url": "/salary"
-    },
-    {
-        "name": "setting",
-        "access": "setting",
-        "url": "/setting"
+        "name": "private",
+        "icon": "fa-user-o",
+        "children": [
+            {
+                "name": "signup",
+                "access": "signup",
+                "url": "/signup"
+            }
+        ]
     }
 ]

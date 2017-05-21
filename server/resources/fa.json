@@ -5,6 +5,10 @@
     "action_save": "ثبت",
     "action_delete": "حذف",
 
+    "services": "خدمات",
+    "administration": "مدیریت سامانه",
+    "private": "پروفایل",
+
     "account_account": "اطلاعات کاربری",
     "account_profile": "اطلاعات شخصی",
     "account_contact": "اطلاعات تماس",

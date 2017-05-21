@@ -38,6 +38,12 @@ constructor (
                         me.menuItems = menuItems.map(function(obj)
                         {
                             obj.name = me.res[obj.name];
+                            if (obj.children) {
+                                obj.children.map(function(obj) {
+                                    obj.name = me.res[obj.name];
+                                    return obj;
+                                });
+                            }
                             return obj;
                         })
                     ).catch(error => function(err) {
@@ -56,6 +62,11 @@ constructor (
     });
 
 }
+    getIconClass(icon) {
+        var arr = ['fa'];
+        arr.push(icon);
+        return arr;
+    }
 
     ngOnInit() { }
 }

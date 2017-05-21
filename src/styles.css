@@ -45,8 +45,6 @@
 }
 */
 
-
-
 body {
     font-family: Nazanin, Tahoma;
 }
@@ -59,9 +57,18 @@ body {
     font-family: Nazanin, Tahoma;
 }
 
-.ui-tabview-nav, .ui-column-title, .ui-button-text, .bootstrap-iso .navbar-nav li, .navbar-brand {
+.ui-tabview-nav,
+.ui-column-title,
+.ui-button-text,
+.bootstrap-iso .navbar-nav li,
+.bootstrap-iso .dropdown-menu>li>a,
+.navbar-brand {
     font-family: Yekan, Tahoma;
     font-weight: bold;
+}
+
+.bootstrap-iso .dropdown-menu li {
+    text-align: right;
 }
 
 .bootstrap-iso .navbar-brand {
@@ -97,4 +104,20 @@ body {
 
 .role-list .role-list-top {
     height: 450px;
+}
+
+.fa {
+    vertical-align: middle;
+}
+
+
+/*===========================
+ continer
+=============================*/
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-bottom: 9.5px;
+    margin: 60px 0 21px;
 }

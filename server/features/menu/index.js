@@ -9,15 +9,50 @@ var register = function (option) {
     router.get('/', function (req, res) {
         var list = [];
         if (req.decoded && req.decoded._doc) {
-            for (var i = 0; i < data.length; i++) {
-                var itemi = data[i];
-                if (req.decoded._doc.isAdmin) {
-                    list.push(itemi);
-                } else {
-                    for (var j = 0; j < req.decoded._doc.access.length; j++) {
-                        var itemj = req.decoded._doc.access[j];
-                        if (itemi.access == itemj) {
-                            list.push(itemi);
+            if (req.decoded._doc.isAdmin) {
+                list = data;
+            } else {
+                var _checkAccess = function (node) {
+                    var hasAccess = false;
+                    for (var k = 0; k < req.decoded._doc.access.length; k++) {
+                        var access = req.decoded._doc.access[j];
+                        if (access = node.access) {
+                            hasAccess = true;
+                            break;
+                        }
+                    }
+                    return hasAccess;
+                }
+                var list = [];
+                for (var i = 0; i < data.length; i++) {
+                    var menuItem = data[i];
+                    var item = {
+                        name: menuItem.name
+                    };
+                    if (menuItem.icon)
+                        item.icon = menuItem.icon;
+                    if (menuItem.children) {
+                        item.children = [];
+                        for (var j = 0; j < menuItem.children; j++) {
+                            var subMenuItem = menuItem.children[j];
+                            if (subMenuItem.access) {
+                                if (_checkAccess(subMenuItem)) {
+                                    item.children.push(subMenuItem);
+                                }
+                            } else {
+                                item.children.push(subMenuItem);
+                            }
+                        }
+                        if (item.children.length > 0) {
+                            list.push(item);
+                        }
+                    } else {
+                        if (menuItem.access) {
+                            if (_checkAccess(menuItem)) {
+                                list.push(menuItem);
+                            }
+                        } else {
+                            list.push(menuItem);
                         }
                     }
                 }
