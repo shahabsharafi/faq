@@ -72,13 +72,8 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onSearchProvince(event) {
-        var opt = {
-            $select: 'caption',
-            $filter: event.query ? ("startswith(caption,'" + event.query + "') and type eq 'province'") : "type eq 'province'",
-            $orderby: 'caption'
-        }
-        this.attributeService.getPagedList(opt).then(data => {
-            this.provinces = data.docs;
+        this.attributeService.getType('province').then(data => {
+            this.provinces = data;
         });
     }
 
@@ -89,7 +84,10 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
 
     onSearchCity(event) {
         if (this.item && this.item.contact && this.item.contact.province) {
-
+            this.attributeService.getChildren(this.item.contact.province._id).then(data => {
+                this.cities = data;
+            });
+            /*
             var q = "parentId eq '" + this.item.contact.province._id + "'";
             var opt = {
                 $select: 'caption',
@@ -99,7 +97,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
             this.attributeService.getPagedList(opt).then(data => {
                 this.cities = data.docs;
             });
-
+            */
         }
     }
 

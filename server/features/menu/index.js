@@ -29,8 +29,6 @@ var register = function (option) {
                     var item = {
                         name: menuItem.name
                     };
-                    if (menuItem.icon)
-                        item.icon = menuItem.icon;
                     if (menuItem.children) {
                         item.children = [];
                         for (var j = 0; j < menuItem.children; j++) {

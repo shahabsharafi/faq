@@ -1,7 +1,6 @@
 [
     {
         "name": "administration",
-        "icon": "fa-cogs",
         "children": [
             {
                 "name": "dashboard",
@@ -32,7 +31,6 @@
     },
     {
         "name": "services",
-        "icon": "fa-tablet",
         "children": [
             {
                 "name": "department",
@@ -68,7 +66,6 @@
     },
     {
         "name": "private",
-        "icon": "fa-user-o",
         "children": [
             {
                 "name": "signup",

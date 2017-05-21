@@ -62,11 +62,6 @@ constructor (
     });
 
 }
-    getIconClass(icon) {
-        var arr = ['fa'];
-        arr.push(icon);
-        return arr;
-    }
 
     ngOnInit() { }
 }

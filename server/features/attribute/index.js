@@ -25,6 +25,20 @@ var register = function (option) {
         })
     });
 
+    router.get('/type/:key', function (req, res) {
+        Attribute.find({ type: req.params.key }, function (err, obj) {
+            if (err) res.send(err);
+            res.json(obj);
+        });
+    });
+
+    router.get('/children/:key', function (req, res) {
+        Attribute.find({ parentId: req.params.key }, function (err, obj) {
+            if (err) res.send(err);
+            res.json(obj);
+        });
+    });
+
     router.post('/', function (req, res) {
         if (req.body._id) {
             repository.Update(req.body._id, req.body, function (err, obj) {
@@ -95,6 +109,36 @@ var register = function (option) {
             }
 
             _insertList(treeInfo);
+
+            _insertList([
+                new Attribute({ type: 'grade', caption: 'بدون تحصیلات' }),
+                new Attribute({ type: 'grade', caption: 'دیپلم' }),
+                new Attribute({ type: 'grade', caption: 'لیسانس' }),
+                new Attribute({ type: 'grade', caption: 'کارشناسی' }),
+                new Attribute({ type: 'grade', caption: 'کارشناسی ارشد' }),
+                new Attribute({ type: 'grade', caption: 'دکتری' })
+            ]);
+
+            _insertList([
+                new Attribute({ type: 'major', caption: 'مهندسی مکانیک' }),
+                new Attribute({ type: 'major', caption: 'مهندسی الکترونیک' }),
+                new Attribute({ type: 'major', caption: 'مهندسی کامپیوتر' }),
+                new Attribute({ type: 'major', caption: 'مهندسی صنایع' })
+            ]);
+
+            _insertList([
+                new Attribute({ type: 'university', caption: 'علم و صنعت' }),
+                new Attribute({ type: 'university', caption: 'تهران' }),
+                new Attribute({ type: 'university', caption: 'شهید بهشتی' })
+            ]);
+
+            _insertList([
+                new Attribute({ type: 'level', caption: 'سطح یک' }),
+                new Attribute({ type: 'level', caption: 'سطح دو' }),
+                new Attribute({ type: 'level', caption: 'سطح سه' }),
+                new Attribute({ type: 'level', caption: 'سطح چهار' })
+            ]);
+
             /*
             var city1_1 = new Attribute({ type: 'city', caption: 'تهران' });
             var city1_2 = new Attribute({ type: 'city', caption: 'ورامین' });

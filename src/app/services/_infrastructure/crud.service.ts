@@ -11,7 +11,7 @@ export class CrudService<T> {
     constructor(
         protected authenticationService: AuthenticationService,
         protected http: Http,
-        private baseUrl)
+        protected baseUrl)
     {
 
     }

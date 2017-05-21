@@ -45,16 +45,17 @@
 }
 */
 
-body {
-    font-family: Nazanin, Tahoma;
-}
-
-.ui-widget {
-    font-family: Nazanin, Tahoma;
+body, .ui-widget, .ui-widget input {
+    font-family: Tahoma;
+    font-size: 14px;
 }
 
 .bootstrap-iso {
     font-family: Nazanin, Tahoma;
+}
+
+.ui-widget-header {
+    border: 0px;
 }
 
 .ui-tabview-nav,
@@ -120,4 +121,24 @@ body {
     margin-left: auto;
     padding-bottom: 9.5px;
     margin: 60px 0 21px;
+}
+
+/*==========================
+grid
+============================*/
+
+.fa-step-forward:before {
+    content: "\F048";
+}
+
+.fa-forward:before {
+    content: "\F04A";
+}
+
+.fa-backward:before {
+    content: "\F04E";
+}
+
+.fa-step-backward:before {
+    content: "\F051";
 }

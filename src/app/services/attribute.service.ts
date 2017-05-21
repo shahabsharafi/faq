@@ -13,6 +13,22 @@ export class AttributeService extends CrudService<Attribute> {
         super(authenticationService, http, '/api/attributes');
     }
 
+    getType(typeName): Promise<Attribute[]> {
+        var options = this.getOption(null);
+        return this.http.get(this.baseUrl + '/type/' + typeName, options)
+                .toPromise()
+                .then(res => <Attribute[]> res.json())
+                .then(data => { return data; });
+    }
+
+    getChildren(parentId): Promise<Attribute[]> {
+        var options = this.getOption(null);
+        return this.http.get(this.baseUrl + '/children/' + parentId, options)
+                .toPromise()
+                .then(res => <Attribute[]> res.json())
+                .then(data => { return data; });
+    }
+
     copy(src): Attribute {
         var dst = <Attribute>{};
         Object.assign(dst, src);
