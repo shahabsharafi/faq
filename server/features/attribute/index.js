@@ -25,20 +25,6 @@ var register = function (option) {
         })
     });
 
-    router.get('/type/:key', function (req, res) {
-        Attribute.find({ type: req.params.key }, function (err, obj) {
-            if (err) res.send(err);
-            res.json(obj);
-        });
-    });
-
-    router.get('/children/:key', function (req, res) {
-        Attribute.find({ parentId: req.params.key }, function (err, obj) {
-            if (err) res.send(err);
-            res.json(obj);
-        });
-    });
-
     router.post('/', function (req, res) {
         if (req.body._id) {
             repository.Update(req.body._id, req.body, function (err, obj) {
@@ -64,97 +50,140 @@ var register = function (option) {
     });
 
     router.get('/setup', function (req, res) {
-        Attribute.remove({}, function (err) {
+
+        var _partOne = function (callback) {
+            Attribute.remove({}, callback);
+        }
+
+        var _partTwo = function (callback) {
             var treeInfo = [
                 {
-                    content:  new Attribute({ type: 'province', caption: 'تهران' }),
+                    content: new Attribute({
+                        type: 'province',
+                        caption: 'تهران'
+                    }),
                     children: [
-                        { content: new Attribute({ type: 'city', caption: 'تهران' }) },
-                        { content: new Attribute({ type: 'city', caption: 'ورامین' }) }
+                        {
+                            content: new Attribute({
+                                type: 'city',
+                                caption: 'تهران'
+                            })
+                        },
+                        {
+                            content: new Attribute({
+                                type: 'city',
+                                caption: 'ورامین'
+                            })
+                        }
                     ]
                 },
                 {
-                    content:  new Attribute({ type: 'province', caption: 'مازندران' }),
+                    content: new Attribute({
+                        type: 'province',
+                        caption: 'مازندران'
+                    }),
                     children: [
-                        { content: new Attribute({ type: 'city', caption: 'ساری' }) },
-                        { content: new Attribute({ type: 'city', caption: 'قائم شهر' }) }
+                        {
+                            content: new Attribute({
+                                type: 'city',
+                                caption: 'ساری'
+                            })
+                        },
+                        {
+                            content: new Attribute({
+                                type: 'city',
+                                caption: 'قائم شهر'
+                            })
+                        }
                     ]
                 }
             ]
 
-            var _insertObject = function (obj, callback) {
-                obj.content.save(function (err, doc) {
-                    if (err) throw err;
-                    if (obj.children) {
-                        _insertList(obj.children, doc._id, callback);
-                    } else {
-                        if (callback)
-                            callback();
-                    }
-                });
-            }
+            utility.insertTree(treeInfo, callback);
+        }
 
-            var _insertList = function (list, parentId, callback) {
-                if (list.length == 0) {
-                    if (callback)
-                        callback();
-                } else {
-                    var item = list.pop();
-                    console.log(list.length);
-                    if (parentId) item.content.parentId = parentId;
-                    _insertObject(item, function () {
-                        _insertList(list, parentId, callback)
-                    });
-                }
-            }
+        var _partThree = function (callback) {
+            utility.insertList([
+                //grade
+                new Attribute({
+                    type: 'grade',
+                    caption: 'بدون تحصیلات'
+                }),
+                new Attribute({
+                    type: 'grade',
+                    caption: 'دیپلم'
+                }),
+                new Attribute({
+                    type: 'grade',
+                    caption: 'لیسانس'
+                }),
+                new Attribute({
+                    type: 'grade',
+                    caption: 'کارشناسی'
+                }),
+                new Attribute({
+                    type: 'grade',
+                    caption: 'کارشناسی ارشد'
+                }),
+                new Attribute({
+                    type: 'grade',
+                    caption: 'دکتری'
+                }),
+                //major
+                new Attribute({
+                    type: 'major',
+                    caption: 'مهندسی مکانیک'
+                }),
+                new Attribute({
+                    type: 'major',
+                    caption: 'مهندسی الکترونیک'
+                }),
+                new Attribute({
+                    type: 'major',
+                    caption: 'مهندسی کامپیوتر'
+                }),
+                new Attribute({
+                    type: 'major',
+                    caption: 'مهندسی صنایع'
+                }),
+                //university
+                new Attribute({
+                    type: 'university',
+                    caption: 'علم و صنعت'
+                }),
+                new Attribute({
+                    type: 'university',
+                    caption: 'تهران'
+                }),
+                new Attribute({
+                    type: 'university',
+                    caption: 'شهید بهشتی'
+                }),
+                //level
+                new Attribute({
+                    type: 'level',
+                    caption: 'سطح یک'
+                }),
+                new Attribute({
+                    type: 'level',
+                    caption: 'سطح دو'
+                }),
+                new Attribute({
+                    type: 'level',
+                    caption: 'سطح سه'
+                }),
+                new Attribute({
+                    type: 'level',
+                    caption: 'سطح چهار'
+                })
+            ], callback);
+        }
 
-            _insertList(treeInfo);
-
-            _insertList([
-                new Attribute({ type: 'grade', caption: 'بدون تحصیلات' }),
-                new Attribute({ type: 'grade', caption: 'دیپلم' }),
-                new Attribute({ type: 'grade', caption: 'لیسانس' }),
-                new Attribute({ type: 'grade', caption: 'کارشناسی' }),
-                new Attribute({ type: 'grade', caption: 'کارشناسی ارشد' }),
-                new Attribute({ type: 'grade', caption: 'دکتری' })
-            ]);
-
-            _insertList([
-                new Attribute({ type: 'major', caption: 'مهندسی مکانیک' }),
-                new Attribute({ type: 'major', caption: 'مهندسی الکترونیک' }),
-                new Attribute({ type: 'major', caption: 'مهندسی کامپیوتر' }),
-                new Attribute({ type: 'major', caption: 'مهندسی صنایع' })
-            ]);
-
-            _insertList([
-                new Attribute({ type: 'university', caption: 'علم و صنعت' }),
-                new Attribute({ type: 'university', caption: 'تهران' }),
-                new Attribute({ type: 'university', caption: 'شهید بهشتی' })
-            ]);
-
-            _insertList([
-                new Attribute({ type: 'level', caption: 'سطح یک' }),
-                new Attribute({ type: 'level', caption: 'سطح دو' }),
-                new Attribute({ type: 'level', caption: 'سطح سه' }),
-                new Attribute({ type: 'level', caption: 'سطح چهار' })
-            ]);
-
-            /*
-            var city1_1 = new Attribute({ type: 'city', caption: 'تهران' });
-            var city1_2 = new Attribute({ type: 'city', caption: 'ورامین' });
-            var province1 = new Attribute({ type: 'province', caption: 'تهران', children: [city1_1, city1_2] });
-
-            var city2_1 = new Attribute({ type: 'city', caption: 'ساری' });
-            var city2_2 = new Attribute({ type: 'city', caption: 'قائم شهر' });
-            var province2 = new Attribute({ type: 'province', caption: 'مازندران', children: [city2_1, city2_2] });
-
-            province1.save(function (err) {
-                if (err) res.send(err);
-                province2.save(function (err) {
-                    if (err) res.send(err);
-                });
+        utility.taskRunner([_partOne, _partTwo, _partThree], function (err) {
+            if (err) res.send(err);
+            res.json({
+                success: true
             });
-            */
         });
     });
 

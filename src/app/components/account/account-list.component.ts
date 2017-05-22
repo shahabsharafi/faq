@@ -16,6 +16,10 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     scrollWidth: String;
     provinces: Attribute[];
     cities: Attribute[];
+    grades: Attribute[];
+    majors: Attribute[];
+    universities: Attribute[];
+    levels: Attribute[];
     
     constructor(
         private accountService: AccountService,
@@ -72,7 +76,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onSearchProvince(event) {
-        this.attributeService.getType('province').then(data => {
+        this.attributeService.getByType('province', event.query).then(data => {
             this.provinces = data;
         });
     }
@@ -84,25 +88,38 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
 
     onSearchCity(event) {
         if (this.item && this.item.contact && this.item.contact.province) {
-            this.attributeService.getChildren(this.item.contact.province._id).then(data => {
+            this.attributeService.getByParentId(this.item.contact.province._id, event.query).then(data => {
                 this.cities = data;
             });
-            /*
-            var q = "parentId eq '" + this.item.contact.province._id + "'";
-            var opt = {
-                $select: 'caption',
-                $filter: event.query ? ("startswith(caption,'" + event.query + "') and " + q) : q,
-                $orderby: 'caption'
-            }
-            this.attributeService.getPagedList(opt).then(data => {
-                this.cities = data.docs;
-            });
-            */
         }
     }
 
+    onSearchGrade(event) {
+        this.attributeService.getByType('grade', event.query).then(data => {
+            this.grades = data;
+        });
+    }
+
+    onSearchMajor(event) {
+        this.attributeService.getByType('major', event.query).then(data => {
+            this.majors = data;
+        });
+    }
+
+    onSearchUniversity(event) {
+        this.attributeService.getByType('university', event.query).then(data => {
+            this.universities = data;
+        });
+    }
+
+    onSearchLevel(event) {
+        this.attributeService.getByType('level', event.query).then(data => {
+            this.levels = data;
+        });
+    }
+
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'contact_province,contact_city' });
+        this.selectOne(event.data._id, { expand: 'contact_province,contact_city,education_grade,education_major,education_university,education_level' });
     }
 
     onSave() {

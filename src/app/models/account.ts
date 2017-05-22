@@ -15,16 +15,16 @@ export interface Contact {
     house: String;
     work: String;
     email: String;
-    province: { _id: String, caption: String },
-    city: { _id: String, caption: String },
+    province: { _id: String, caption: String };
+    city: { _id: String, caption: String };
     address: String;
     pcode: String
 }
 export interface Education {
-    grade: String;
-    major: String;
-    university: String;
-    level: String
+    grade: { _id: String, caption: String };
+    major: { _id: String, caption: String };
+    university: { _id: String, caption: String };
+    level: { _id: String, caption: String };
 }
 export interface Extra {
     language: String;

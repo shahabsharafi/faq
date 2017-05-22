@@ -29,6 +29,12 @@ var register = function (option) {
         if (req.body._id) {
             req.body.contact.province = req.body.contact.province._id;
             req.body.contact.city = req.body.contact.city._id;
+
+            req.body.education.grade = req.body.education.grade._id;
+            req.body.education.major = req.body.education.major._id;
+            req.body.education.university = req.body.education.university._id;
+            req.body.education.level = req.body.education.level._id;
+
             repository.Update(req.body._id, req.body, function (err, obj) {
                 if (err) throw err;
                 res.json(obj);
@@ -51,61 +57,147 @@ var register = function (option) {
     });
 
     router.get('/setup', function (req, res) {
-        Attribute.findOne({ caption: 'تهران', type: 'province' }, function (err, province) {
-            Attribute.findOne({ caption: 'تهران', type: 'city' }, function (err, city) {
-                var obj = new Account({
-                    username: 'admin',
-                    password: '123456',
-                    access: ['dashboard', 'discont'],
-                    email: 'shahab.sharafi@gmail.com',
-                    sms: '09124301687',
-                    isAdmin: true,
-                    activation: {
-                        state: false,
-                        code: '1234'
-                    },
-                    profile: {
-                        firstName: 'شهاب',
-                        lastName: 'شرفی',
-                        fatherName: 'Azim',
-                        birthDay: '1980.4.18',
-                        no: '16',
-                        placeOfIssues: 'Sary',
-                        nationalCode: '1234567890',
-                        birthPlace: 'Sary',
-                        status: 1
-                    },
-                    contact: {
-                        mobile: '09124301687',
-                        house: '01244876598',
-                        work: '02188765432',
-                        email: 'shahab.sharafi@gmail.com',
-                        province: province._id,
-                        city: city._id,
-                        address: 'ستاری - پیامبر',
-                        pcode: '874367466'
-                    },
-                    education: {
-                        type: 1,
-                        grade: 'مهندسی',
-                        major: 'صنایع',
-                        university: 'علم و صنعت',
-                        level: ''
-                    },
-                    extra: {
-                        language: 'فارسی',
-                        dialect: 'آذری'
-                    }
-                });
-                repository.Setup(obj, function (err) {
-                    if (err) res.send(err);
-                    res.json({
-                        success: true
-                    });
-                });
-            })
-        })
 
+        var attrs = {};
+
+        var _part1 = function (callback) {
+            Attribute.findOne({
+                caption: 'تهران',
+                type: 'province'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.province = obj;
+                    callback()
+                }
+            });
+        }
+
+        var _part2 = function (callback) {
+            Attribute.findOne({
+                caption: 'تهران',
+                type: 'city'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.city = obj;
+                    callback()
+                }
+            });
+        }
+
+        var _part3 = function (callback) {
+            Attribute.findOne({
+                caption: 'لیسانس',
+                type: 'grade'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.grade = obj;
+                    callback()
+                }
+            });
+        }
+
+        var _part4 = function (callback) {
+            Attribute.findOne({
+                caption: 'مهندسی کامپیوتر',
+                type: 'major'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.major = obj;
+                    callback()
+                }
+            });
+        }
+
+        var _part5 = function (callback) {
+            Attribute.findOne({
+                caption: 'تهران',
+                type: 'university'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.university = obj;
+                    callback()
+                }
+            });
+        }
+
+        var _part6 = function (callback) {
+            Attribute.findOne({
+                caption: 'سطح یک',
+                type: 'level'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.level = obj;
+                    callback()
+                }
+            });
+        }
+
+        var _part7 = function (callback) {
+            var obj = new Account({
+                username: 'admin',
+                password: '123456',
+                access: ['dashboard', 'discont'],
+                email: 'shahab.sharafi@gmail.com',
+                sms: '09124301687',
+                isAdmin: true,
+                activation: {
+                    state: false,
+                    code: '1234'
+                },
+                profile: {
+                    firstName: 'شهاب',
+                    lastName: 'شرفی',
+                    fatherName: 'Azim',
+                    birthDay: '1980.4.18',
+                    no: '16',
+                    placeOfIssues: 'Sary',
+                    nationalCode: '1234567890',
+                    birthPlace: 'Sary',
+                    status: 1
+                },
+                contact: {
+                    mobile: '09124301687',
+                    house: '01244876598',
+                    work: '02188765432',
+                    email: 'shahab.sharafi@gmail.com',
+                    province: attrs.province._id,
+                    city: attrs.city._id,
+                    address: 'ستاری - پیامبر',
+                    pcode: '874367466'
+                },
+                education: {
+                    type: 1,
+                    grade: attrs.grade._id,
+                    major: attrs.major._id,
+                    university: attrs.university._id,
+                    level: attrs.level._id
+                },
+                extra: {
+                    language: 'فارسی',
+                    dialect: 'آذری'
+                }
+            });
+            repository.Setup(obj, callback);
+        }
+
+        utility.taskRunner([_part1, _part2, _part3, _part4, _part5, _part6, _part7], function (err) {
+            if (err) res.send(err);
+            res.json({
+                success: true
+            });
+        });
     });
 
     router.post('/authenticate', function (req, res) {

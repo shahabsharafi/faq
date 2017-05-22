@@ -29,16 +29,34 @@ var schema = new mongoose.Schema({
         house: String,
         work: String,
         email: String,
-        province: { type: String, ref: 'Attribute' },
-        city: { type: String, ref: 'Attribute' },
+        province: {
+            type: String,
+            ref: 'Attribute'
+        },
+        city: {
+            type: String,
+            ref: 'Attribute'
+        },
         address: String,
         pcode: String
     },
     education: {
-        grade: String,
-        major: String,
-        university: String,
-        level: String
+        grade: {
+            type: String,
+            ref: 'Attribute'
+        },
+        major: {
+            type: String,
+            ref: 'Attribute'
+        },
+        university: {
+            type: String,
+            ref: 'Attribute'
+        },
+        level: {
+            type: String,
+            ref: 'Attribute'
+        }
     },
     extra: {
         language: String,
@@ -50,4 +68,3 @@ schema.plugin(mongoosePaginate);
 
 // set up a mongoose model and pass it using module.exports
 module.exports = mongoose.model('Account', schema);
-

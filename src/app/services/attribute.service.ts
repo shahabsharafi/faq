@@ -13,20 +13,24 @@ export class AttributeService extends CrudService<Attribute> {
         super(authenticationService, http, '/api/attributes');
     }
 
-    getType(typeName): Promise<Attribute[]> {
-        var options = this.getOption(null);
-        return this.http.get(this.baseUrl + '/type/' + typeName, options)
-                .toPromise()
-                .then(res => <Attribute[]> res.json())
-                .then(data => { return data; });
+getByType(type: String, query: String): Promise<Attribute[]> {
+        var q = "type eq '" + type + "'";
+        var opt = {
+            $select: 'caption',
+            $filter: query ? ("startswith(caption,'" + query + "') and " + q) : q,
+            $orderby: 'caption'
+        }
+        return this.getPagedList(opt).then(data => { return <Attribute[]> data.docs });
     }
 
-    getChildren(parentId): Promise<Attribute[]> {
-        var options = this.getOption(null);
-        return this.http.get(this.baseUrl + '/children/' + parentId, options)
-                .toPromise()
-                .then(res => <Attribute[]> res.json())
-                .then(data => { return data; });
+getByParentId(parentId: String, query: String): Promise<Attribute[]> {
+        var q = "parentId eq '" + parentId + "'";
+        var opt = {
+            $select: 'caption',
+            $filter: query ? ("startswith(caption,'" + query + "') and " + q) : q,
+            $orderby: 'caption'
+        }
+        return this.getPagedList(opt).then(data => { return <Attribute[]> data.docs });
     }
 
     copy(src): Attribute {

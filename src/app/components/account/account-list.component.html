@@ -101,19 +101,19 @@
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_grade}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.education.grade" />
+                            <p-autoComplete [(ngModel)]="item.education.grade" [suggestions]="grades" (completeMethod)="onSearchGrade($event)" field="caption"></p-autoComplete>
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_major}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.education.major" />
+                            <p-autoComplete [(ngModel)]="item.education.major" [suggestions]="majors" (completeMethod)="onSearchMajor($event)" field="caption"></p-autoComplete>
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_university}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.education.university" />
+                            <p-autoComplete [(ngModel)]="item.education.university" [suggestions]="universities" (completeMethod)="onSearchUniversity($event)" field="caption"></p-autoComplete>
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_level}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.education.level" />
+                            <p-autoComplete [(ngModel)]="item.education.level" [suggestions]="levels" (completeMethod)="onSearchLevel($event)" field="caption"></p-autoComplete>
                         </div>
                     </div>
                 </p-tabPanel>
