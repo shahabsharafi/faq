@@ -1,6 +1,10 @@
 {
     "website_name": "پرسانه",
 
+    "fileupload_chooseLabel": "انتخات",
+    "fileupload_uploadLabel": "بارگذاری",
+    "fileupload_cancelLabel": "انصراف",
+
     "action_new": "ایجاد",
     "action_save": "ثبت",
     "action_delete": "حذف",

@@ -59,8 +59,14 @@ var schema = new mongoose.Schema({
         }
     },
     extra: {
-        language: String,
-        dialect: String
+        language: {
+            type: String,
+            ref: 'Attribute'
+        },
+        dialect: {
+            type: String,
+            ref: 'Attribute'
+        }
     }
 });
 

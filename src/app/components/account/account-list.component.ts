@@ -20,6 +20,8 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     majors: Attribute[];
     universities: Attribute[];
     levels: Attribute[];
+    languages: Attribute[];
+    dialects: Attribute[];
     
     constructor(
         private accountService: AccountService,
@@ -118,8 +120,20 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         });
     }
 
+    onSearchLanguage(event) {
+        this.attributeService.getByType('language', event.query).then(data => {
+            this.languages = data;
+        });
+    }
+
+    onSearchDialect(event) {
+        this.attributeService.getByType('dialect', event.query).then(data => {
+            this.dialects = data;
+        });
+    }
+
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'contact_province,contact_city,education_grade,education_major,education_university,education_level' });
+        this.selectOne(event.data._id, { expand: 'contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect' });
     }
 
     onSave() {

@@ -175,6 +175,48 @@ var register = function (option) {
                 new Attribute({
                     type: 'level',
                     caption: 'سطح چهار'
+                }),
+                //language
+                new Attribute({
+                    type: 'language',
+                    caption: 'فارسی'
+                }),
+                new Attribute({
+                    type: 'language',
+                    caption: 'عربی'
+                }),
+                new Attribute({
+                    type: 'language',
+                    caption: 'انگلیسی'
+                }),
+                new Attribute({
+                    type: 'language',
+                    caption: 'آلمانی'
+                }),
+                new Attribute({
+                    type: 'language',
+                    caption: 'فرانسه'
+                }),
+                new Attribute({
+                    type: 'language',
+                    caption: 'ترکی'
+                }),
+                //dialect
+                new Attribute({
+                    type: 'dialect',
+                    caption: 'مازندرانی'
+                }),
+                new Attribute({
+                    type: 'dialect',
+                    caption: 'گیلکی'
+                }),
+                new Attribute({
+                    type: 'dialect',
+                    caption: 'کردی'
+                }),
+                new Attribute({
+                    type: 'dialect',
+                    caption: 'لری'
                 })
             ], callback);
         }

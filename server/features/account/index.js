@@ -35,6 +35,9 @@ var register = function (option) {
             req.body.education.university = req.body.education.university._id;
             req.body.education.level = req.body.education.level._id;
 
+            req.body.extra.language = req.body.extra.language._id;
+            req.body.extra.dialect = req.body.extra.dialect._id;
+
             repository.Update(req.body._id, req.body, function (err, obj) {
                 if (err) throw err;
                 res.json(obj);
@@ -145,6 +148,35 @@ var register = function (option) {
         }
 
         var _part7 = function (callback) {
+            Attribute.findOne({
+                caption: 'فارسی',
+                type: 'language'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.language = obj;
+                    callback()
+                }
+            });
+        }
+
+        var _part8 = function (callback) {
+            Attribute.findOne({
+                caption: 'لری',
+                type: 'dialect'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.dialect = obj;
+                    callback()
+                }
+            });
+        }
+
+
+        var _part9 = function (callback) {
             var obj = new Account({
                 username: 'admin',
                 password: '123456',
@@ -185,14 +217,14 @@ var register = function (option) {
                     level: attrs.level._id
                 },
                 extra: {
-                    language: 'فارسی',
-                    dialect: 'آذری'
+                    language: attrs.language._id,
+                    dialect: attrs.dialect._id,
                 }
             });
             repository.Setup(obj, callback);
         }
 
-        utility.taskRunner([_part1, _part2, _part3, _part4, _part5, _part6, _part7], function (err) {
+        utility.taskRunner([_part1, _part2, _part3, _part4, _part5, _part6, _part7, _part8, _part9], function (err) {
             if (err) res.send(err);
             res.json({
                 success: true
