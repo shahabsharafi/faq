@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { SigninComponent, SignupComponent, WelcomeComponent, AccountListComponent, RoleListComponent } from './components/index';
+import { SigninComponent, SignupComponent, WelcomeComponent, AccountListComponent, RoleListComponent, DiscountListComponent } from './components/index';
 import { AuthGuard } from './services/index';
 
 const appRoutes: Routes = [
@@ -9,7 +9,7 @@ const appRoutes: Routes = [
     { path: '', component: WelcomeComponent },
     { path: 'account-list', component: AccountListComponent, canActivate: [AuthGuard] },
     { path: 'role-list', component: RoleListComponent, canActivate: [AuthGuard] },
-
+    { path: 'discount-list', component: DiscountListComponent, canActivate: [AuthGuard] },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

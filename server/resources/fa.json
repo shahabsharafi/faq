@@ -51,6 +51,15 @@
 
     "role_name": "نقش",
 
+    "discount_owner": "اهدا کننده",
+    "discount_category": "بخش",
+    "discount_price": "فی",
+    "discount_count": "تعداد",
+    "discount_cover": "درصد پوشش",
+    "discount_state": "وضعیت",
+    "discount_beginDate": "تاریخ فعال شدن",
+    "discount_expireDate": "تاریخ انقضا",
+
     "dashboard": "داشبورد",
     "dashboard_view": "نمایش",
     "account": "کاربران",
@@ -65,9 +74,9 @@
     "department": "دپارتمان",
     "department_view": "نمایش",
     "department_modify": "تغییر",
-    "discont": "بن",
-    "discont_view": "نمایش",
-    "discont_modify": "تغییر",
+    "discount": "بن",
+    "discount_view": "نمایش",
+    "discount_modify": "تغییر",
     "donate": "دیوار مهربانی",
     "donate_view": "نمایش",
     "donate_modify": "تغییر",

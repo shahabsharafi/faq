@@ -47,13 +47,13 @@
         ]
     },
     {
-        "name": "discont",
+        "name": "discount",
         "children": [
             {
-                "name": "discont_view"
+                "name": "discount_view"
             },
             {
-                "name": "discont_modify"
+                "name": "discount_modify"
             }
         ]
     },

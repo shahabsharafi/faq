@@ -4,4 +4,5 @@ export * from './signin/index';
 export * from './signup/index';
 export * from './account/index';
 export * from './role/index';
+export * from './discount/index';
 export * from './welcome/index';

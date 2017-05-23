@@ -7,9 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule } from 'primeng/primeng';
 import * as $ from 'jquery';
 
-import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, SigninComponent, SignupComponent, TreeComponent } from './components/index';
+import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, DiscountListComponent, SigninComponent, SignupComponent, TreeComponent } from './components/index';
 import { Routing } from './app.routing';
-import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, DepartmentService, AttributeService, MenuService, ResourceService, Logger } from './services/index';
+import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, DepartmentService, DiscountService, AttributeService, MenuService, ResourceService, Logger } from './services/index';
 
 import { enableProdMode } from '@angular/core';
 enableProdMode();
@@ -37,6 +37,7 @@ enableProdMode();
         WelcomeComponent,
         AccountListComponent,
         RoleListComponent,
+        DiscountListComponent,
         SigninComponent,
         SignupComponent,
         TreeComponent
@@ -50,6 +51,7 @@ enableProdMode();
         RoleService,
         AccessService,
         DepartmentService,
+        DiscountService,
         AttributeService,
         MenuService
     ],

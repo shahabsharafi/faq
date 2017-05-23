@@ -38,9 +38,9 @@
                 "url": "/department"
             },
             {
-                "name": "discont",
-                "access": "discont",
-                "url": "/discont"
+                "name": "discount",
+                "access": "discount_view",
+                "url": "/discount-list"
             },
             {
                 "name": "donate",
