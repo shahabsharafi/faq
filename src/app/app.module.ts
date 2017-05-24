@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule } from 'primeng/primeng';
 import * as $ from 'jquery';
 
-import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, DiscountListComponent, SigninComponent, SignupComponent, TreeComponent, DatepickerComponent } from './components/index';
+import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, DiscountListComponent, SigninComponent, SignupComponent, TreeComponent, DatepickerComponent, CarouselComponent } from './components/index';
 import { Routing } from './app.routing';
 import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, DepartmentService, DiscountService, AttributeService, MenuService, ResourceService, Logger } from './services/index';
 
@@ -41,7 +41,8 @@ enableProdMode();
         SigninComponent,
         SignupComponent,
         TreeComponent,
-        DatepickerComponent
+        DatepickerComponent,
+        CarouselComponent
     ],
     providers: [
         AuthGuard,

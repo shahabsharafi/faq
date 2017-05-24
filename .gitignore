@@ -5,3 +5,4 @@
 .angular-cli.json
 .editorconfig.json
 /.vs/
+/server/resources/carousel

@@ -6,15 +6,6 @@ import {Component} from "@angular/core";
 })
 export class WelcomeComponent {
 
-
-
-    ngAfterViewInit() {
-        var me = this;
-        $(document).ready(function () {
-            var myCarousel: any = $("#myCarousel");
-            myCarousel.carousel();
-        });
-    }
 }
 
 

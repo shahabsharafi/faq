@@ -1,12 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\server",
+    "\\server\\resources",
+    "\\server\\resources\\carousel",
+    "\\server\\web",
+    "\\server\\web\\middleware",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\welcome",
-    "\\src\\app\\components\\_infrastructure"
+    "\\src\\app\\models\\_infrastructure"
   ],
-  "SelectedNode": "\\src\\app\\components\\welcome\\welcome.component.ts",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }
