@@ -1,15 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\node_modules\\jquery\\dist",
+    "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\_infrastructure",
-    "\\src\\app\\models\\_infrastructure",
-    "\\src\\app\\_infrastructure",
-    "\\src\\lib",
-    "\\src\\lib\\JalaliJSCalendar",
-    "\\src\\lib\\JalaliJSCalendar\\examples"
+    "\\src\\app\\components\\welcome",
+    "\\src\\app\\components\\_infrastructure"
   ],
+  "SelectedNode": "\\src\\app\\components\\welcome\\welcome.component.ts",
   "PreviewInSolutionExplorer": false
 }

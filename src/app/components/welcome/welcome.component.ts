@@ -4,4 +4,17 @@ import {Component} from "@angular/core";
     selector:'welcome',
     templateUrl: './welcome.component.html'
 })
-export class WelcomeComponent{}
+export class WelcomeComponent {
+
+
+
+    ngAfterViewInit() {
+        var me = this;
+        $(document).ready(function () {
+            var myCarousel: any = $("#myCarousel");
+            myCarousel.carousel();
+        });
+    }
+}
+
+
