@@ -2,7 +2,7 @@ export interface Profile {
     firstName: String;
     lastName: String;
     fatherName: String;
-    birthDay: Date;
+    birthDay: String;
     no: String;
     placeOfIssues: String;
     nationalCode: String;

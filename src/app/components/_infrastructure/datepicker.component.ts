@@ -5,7 +5,18 @@ declare var Calendar: any;
 
 @Component({
     selector: 'c-datepicker',
-    template: '<input pInputText [id]="_id" [(value)]="_value" type="text" /> <span [id]="_btnId" class="fa fa-calendar"></span>'
+    template: '<div class="datepicker"><input pInputText [id]="_id" [(value)]="value" type="text" (change)="onChange($event)" /> <span [id]="_btnId" class="fa fa-calendar"></span></div>',
+    styles: [`
+            .datepicker {
+                position: relative;
+            }
+
+            .datepicker span {
+                position: absolute;
+                left: 5px;
+                top: 5px;
+            }
+      `]
 })
 export class DatepickerComponent {
     _value: String;
@@ -32,6 +43,10 @@ export class DatepickerComponent {
         this.valueChange.emit(this._value);
     }
 
+    onChange(e) {
+        this.value = e.target.value;
+    }
+
     ngAfterViewInit() {
         var me = this;
         $(document).ready(function () {
@@ -40,7 +55,11 @@ export class DatepickerComponent {
                 button: me._btnId,   // trigger for the calendar (button ID)
                 ifFormat: "%Y-%m-%d",       // format of the input field
                 dateType: "jalali",
-                weekNumbers: false
+                weekNumbers: false,
+                onUpdate: function (cal) {
+                    var d = cal.date.print(cal.dateFormat, cal.dateType, cal.langNumbers);
+                    me.value = d;
+                }
             });
         });
     }

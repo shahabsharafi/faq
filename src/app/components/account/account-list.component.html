@@ -49,7 +49,7 @@
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_birthDay}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.birthDay" />
+                            <c-datepicker [(value)]="item.profile.birthDay"></c-datepicker>
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_no}}</span>

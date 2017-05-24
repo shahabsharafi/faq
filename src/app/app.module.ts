@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule } from 'primeng/primeng';
+import {MomentModule} from 'angular2-moment';
 import * as $ from 'jquery';
 
 import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, DiscountListComponent, SigninComponent, SignupComponent, TreeComponent, DatepickerComponent, CarouselComponent } from './components/index';
@@ -30,7 +31,8 @@ enableProdMode();
         FileUploadModule,
         ButtonModule,
         TreeModule,
-        TabViewModule
+        TabViewModule,
+        MomentModule
     ],
     declarations: [
         AppComponent,

@@ -64,6 +64,10 @@ export class CrudService<T> {
                 .then(data => { return data; });
     }
 
+    beforSave(obj: T): void {
+
+    }
+
     copy(src): T {
         return null;
     }
