@@ -1,14 +1,16 @@
 <div class="account-list">
     <div class="ui-g account-list-top ui-fluid">
-        <div class="ui-g-3" *ngFor="let item of list">
-            <div *ngIf="!item.editing">
-                <div>{{item.caption}}</div>
-                <div class="ui-g">
-                    <div *ngFor="let tag of item.tags">{{tag}}</div>
-                </div>
-            </div>
-            <div *ngIf="item.editing">
-            </div>
+        <div class="ui-g-12">
+            <p-dataGrid [value]="list">
+                <ng-template let-listItem pTemplate="listItem">
+                    <div style="padding:3px" class="ui-g-12 ui-md-3">
+                        <p-panel [header]="listItem.caption" [style]="{'text-align':'center','font-family':'Yekan','font-size':'18px','font-weight':'bold'}">
+                            <div style="font-family: Yekan; font-size: 18px;">{{listItem.caption}}</div>
+                            <i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"></i>
+                        </p-panel>
+                    </div>
+                </ng-template>
+            </p-dataGrid>
         </div>
     </div>
     <div class="ui-g account-list-bottom">
