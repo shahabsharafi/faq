@@ -1,5 +1,7 @@
 export interface Department {
     _id;
-    structureId: String;
-    lang: { _id: String, caption: String };
+    type: String,
+    caption: String,
+    parentId: String,
+    language: { _id: String, caption: String },
 }

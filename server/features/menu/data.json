@@ -34,8 +34,8 @@
         "children": [
             {
                 "name": "department",
-                "access": "department",
-                "url": "/department"
+                "access": "department_tree",
+                "url": "/department-tree"
             },
             {
                 "name": "discount",

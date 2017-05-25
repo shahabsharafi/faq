@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
 var schema = new mongoose.Schema({
-    structureId: String,
-    lang: { type: String, ref: 'Attribute' },
+    type: String,
+    caption: String,
+    parentId: String,
+    language: { type: String, ref: 'Attribute' },
 });
 
 schema.plugin(mongoosePaginate);

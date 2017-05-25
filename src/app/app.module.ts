@@ -4,11 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, DropdownModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, DropdownModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule, CarouselModule } from 'primeng/primeng';
 import {MomentModule} from 'angular2-moment';
 import * as $ from 'jquery';
 
-import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, DiscountListComponent, SigninComponent, SignupComponent, TreeComponent, DatepickerComponent, CarouselComponent } from './components/index';
+import { AppComponent, WelcomeComponent, AccountListComponent, RoleListComponent, DiscountListComponent, DepartmentTreeComponent, SigninComponent, SignupComponent, TreeComponent, DatepickerComponent } from './components/index';
 import { Routing } from './app.routing';
 import { AuthGuard, AuthenticationService, AccountService, RoleService, AccessService, DepartmentService, DiscountService, AttributeService, MenuService, ResourceService, Logger } from './services/index';
 
@@ -33,7 +33,8 @@ enableProdMode();
         ButtonModule,
         TreeModule,
         TabViewModule,
-        MomentModule
+        MomentModule,
+        CarouselModule
     ],
     declarations: [
         AppComponent,
@@ -41,11 +42,11 @@ enableProdMode();
         AccountListComponent,
         RoleListComponent,
         DiscountListComponent,
+        DepartmentTreeComponent,
         SigninComponent,
         SignupComponent,
         TreeComponent,
-        DatepickerComponent,
-        CarouselComponent
+        DatepickerComponent
     ],
     providers: [
         AuthGuard,
