@@ -78,6 +78,7 @@ var register = function (option) {
                     content: new Department({
                         type: 'department',
                         caption: 'زبان',
+                        description: 'در این دپارتمان می توانید اطلاعاتتون داجع به زبان را بیشتر کنید.',
                         language: attrs.language
                     }),
                     children: [
@@ -85,6 +86,7 @@ var register = function (option) {
                             content: new Department({
                                 type: 'category',
                                 caption: 'فرانسه',
+                                description: 'در این دپارتمان می توانید اطلاعاتتون داجع به فرانسه را بیشتر کنید.',
                                 language: attrs.language
                             })
                         },
@@ -92,6 +94,7 @@ var register = function (option) {
                             content: new Department({
                                 type: 'category',
                                 caption: 'آلمانی',
+                                description: 'در این دپارتمان می توانید اطلاعاتتون داجع به آلمانی را بیشتر کنید.',
                                 language: attrs.language
                             })
                         }
@@ -100,13 +103,15 @@ var register = function (option) {
                 {
                     content: new Department({
                         type: 'department',
-                        caption: 'ریاضی'
+                        caption: 'ریاضی',
+                        description: 'در این دپارتمان می توانید اطلاعاتتون داجع به ریاضی را بیشتر کنید.',
                     }),
                     children: [
                         {
                             content: new Department({
                                 type: 'category',
                                 caption: 'سال اول',
+                                description: 'در این دپارتمان می توانید اطلاعاتتون داجع به ریاضی سال اول را بیشتر کنید.',
                                 language: attrs.language
                             })
                         },
@@ -114,6 +119,7 @@ var register = function (option) {
                             content: new Department({
                                 type: 'category',
                                 caption: 'سال دوم',
+                                description: 'در این دپارتمان می توانید اطلاعاتتون داجع به ریاضی سال دوم را بیشتر کنید.',
                                 language: attrs.language
                             })
                         }
@@ -124,7 +130,7 @@ var register = function (option) {
             utility.insertTree(treeInfo, callback);
         }
 
-        utility.taskRunner([_part2, _part2, _part3], function (err) {
+        utility.taskRunner([_part1, _part2, _part3], function (err) {
             if (err) res.send(err);
             res.json({
                 success: true

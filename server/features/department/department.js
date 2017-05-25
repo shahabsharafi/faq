@@ -6,6 +6,7 @@ var schema = new mongoose.Schema({
     type: String,
     caption: String,
     parentId: String,
+    description: String,
     language: { type: String, ref: 'Attribute' },
 });
 

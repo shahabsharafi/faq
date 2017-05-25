@@ -283,3 +283,17 @@ dropdown
     width: 100%;
     padding-left: 1.5em;
 }
+
+/*=============================
+department
+===============================*/
+.department-header {
+    font-family: 'Yekan';
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.department-description {
+    font-family: 'Nazanin';
+    font-size: 14px;
+}

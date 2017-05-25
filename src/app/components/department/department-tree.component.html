@@ -4,10 +4,13 @@
             <p-dataGrid [value]="list">
                 <ng-template let-listItem pTemplate="listItem">
                     <div style="padding:3px" class="ui-g-12 ui-md-3">
-                        <p-panel [header]="listItem.caption" [style]="{'text-align':'center','font-family':'Yekan','font-size':'18px','font-weight':'bold'}">
-                            <div style="font-family: Yekan; font-size: 18px;">{{listItem.caption}}</div>
-                            <i class="fa fa-search" (click)="selectCar(car)" style="cursor:pointer"></i>
-                        </p-panel>
+                        <div class="department-header">
+                            {{listItem.caption}}
+                        </div>
+                        <div class="department-description">{{listItem.description}}</div>
+                        <i class="fa fa-external-link" (click)="go(listItem)" style="cursor:pointer"></i>
+                        <i class="fa fa-pencil" (click)="onEdit(listItem)" style="cursor:pointer"></i>
+                        <i class="fa fa-trash" (click)="onRemove(listItem)" style="cursor:pointer"></i>
                     </div>
                 </ng-template>
             </p-dataGrid>
