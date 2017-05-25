@@ -90,14 +90,14 @@ export class CrudComponent<T> extends BaseComponent {
 
     }
 
-    save() {
+    save(option = null, extraOption = null) {
         this.service.beforSave(this.item);
-        this.service.save(this.item).then(item => { this.load(null); });
+        this.service.save(this.item).then(item => { this.load(option, extraOption); });
         this.clear();
     }
 
-    remove() {
-        this.service.remove(this.item).then(message => { this.load(null); });
+    remove(option = null, extraOption = null) {
+        this.service.remove(this.item).then(message => { this.load(option, extraOption); });
         this.clear();
     }
 

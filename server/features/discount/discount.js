@@ -8,7 +8,10 @@ var schema = new mongoose.Schema({
     price: Number,
     count: Number,
     cover: Number,
-    state: Number,
+    state: {
+        type: String,
+        ref: 'Attribute'
+    },
     beginDate: Date,
     expireDate: Date
 });

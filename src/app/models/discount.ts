@@ -5,7 +5,7 @@ export interface Discount {
     price;
     count;
     cover;
-    state;
+    state: { _id: String, caption: String };
     beginDate;
     expireDate;
 }

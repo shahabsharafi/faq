@@ -33,17 +33,17 @@
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_state}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.state" />
+                    <p-dropdown [options]="states" [(ngModel)]="item.state._id" [style]="{'width':'100%'}"></p-dropdown>
                 </div>
             </div>
             <div class="ui-g">
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_beginDate}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.beginDate" />
+                    <c-datepicker [(value)]="item.beginDate"></c-datepicker>
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_expireDate}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.expireDate" />
+                    <c-datepicker [(value)]="item.expireDate"></c-datepicker>
                 </div>
             </div>
         </div>

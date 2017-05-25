@@ -29,6 +29,8 @@ constructor (
 
     router.events.subscribe(event => {
         if(event instanceof NavigationEnd) {
+            me.res = {};
+            me.currentInfo = null;
 
             me.resourceService.load().then(data => {
                 me.res = me.resourceService.getData();
@@ -63,5 +65,7 @@ constructor (
 
 }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+    }
 }

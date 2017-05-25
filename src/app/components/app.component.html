@@ -1,11 +1,11 @@
 <div>
-    <div class="bootstrap-iso" *ngIf="menuItems">
+    <div class="bootstrap-iso">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header navbar-right">
                     <a class="navbar-brand" href="#">{{res.website_name}}</a>
                 </div>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" *ngIf="menuItems">
                     <li *ngFor="let menuItem of menuItems" routerLinkActive="active">
                         <a [routerLink]="menuItem.url" *ngIf="!menuItem.children">{{menuItem.name}}</a>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" *ngIf="menuItem.children">{{menuItem.name}} <span class="caret"></span></a>
@@ -16,6 +16,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
                     <li *ngIf="currentInfo"><a [routerLink]="['/signin']"><span class="fa fa-sign-out"></span> <span>{{res.signout}} ({{currentInfo.username}})</span></a></li>
+                    <li *ngIf="!currentInfo"><a [routerLink]="['/signin']"><span class="fa fa-sign-in"></span> <span>{{res.signin}}</span></a></li>
                 </ul>
             </div>
         </nav>

@@ -217,6 +217,19 @@ var register = function (option) {
                 new Attribute({
                     type: 'dialect',
                     caption: 'لری'
+                }),
+                //discount_state
+                new Attribute({
+                    type: 'discount_state',
+                    caption: 'فعال'
+                }),
+                new Attribute({
+                    type: 'discount_state',
+                    caption: 'غیر فعال'
+                }),
+                new Attribute({
+                    type: 'discount_state',
+                    caption: 'دارای محدوده زمانی'
                 })
             ], callback);
         }

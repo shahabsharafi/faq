@@ -27,6 +27,9 @@ var register = function (option) {
 
     router.post('/', function (req, res) {
         if (req.body._id) {
+
+            req.body.state = req.body.state._id;
+
             repository.Update(req.body._id, req.body, function (err, obj) {
                 if (err) throw err;
                 res.json(obj);

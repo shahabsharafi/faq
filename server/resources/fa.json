@@ -66,8 +66,11 @@
     "account_view": "نمایش",
     "account_modify": "تغییر",
     "account_report": "گزارش",
+
     "signup": "ثبت نام",
     "signout": "خروج",
+    "signin": "ورود",
+
     "role": "نقش",
     "role_view": "نمایش",
     "role_modify": "تغییر",

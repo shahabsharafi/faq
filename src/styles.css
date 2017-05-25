@@ -257,3 +257,29 @@ carousel
         left: -5%;
     }
 }
+
+/*===============================
+dropdown
+=================================*/
+.ui-dropdown-trigger-rtl {
+    border-left: 0;
+    border-top: 0;
+    border-bottom: 0;
+    cursor: pointer;
+    width: 1.5em;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0 .05em;
+}
+
+.ui-dropdown-label-rtl {
+    display: block;
+    border: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    font-weight: normal;
+    width: 100%;
+    padding-left: 1.5em;
+}
