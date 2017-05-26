@@ -60,7 +60,10 @@
     "discount_beginDate": "تاریخ فعال شدن",
     "discount_expireDate": "تاریخ انقضا",
 
-    "department-title": "بخش ها و طبقه بندی",
+    "department_title": "بخش و طبقه بندی",
+    "department_new": "بخش جدید",
+    "department_caption": "عنوان",
+    "department_description": "توضیحات",
 
     "dashboard": "داشبورد",
     "dashboard_view": "نمایش",

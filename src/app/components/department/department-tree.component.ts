@@ -20,6 +20,14 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
         super(resourceService, departmentService);
     }
 
+    onLoad() {
+        var addItem = <Department> {};
+        addItem.type = 'new';
+        addItem.description = 'for add';
+        var arr = [addItem];
+        this.list = arr.concat(this.list);
+    }
+
     getOption(): any {
         var filters: { [s: string]: any; } = {};
         if (this._parentId) {

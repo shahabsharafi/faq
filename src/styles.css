@@ -110,8 +110,6 @@ body, .ui-widget, .ui-widget input {
 .fa {
     vertical-align: middle;
 }
-
-
 /*===========================
  continer
 =============================*/
@@ -287,13 +285,52 @@ dropdown
 /*=============================
 department
 ===============================*/
+.department-panel {
+    padding: 5px;
+    position: relative;
+    height: 150px;
+    border-right: 5px solid gray;
+    margin-right: 5px;
+    background-color: whitesmoke;
+    color: gray;
+}
+
 .department-header {
     font-family: 'Yekan';
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
 }
 
 .department-description {
     font-family: 'Nazanin';
-    font-size: 14px;
+    font-size: 16px;
+}
+
+.department-btn {
+    font-size: 18px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.department-grid .ui-datagrid {
+    border: 0px;
+}
+
+.department-new {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 70px;
+}
+
+.department-description-edit {
+    width: 220px;
+    height: 100px;
+}
+
+.department-list .ui-dialog-titlebar {
+    color: gray;
+    font-family: 'Yekan';
+    font-size: 20px;
+    font-weight: bold;
 }
