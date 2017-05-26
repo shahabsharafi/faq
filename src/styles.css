@@ -375,3 +375,17 @@ department
     font-size: 20px;
     font-weight: bold;
 }
+
+/*===================================
+Welcome
+=====================================*/
+.outer {
+    width: 100%;
+}
+
+.inner {
+
+    display: table;
+    margin: 0 auto;
+    width: 1010px;
+}
