@@ -1,5 +1,5 @@
 <div class="discount-list">
-    <div class="ui-g discount-list-top ui-fluid">
+    <div class="ui-g list-top ui-fluid">
         <div class="ui-g-6">
             <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
                 <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
@@ -9,27 +9,27 @@
             <div class="ui-g">
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_owner}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.owner" />
+                    <input pInputText [(ngModel)]="item.owner" />
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_category}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.category" />
+                    <input pInputText [(ngModel)]="item.category" />
                 </div>
             </div>
             <div class="ui-g">
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_price}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.price" />
+                    <input pInputText [(ngModel)]="item.price" />
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_count}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.count" />
+                    <input pInputText [(ngModel)]="item.count" />
                 </div>
             </div>
             <div class="ui-g">
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_cover}}</span>
-                    <input id="in" pInputText [(ngModel)]="item.cover" />
+                    <input pInputText [(ngModel)]="item.cover" />
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_state}}</span>
@@ -48,13 +48,14 @@
             </div>
         </div>
     </div>
-    <div class="ui-g discount-list-bottom">
+    <div class="ui-g">
         <div class="ui-g-6">
             <button pButton type="button" icon="fa-plus" iconPos="right" [label]="res.action_new" (click)="onNew()"></button>
         </div>
-        <div class="ui-g-6">
+        <div class="ui-g-6" *ngIf="item">
             <button pButton type="button" icon="fa-floppy-o" iconPos="right" [label]="res.action_save" (click)="onSave()"></button>
             <button pButton type="button" icon="fa-trash-o" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
+            <button pButton type="button" icon="fa-times" iconPos="right" [label]="res.action_cancel" (click)="clear()"></button>
         </div>
     </div>
 </div>

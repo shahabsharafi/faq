@@ -4,6 +4,7 @@ import { Discount, Attribute } from '../../models/index';
 import { DiscountService, ResourceService, AttributeService } from '../../services/index';
 import { BaseComponent, CrudComponent, ComponentUtility } from '../index';
 import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
+import { CalendarConvertor }  from '../../_infrastructure/index';
 
 @Component({
     selector:'discount-list',
@@ -11,7 +12,8 @@ import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
 })
 export class DiscountListComponent extends CrudComponent<Discount> implements OnInit {
 
-     states: SelectItem[];
+    states: SelectItem[];
+    _defaultState: any;
 
     constructor(
         private discountService: DiscountService,
@@ -32,6 +34,9 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         ];
         this.load(null, { expand: 'state' });
         this.attributeService.getByType('discount_state', null).then(data => {
+            if (data.length) {
+                this._defaultState = data[0];
+            }
             this.states = ComponentUtility.getDropdownData(data);
         });
     }
@@ -62,6 +67,10 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
 
     onNew() {
         this.clear();
-        this.item = <Discount>{};
+        this.item = new Discount();
+        var d = new Date();
+        this.item.state = <{ _id: String, caption: String }>this._defaultState;
+        this.item.beginDate = CalendarConvertor.gregorianToJalali(d.toJSON());
+        this.item.expireDate = CalendarConvertor.gregorianToJalali(d.toJSON());
     }
 }

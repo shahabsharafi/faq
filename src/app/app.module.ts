@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, DropdownModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule, DataGridModule, PanelModule, DialogModule, CarouselModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, DropdownModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule, DataGridModule, PanelModule, DialogModule, BreadcrumbModule, CarouselModule } from 'primeng/primeng';
 import {MomentModule} from 'angular2-moment';
 import * as $ from 'jquery';
 
@@ -37,6 +37,7 @@ enableProdMode();
         DataGridModule,
         PanelModule,
         DialogModule,
+        BreadcrumbModule,
         CarouselModule
     ],
     declarations: [

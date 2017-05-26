@@ -1,3 +1,8 @@
+<div class="ui-g ui-fluid">
+    <div class="ui-g-12">
+        <p-breadcrumb [model]="_items"></p-breadcrumb>
+    </div>
+</div>
 <div class="department-list">
     <div class="ui-g ui-fluid">
         <div class="ui-g-12 department-grid">
@@ -10,16 +15,19 @@
                             </div>
                             <div class="department-description">{{listItem.description}}</div>
                             <div class="department-btn">
-                                <i class="fa fa-external-link" (click)="go(listItem)" style="cursor:pointer"></i>
-                                <i class="fa fa-pencil" (click)="onEdit(listItem)" style="cursor:pointer"></i>
-                                <i class="fa fa-trash" (click)="onRemove(listItem)" style="cursor:pointer"></i>
+                                <i class="fa fa-sitemap" (click)="go(listItem)" style="cursor:pointer"></i>
+                                <i class="fa fa-pencil" (click)="onRowSelect(listItem)" style="cursor:pointer"></i>
                             </div>
                         </div>
-
-                        <div class="department-panel" *ngIf="listItem.type == 'new'">
-                            <div class="department-header">{{res.department_new}}</div>
+                        <div class="department-panel-new" *ngIf="listItem.type == 'new'">
+                            <div class="department-header-new">
+                                <div class="department-title">{{res.department_new}}</div>
+                            </div>
                             <div class="department-new">
                                 <i class="fa fa-plus" (click)="onNew()" style="cursor:pointer"></i>
+                            </div>
+                            <div class="department-btn" *ngIf="_chain.length">
+                                <i class="fa fa-external-link" (click)="back()" style="cursor:pointer"></i>
                             </div>
                         </div>
                     </div>

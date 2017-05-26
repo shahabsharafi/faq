@@ -65,13 +65,7 @@
         ]
     },
     {
-        "name": "private",
-        "children": [
-            {
-                "name": "signup",
-                "access": "signup",
-                "url": "/signup"
-            }
-        ]
+        "name": "welcome",
+        "url": "/"
     }
 ]

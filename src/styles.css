@@ -53,7 +53,27 @@ body, .ui-widget, .ui-widget input {
 .bootstrap-iso {
     font-family: Nazanin, Tahoma;
 }
+/*================================
+rtl fa
+==================================*/
+.ui-breadcrumb-chevron:before {
+    content: "\F053";
+}
 
+.ui-breadcrumb {
+    font-family: 'Yekan';
+    font-weight: bold;
+    height: 25px;
+    color: gray;
+}
+
+.ui-menuitem-text{
+    color: gray;
+}
+
+/*=================================
+menu
+===================================*/
 .ui-widget-header {
     border: 0px;
 }
@@ -99,11 +119,7 @@ body, .ui-widget, .ui-widget input {
     display: block;
 }
 
-.account-list .account-list-top {
-    height: 450px;
-}
-
-.role-list .role-list-top {
+.list-top {
     height: 450px;
 }
 
@@ -290,7 +306,6 @@ department
     position: relative;
     height: 150px;
     border-right: 5px solid gray;
-    margin-right: 5px;
     background-color: whitesmoke;
     color: gray;
 }
@@ -307,20 +322,46 @@ department
 }
 
 .department-btn {
-    font-size: 18px;
+    font-size: 20px;
     position: absolute;
     bottom: 10px;
     left: 10px;
 }
 
-.department-grid .ui-datagrid {
-    border: 0px;
+.department-panel-new {
+    padding: 5px;
+    position: relative;
+    height: 150px;
+    border-right: 5px solid gray;
+    background-color: #d4d4d4;
+    color: gray;
+}
+
+.department-header-new {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.department-header-new .department-title {
+    font-family: 'Yekan';
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.department-header-new .department-detail {
+    font-family: 'Nazanin';
+    font-size: 14px;
 }
 
 .department-new {
     text-align: center;
     vertical-align: middle;
-    font-size: 70px;
+    font-size: 100px;
+}
+
+.department-grid .ui-datagrid-content {
+    border: 0px;
 }
 
 .department-description-edit {

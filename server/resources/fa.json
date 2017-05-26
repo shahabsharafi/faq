@@ -8,6 +8,7 @@
     "action_new": "ایجاد",
     "action_save": "ثبت",
     "action_delete": "حذف",
+    "action_cancel": "انصراف",
 
     "services": "خدمات",
     "administration": "مدیریت سامانه",
@@ -76,6 +77,7 @@
     "signout": "خروج",
     "signin": "ورود",
 
+    "welcome": "خانه",
     "role": "نقش",
     "role_view": "نمایش",
     "role_modify": "تغییر",

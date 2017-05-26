@@ -1,5 +1,5 @@
 <div class="account-list">
-    <div class="ui-g account-list-top ui-fluid">
+    <div class="ui-g list-top ui-fluid">
         <div class="ui-g-4">
             <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
                 <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
@@ -11,19 +11,19 @@
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3">
                             <span>{{res.account_username}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.username" />
+                            <input pInputText [(ngModel)]="item.username" />
                         </div>
                         <div class="ui-g-12 ui-lg-3">
                             <span>{{res.account_password}}</span>
-                            <input id="in" pPassword type="password" [(ngModel)]="item.password" />
+                            <input pPassword type="password" [(ngModel)]="item.password" />
                         </div>
                         <div class="ui-g-12 ui-lg-3">
                             <span>{{res.account_email}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.email" />
+                            <input pInputText [(ngModel)]="item.email" />
                         </div>
                         <div class="ui-g-12 ui-lg-3">
                             <span>{{res.account_sms}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.sms" />
+                            <input pInputText [(ngModel)]="item.sms" />
                         </div>
                     </div>
                     <div class="ui-g">
@@ -37,15 +37,15 @@
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_firstName}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.firstName" />
+                            <input pInputText [(ngModel)]="item.profile.firstName" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_lastName}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.lastName" />
+                            <input pInputText [(ngModel)]="item.profile.lastName" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_fatherName}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.fatherName" />
+                            <input pInputText [(ngModel)]="item.profile.fatherName" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_birthDay}}</span>
@@ -53,19 +53,19 @@
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_no}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.no" />
+                            <input pInputText [(ngModel)]="item.profile.no" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_placeOfIssues}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.placeOfIssues" />
+                            <input pInputText [(ngModel)]="item.profile.placeOfIssues" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_nationalCode}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.nationalCode" />
+                            <input pInputText [(ngModel)]="item.profile.nationalCode" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_birthPlace}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.profile.birthPlace" />
+                            <input pInputText [(ngModel)]="item.profile.birthPlace" />
                         </div>
                     </div>
                 </p-tabPanel>
@@ -73,19 +73,19 @@
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_mobile}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.contact.mobile" />
+                            <input pInputText [(ngModel)]="item.contact.mobile" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_house}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.contact.house" />
+                            <input pInputText [(ngModel)]="item.contact.house" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_work}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.contact.work" />
+                            <input pInputText [(ngModel)]="item.contact.work" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_email}}</span>
-                            <input id="in" pInputText [(ngModel)]="item.contact.email" />
+                            <input pInputText [(ngModel)]="item.contact.email" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_province}}</span>
@@ -141,13 +141,14 @@
             </p-tabView>
         </div>
     </div>
-    <div class="ui-g account-list-bottom">
+    <div class="ui-g">
         <div class="ui-g-4">
             <button pButton type="button" icon="fa-plus" iconPos="right" [label]="res.action_new" (click)="onNew()"></button>
         </div>
-        <div class="ui-g-8">
+        <div class="ui-g-8" *ngIf="item">
             <button pButton type="button" icon="fa-floppy-o" iconPos="right" [label]="res.action_save" (click)="onSave()"></button>
             <button pButton type="button" icon="fa-trash-o" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
+            <button pButton type="button" icon="fa-times" iconPos="right" [label]="res.action_cancel" (click)="clear()"></button>
         </div>
     </div>
 </div>

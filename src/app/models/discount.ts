@@ -1,4 +1,7 @@
-export interface Discount {
+export class Discount {
+    constructor () {
+        this.state = <{ _id: String, caption: String }>{}
+    }
     _id;
     owner;
     category;

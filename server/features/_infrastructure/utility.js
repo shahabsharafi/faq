@@ -7,7 +7,6 @@ module.exports.getODataInfo = function (url) {
     if (queryString) {
         var f = decodeURIComponent(queryString);
         oData = parser.parse(f);
-        console.log(oData);
     }
     return oData;
 }
@@ -19,7 +18,6 @@ module.exports.taskRunner = function (fnList, callback) {
                 callback();
         } else {
             var fn = fnList.shift();
-            console.log(fn);
             fn(function (err) {
                 if (err)
                     if (callback)

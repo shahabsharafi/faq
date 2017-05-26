@@ -12,12 +12,16 @@ import { LazyLoadEvent } from 'primeng/primeng';
 export class DepartmentTreeComponent extends CrudComponent<Department> implements OnInit {
 
     _parentId: String;
+    _chain: any[];
+    _items: any[];
 
     constructor(
         private departmentService: DepartmentService,
         protected resourceService: ResourceService)
     {
         super(resourceService, departmentService);
+        this._chain = [];
+        this._items = [];
     }
 
     onLoad() {
@@ -49,13 +53,27 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
         this.load(event);
     }
 
-    go(id) {
-        this._parentId = id;
+    go(event) {
+        this._items.push({ label: event.caption });
+        this._chain.push(event);
+        this._parentId = event._id;
         this.load(this.getOption());
     }
 
+    back() {
+        if (this._chain.length) {
+            this._items.pop();
+            var obj = this._chain.pop();
+            this._parentId = obj.parentId;
+            if (this._chain.length) {
+                var p = this._chain[this._chain.length - 1];
+            }
+            this.load(this.getOption());
+        }
+    }
+
     onRowSelect(event) {
-        this.selectOne(event.data._id);
+        this.selectOne(event._id);
     }
 
     onSave() {
@@ -69,5 +87,11 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
     onNew() {
         this.clear();
         this.item = <Department>{};
+        if (this._parentId) {
+            this.item.type = 'category';
+            this.item.parentId = this._parentId;
+        } else {
+            this.item.type = 'department';
+        }
     }
 }
