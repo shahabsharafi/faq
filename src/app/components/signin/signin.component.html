@@ -1,8 +1,8 @@
 <div class="ui-fluid" *ngIf="res">
-    <h1>ورود به سامانه</h1>
     <div class="ui-g">
         <div class="ui-lg-3 ui-g-1"></div>
-        <div class="ui-lg-3 ui-g-10">
+        <div class="ui-lg-4 ui-g-10 signin-panel">
+            <h1>ورود به سامانه</h1>
             <div class="ui-g">
                 <div class="ui-g-12">
                     <span>{{res.account_username}}</span>
@@ -12,17 +12,17 @@
             <div class="ui-g">
                 <div class="ui-g-12">
                     <span>{{res.account_password}}</span>
-                    <input id="password" pPassword type="password" indicator="false" [(ngModel)]="model.password" />
+                    <input id="password" pInputText type="password" indicator="false" [(ngModel)]="model.password" />
                 </div>
             </div>
             <div class="ui-g">
                 <div class="ui-g-12">
-                    <button pButton type="button" [label]="res.action_save" [disabled]="loading" (click)="signin()"></button>
+                    <button pButton type="button" [label]="res.action_login" [disabled]="loading" (click)="signin()"></button>
                     <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
                 </div>
             </div>
         </div>
-        <div class="ui-lg-6 ui-g-1"></div>
+        <div class="ui-lg-5 ui-g-1"></div>
     </div>
 </div>
 <!--

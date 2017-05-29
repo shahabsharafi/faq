@@ -1,5 +1,5 @@
-<div class="discount-list">
-    <div class="ui-g list-top ui-fluid">
+<div class="discount-list ui-fluid">
+    <div class="ui-g list-top">
         <div class="ui-g-6">
             <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
                 <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
