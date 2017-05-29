@@ -26,23 +26,39 @@ var register = function (option) {
     });
 
     router.post('/', function (req, res) {
+
+        var _map = function (obj, propName) {
+            if (obj[propName] && obj[propName]._id) {
+                obj[propName] = obj[propName]._id
+            }
+        }
+        _map(req.body.contact, 'province');
+        _map(req.body.contact, 'city');
+        _map(req.body.education, 'grade');
+        _map(req.body.education, 'major');
+        _map(req.body.education, 'university');
+        _map(req.body.education, 'level');
+        _map(req.body.extra, 'language');
+        _map(req.body.extra, 'dialect');
+
+        //req.body.contact.province = req.body.contact.province._id;
+        //req.body.contact.city = req.body.contact.city._id;
+
+        //req.body.education.grade = req.body.education.grade._id;
+        //req.body.education.major = req.body.education.major._id;
+        //req.body.education.university = req.body.education.university._id;
+        //req.body.education.level = req.body.education.level._id;
+
+        //req.body.extra.language = req.body.extra.language._id;
+        //req.body.extra.dialect = req.body.extra.dialect._id;
+
         if (req.body._id) {
-            req.body.contact.province = req.body.contact.province._id;
-            req.body.contact.city = req.body.contact.city._id;
-
-            req.body.education.grade = req.body.education.grade._id;
-            req.body.education.major = req.body.education.major._id;
-            req.body.education.university = req.body.education.university._id;
-            req.body.education.level = req.body.education.level._id;
-
-            req.body.extra.language = req.body.extra.language._id;
-            req.body.extra.dialect = req.body.extra.dialect._id;
-
             repository.Update(req.body._id, req.body, function (err, obj) {
                 if (err) throw err;
                 res.json(obj);
             });
         } else {
+            var obj = new Account(req.body)
             repository.Save(req.body, function (err) {
                 if (err) throw err;
                 res.json(obj);

@@ -26,7 +26,7 @@ constructor (
 {
     super(resourceService);
     var me = this;
-
+    me.res = {};
     router.events.subscribe(event => {
         if(event instanceof NavigationEnd) {
             me.res = {};
