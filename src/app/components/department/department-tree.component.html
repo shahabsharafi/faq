@@ -50,9 +50,15 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-12">
+                <div>{{res.department_roles}}</div>
+                <p-autoComplete [(ngModel)]="item.roles" [suggestions]="roles" (completeMethod)="onSearchRole($event)" [multiple]="true" field="name"></p-autoComplete>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-12">
                 <button pButton type="button" icon="fa-floppy-o btn-custom" iconPos="right" [label]="res.action_save" (click)="onSave()"></button>
                 <button pButton type="button" icon="fa-trash-o btn-custom" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
             </div>
         </div>
-    </p-dialog>
+</p-dialog>
 </div>

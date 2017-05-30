@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Department } from '../../models/index';
-import { DepartmentService, ResourceService } from '../../services/index';
+import { DepartmentService, ResourceService, RoleService } from '../../services/index';
 import { BaseComponent, CrudComponent } from '../index';
 import { LazyLoadEvent } from 'primeng/primeng';
 
@@ -14,10 +14,14 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
     _parentId: String;
     _chain: any[];
     _items: any[];
+    roles: any[];
+
+    _extraOption = { expand: 'roles' }
 
     constructor(
         private departmentService: DepartmentService,
-        protected resourceService: ResourceService)
+        protected resourceService: ResourceService,
+        protected roleService: RoleService)
     {
         super(resourceService, departmentService);
         this._chain = [];
@@ -44,20 +48,20 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
 
     ngOnInit() {
         super.ngOnInit();
-        this.load(this.getOption());
+        this.load(this.getOption(), this._extraOption);
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
         if (this._parentId)
             event.filters["parentId"] = { value: this._parentId, matchMode: "equals" };
-        this.load(event);
+        this.load(event, this._extraOption);
     }
 
     go(event) {
         this._items.push({ label: event.caption });
         this._chain.push(event);
         this._parentId = event._id;
-        this.load(this.getOption());
+        this.load(this.getOption(), this._extraOption);
     }
 
     back() {
@@ -68,20 +72,20 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
             if (this._chain.length) {
                 var p = this._chain[this._chain.length - 1];
             }
-            this.load(this.getOption());
+            this.load(this.getOption(), this._extraOption);
         }
     }
 
     onRowSelect(event) {
-        this.selectOne(event._id);
+        this.selectOne(event._id, this._extraOption);
     }
 
     onSave() {
-        this.save(this.getOption());
+        this.save(this.getOption(), this._extraOption);
     }
 
     onRemove() {
-        this.remove(this.getOption());
+        this.remove(this.getOption(), this._extraOption);
     }
 
     onNew() {
@@ -93,5 +97,11 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
         } else {
             this.item.type = 'department';
         }
+    }
+
+    onSearchRole(event) {
+        this.roleService.search(event.query).then(data => {
+            this.roles = data;
+        });
     }
 }

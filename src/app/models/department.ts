@@ -1,3 +1,4 @@
+import { Role } from './role';
 export interface Department {
     _id;
     type: String,
@@ -5,4 +6,5 @@ export interface Department {
     parentId: String,
     description: String,
     language: { _id: String, caption: String },
+    roles: Role[];
 }

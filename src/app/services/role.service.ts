@@ -22,4 +22,13 @@ export class RoleService extends CrudService<Role> {
     getKey(obj: Role): any {
         return obj._id;
     }
+
+    search(query: String): Promise<Role[]> {
+        var opt = {
+            $select: 'name',
+            $filter: "startswith(name,'" + query + "')",
+            $orderby: 'name'
+        }
+        return this.getPagedList(opt).then(data => { return <Role[]>data.docs });
+    }
 }

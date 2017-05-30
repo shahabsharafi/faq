@@ -41,6 +41,7 @@ var repository = function (model) {
     };
 
     self.Update = function (id, entity, cb) {
+        console.log(entity);
         self.Model.findOne({ _id: id }, function (err, oldEntity) {
             if (err) {
                 cb(err);
@@ -120,10 +121,19 @@ var repository = function (model) {
             }
 
             if (oData.$expand && oData.$expand.length) {
-                //var populate = {};
-                //for (var i = 0; i < oData.$expand.length; i++) {
-                //    populate[oData.$expand[i].replace(/\_/g, '.')] = 1
-                //}
+                /*
+                var populate = [];
+                for (var i = 0; i < oData.$expand.length; i++) {
+                    var item = oData.$expand[i];
+                    if (item.indexOf("/") > -1) {
+                        var parts = item.split("/");
+                        populate.push({ path: parts[0].replace(/\_/g, '.'), select: parts[1] + ' -_id' });
+                    } else {
+                        populate.push({ path: item.replace(/\_/g, '.'), select: 'caption -_id' });
+                    }
+
+                }
+                */
                 var populate = oData.$expand.join(' ').replace(/\_/g, '.');
                 option.populate = populate;
             }

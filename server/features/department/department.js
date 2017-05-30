@@ -8,6 +8,7 @@ var schema = new mongoose.Schema({
     parentId: String,
     description: String,
     language: { type: String, ref: 'Attribute' },
+    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }]
 });
 
 schema.plugin(mongoosePaginate);
