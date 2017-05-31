@@ -4,5 +4,5 @@
 /dist/
 .angular-cli.json
 .editorconfig.json
-/.vs/
+/.vs
 /server/resources/carousel
