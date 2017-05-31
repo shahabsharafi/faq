@@ -9,6 +9,23 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Account);
 
+    router.get('/test', function (req, res, next) {
+        var obj = { _id: "592bd88a0cd0d20a009d8539" };
+        repository.Save(obj, function (err) {
+            if (err) {
+                console.log(err.stack);
+                res.status(500).json({
+                    success: false,
+                    msg: 'dshsghdhsgdd',
+                    action: 'save',
+                    err: err
+                });
+            } else {
+                res.json(obj);
+            }
+        });
+    });
+
     router.get('/', function (req, res) {
         var oData = utility.getODataInfo(req.url);
         repository.Find(oData, function (err, list) {
