@@ -11,6 +11,7 @@ const router = require('./web/router'); // get our mongoose model
 const app = express();
 
 //seting
+//process.env.NODE_ENV = 'production';
 app.set('port', (process.env.PORT || config.port));
 app.set('superSecret', config.secret); // secret variable
 mongoose.connect(config.database); // connect to database
