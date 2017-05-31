@@ -7,7 +7,7 @@ var schema = new mongoose.Schema({
     caption: String,
     parentId: String,
     description: String,
-    language: { type: String, ref: 'Attribute' },
+    language: String,
     roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }]
 });
 

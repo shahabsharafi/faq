@@ -16,8 +16,6 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
     _items: any[];
     roles: any[];
 
-    _extraOption = { expand: 'roles' }
-
     constructor(
         private departmentService: DepartmentService,
         protected resourceService: ResourceService,
@@ -48,20 +46,20 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
 
     ngOnInit() {
         super.ngOnInit();
-        this.load(this.getOption(), this._extraOption);
+        this.load(this.getOption());
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
         if (this._parentId)
             event.filters["parentId"] = { value: this._parentId, matchMode: "equals" };
-        this.load(event, this._extraOption);
+        this.load(event);
     }
 
     go(event) {
         this._items.push({ label: event.caption });
         this._chain.push(event);
         this._parentId = event._id;
-        this.load(this.getOption(), this._extraOption);
+        this.load(this.getOption());
     }
 
     back() {
@@ -72,20 +70,20 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
             if (this._chain.length) {
                 var p = this._chain[this._chain.length - 1];
             }
-            this.load(this.getOption(), this._extraOption);
+            this.load(this.getOption());
         }
     }
 
     onRowSelect(event) {
-        this.selectOne(event._id, this._extraOption);
+        this.selectOne(event._id, { expand: 'roles' });
     }
 
     onSave() {
-        this.save(this.getOption(), this._extraOption);
+        this.save(this.getOption());
     }
 
     onRemove() {
-        this.remove(this.getOption(), this._extraOption);
+        this.remove(this.getOption());
     }
 
     onNew() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Account, Attribute } from '../../models/index';
-import { AccountService, ResourceService, AccessService, AttributeService } from '../../services/index';
+import { AccountService, ResourceService, AccessService, AttributeService, RoleService } from '../../services/index';
 import { BaseComponent, CrudComponent, TreeComponent } from '../index';
 import { TreeNode, LazyLoadEvent } from 'primeng/primeng';
 
@@ -22,12 +22,14 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     levels: Attribute[];
     languages: Attribute[];
     dialects: Attribute[];
+    roles: any[];
     
     constructor(
         private accountService: AccountService,
         protected resourceService: ResourceService,
         protected accessService: AccessService,
-        protected attributeService: AttributeService)
+        protected attributeService: AttributeService,
+        protected roleService: RoleService)
     {
         super(resourceService, accountService);
 
@@ -75,6 +77,12 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
 
     loadCarsLazy(event: LazyLoadEvent) {
         this.load(event, { expand: 'province,city' });
+    }
+
+    onSearchRole(event) {
+        this.roleService.search(event.query).then(data => {
+            this.roles = data;
+        });
     }
 
     onSearchProvince(event) {
@@ -133,7 +141,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect' });
+        this.selectOne(event.data._id, { expand: 'contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect,roles' });
     }
 
     onSave() {

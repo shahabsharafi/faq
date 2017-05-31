@@ -41,7 +41,6 @@ var repository = function (model) {
     };
 
     self.Update = function (id, entity, cb) {
-        console.log(entity);
         self.Model.findOne({ _id: id }, function (err, oldEntity) {
             if (err) {
                 cb(err);

@@ -79,7 +79,7 @@ var register = function (option) {
                         type: 'department',
                         caption: 'زبان',
                         description: 'در این دپارتمان می توانید اطلاعاتتون راجع به زبان را بیشتر کنید.',
-                        language: attrs.language
+                        language: attrs.language._id
                     }),
                     children: [
                         {
@@ -87,7 +87,7 @@ var register = function (option) {
                                 type: 'category',
                                 caption: 'فرانسه',
                                 description: 'در این دپارتمان می توانید اطلاعاتتون راجع به فرانسه را بیشتر کنید.',
-                                language: attrs.language
+                                language: attrs.language._id
                             })
                         },
                         {
@@ -95,7 +95,7 @@ var register = function (option) {
                                 type: 'category',
                                 caption: 'آلمانی',
                                 description: 'در این دپارتمان می توانید اطلاعاتتون راجع به آلمانی را بیشتر کنید.',
-                                language: attrs.language
+                                language: attrs.language._id
                             })
                         }
                     ]
@@ -112,7 +112,7 @@ var register = function (option) {
                                 type: 'category',
                                 caption: 'سال اول',
                                 description: 'در این دپارتمان می توانید اطلاعاتتون راجع به ریاضی سال اول را بیشتر کنید.',
-                                language: attrs.language
+                                language: attrs.language._id
                             })
                         },
                         {
@@ -120,7 +120,7 @@ var register = function (option) {
                                 type: 'category',
                                 caption: 'سال دوم',
                                 description: 'در این دپارتمان می توانید اطلاعاتتون راجع به ریاضی سال دوم را بیشتر کنید.',
-                                language: attrs.language
+                                language: attrs.language._id
                             })
                         }
                     ]

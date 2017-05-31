@@ -28,6 +28,12 @@
                     </div>
                     <div class="ui-g">
                         <div class="ui-g-12">
+                            <span>{{res.account_roles}}</span>
+                            <p-autoComplete [(ngModel)]="item.roles" [suggestions]="roles" (completeMethod)="onSearchRole($event)" [multiple]="true" field="name"></p-autoComplete>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12">
                             <span>{{res.account_access}}</span>
                             <c-tree [value]="treeData" selectionMode="checkbox" [(selection)]="item.access"></c-tree>
                         </div>
