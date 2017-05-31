@@ -2,15 +2,18 @@
   "ExpandedNodes": [
     "",
     "\\server",
+    "\\server\\features",
+    "\\server\\features\\account",
+    "\\server\\features\\department",
+    "\\server\\features\\role",
+    "\\server\\features\\_infrastructure",
     "\\server\\resources",
-    "\\server\\resources\\carousel",
-    "\\server\\web",
-    "\\server\\web\\middleware",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\models\\_infrastructure"
+    "\\src\\app\\components\\account",
+    "\\src\\app\\components\\department"
   ],
-  "SelectedNode": "\\src\\app\\app.module.ts",
+  "SelectedNode": "\\server\\features\\department\\department.js",
   "PreviewInSolutionExplorer": false
 }
