@@ -4,16 +4,15 @@
     "\\server",
     "\\server\\features",
     "\\server\\features\\account",
+    "\\server\\features\\attribute",
     "\\server\\features\\department",
     "\\server\\features\\role",
     "\\server\\features\\_infrastructure",
-    "\\server\\resources",
     "\\src",
     "\\src\\app",
     "\\src\\app\\components",
-    "\\src\\app\\components\\account",
-    "\\src\\app\\components\\department"
+    "\\src\\app\\models"
   ],
-  "SelectedNode": "\\server\\features\\department\\department.js",
+  "SelectedNode": "\\server\\features\\account\\index.js",
   "PreviewInSolutionExplorer": false
 }

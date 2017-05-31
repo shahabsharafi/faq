@@ -125,13 +125,13 @@
                 </p-tabPanel>
                 <p-tabPanel [header]="res.account_extra" *ngIf="item.extra">
                     <div class="ui-g">
-                        <div class="ui-g-12 ui-lg-3 ui-md-6">
+                        <div class="ui-g-12 ui-lg-6 ui-md-6">
                             <span>{{res.account_language}}</span>
-                            <p-autoComplete [(ngModel)]="item.extra.language" [suggestions]="languages" (completeMethod)="onSearchLanguage($event)" field="caption"></p-autoComplete>
+                            <p-autoComplete [(ngModel)]="item.extra.language" [suggestions]="languages" (completeMethod)="onSearchLanguage($event)" [multiple]="true" field="caption"></p-autoComplete>
                         </div>
-                        <div class="ui-g-12 ui-lg-3 ui-md-6">
+                        <div class="ui-g-12 ui-lg-6 ui-md-6">
                             <span>{{res.account_dialect}}</span>
-                            <p-autoComplete [(ngModel)]="item.extra.dialect" [suggestions]="dialects" (completeMethod)="onSearchDialect($event)" field="caption"></p-autoComplete>
+                            <p-autoComplete [(ngModel)]="item.extra.dialect" [suggestions]="dialects" (completeMethod)="onSearchDialect($event)" [multiple]="true" field="caption"></p-autoComplete>
                         </div>
                     </div>
                 </p-tabPanel>

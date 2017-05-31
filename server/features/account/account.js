@@ -59,14 +59,8 @@ var schema = new mongoose.Schema({
         }
     },
     extra: {
-        language: {
-            type: String,
-            ref: 'Attribute'
-        },
-        dialect: {
-            type: String,
-            ref: 'Attribute'
-        }
+        language: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attribute' }],
+        dialect: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attribute' }]
     },
     roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }]
 });

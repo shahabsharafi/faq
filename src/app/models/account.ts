@@ -1,3 +1,4 @@
+import { Attribute } from './attribute';
 export interface Profile {
     firstName: String;
     lastName: String;
@@ -27,8 +28,8 @@ export interface Education {
     level: { _id: String, caption: String };
 }
 export interface Extra {
-    language: String;
-    dialect: String
+    language: Attribute[];
+    dialect: Attribute[];
 }
 export class Account {
     constructor () {

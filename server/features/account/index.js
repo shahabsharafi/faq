@@ -38,8 +38,6 @@ var register = function (option) {
         _map(req.body.education, 'major');
         _map(req.body.education, 'university');
         _map(req.body.education, 'level');
-        _map(req.body.extra, 'language');
-        _map(req.body.extra, 'dialect');
 
         //req.body.contact.province = req.body.contact.province._id;
         //req.body.contact.city = req.body.contact.city._id;
@@ -233,8 +231,8 @@ var register = function (option) {
                     level: attrs.level._id
                 },
                 extra: {
-                    language: attrs.language._id,
-                    dialect: attrs.dialect._id,
+                    language: [attrs.language],
+                    dialect: [attrs.dialect],
                 }
             });
             repository.Setup(obj, callback);
