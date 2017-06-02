@@ -12,10 +12,8 @@ export interface Profile {
     status: Number
 }
 export interface Contact {
-    mobile: String;
     house: String;
     work: String;
-    email: String;
     province: { _id: String, caption: String };
     city: { _id: String, caption: String };
     address: String;
@@ -43,7 +41,7 @@ export class Account {
     username: String;
     access: Array<String>;
     email: String;
-    sms: String;
+    mobile: String;
     profile: Profile;
     contact: Contact;
     education: Education;
