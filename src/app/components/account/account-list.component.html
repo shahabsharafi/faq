@@ -22,8 +22,8 @@
                             <input pInputText [(ngModel)]="item.email" />
                         </div>
                         <div class="ui-g-12 ui-lg-3">
-                            <span>{{res.account_sms}}</span>
-                            <input pInputText [(ngModel)]="item.sms" />
+                            <span>{{res.account_mobile}}</span>
+                            <input pInputText [(ngModel)]="item.mobile" />
                         </div>
                     </div>
                     <div class="ui-g">
@@ -78,20 +78,12 @@
                 <p-tabPanel [header]="res.account_contact" *ngIf="item.contact">
                     <div class="ui-g">
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
-                            <span>{{res.account_mobile}}</span>
-                            <input pInputText [(ngModel)]="item.contact.mobile" />
-                        </div>
-                        <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_house}}</span>
                             <input pInputText [(ngModel)]="item.contact.house" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_work}}</span>
                             <input pInputText [(ngModel)]="item.contact.work" />
-                        </div>
-                        <div class="ui-g-12 ui-lg-3 ui-md-6">
-                            <span>{{res.account_email}}</span>
-                            <input pInputText [(ngModel)]="item.contact.email" />
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_province}}</span>
