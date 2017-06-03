@@ -4,13 +4,12 @@
     "\\server",
     "\\server\\features",
     "\\server\\features\\account",
-    "\\server\\features\\attribute",
-    "\\server\\features\\department",
-    "\\server\\features\\role",
     "\\server\\features\\_infrastructure",
+    "\\server\\web",
+    "\\server\\web\\middleware",
     "\\src",
     "\\src\\app"
   ],
-  "SelectedNode": "\\server\\features\\_infrastructure\\repository.js",
+  "SelectedNode": "\\server\\web\\middleware\\token.js",
   "PreviewInSolutionExplorer": false
 }

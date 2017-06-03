@@ -6,25 +6,30 @@ var register = function (option) {
     const utility = require('../_infrastructure/utility');
     const Account = require('./account');
     const Attribute = require('../attribute/attribute');
+    const request = require("request");
 
     var router = option.express.Router();
     var repository = new Repository(Account);
 
     router.get('/test', function (req, res, next) {
-        var obj = { _id: "592bd88a0cd0d20a009d8539" };
-        repository.Save(obj, function (err) {
-            if (err) {
-                console.log(err.stack);
-                res.status(500).json({
-                    success: false,
-                    msg: 'dshsghdhsgdd',
-                    action: 'save',
-                    err: err
-                });
-            } else {
-                res.json(obj);
+        var code = utility.random(1000, 9999);
+        res.send(code + '');
+        /*
+        request({
+            uri: "http://tsms.ir/url/tsmshttp.php",
+            method: "POST",
+            form: {
+                from: "30001403",
+                to: "09352143201",
+                username: "rahi_porsane",
+                password: "a1s2d3f4",
+                message: code
             }
+        }, function (error, response, body) {
+            console.log(body);
+            res.send(code);
         });
+        */
     });
     controller(router, Account, repository, function (obj) {
         var _map = function (obj, propName) {
@@ -210,6 +215,25 @@ var register = function (option) {
             res.json({
                 success: true
             });
+        });
+    });
+
+    router.get('/sendcode/:mobile', function (req, res) {
+        var mobile = req.params.mobile;
+        var code = utility.random(1000, 9999);
+        request({
+            uri: "http://tsms.ir/url/tsmshttp.php",
+            method: "POST",
+            form: {
+                from: "30001403",
+                to: mobile,
+                username: "rahi_porsane",
+                password: "a1s2d3f4",
+                message: code
+            }
+        }, function (error, response, body) {
+            console.log(body);
+            res.json({ data: code });
         });
     });
 
