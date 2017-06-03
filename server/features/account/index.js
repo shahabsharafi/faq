@@ -2,6 +2,7 @@ var register = function (option) {
 
     const jwt = require('jsonwebtoken');
     const Repository = require('../_infrastructure/repository');
+    const controller = require('../_infrastructure/controller');
     const utility = require('../_infrastructure/utility');
     const Account = require('./account');
     const Attribute = require('../attribute/attribute');
@@ -25,69 +26,18 @@ var register = function (option) {
             }
         });
     });
-
-    router.get('/', function (req, res) {
-        var oData = utility.getODataInfo(req.url);
-        repository.Find(oData, function (err, list) {
-            if (err) res.send(err);
-            res.json(list);
-        })
-    });
-
-    router.get('/item/:key', function (req, res) {
-        var oData = utility.getODataInfo(req.url);
-        repository.FindById(req.params.key, oData, function (err, obj) {
-            if (err) res.send(err);
-            res.json(obj);
-        })
-    });
-
-    router.post('/', function (req, res) {
-
+    controller(router, Account, repository, function (obj) {
         var _map = function (obj, propName) {
             if (obj[propName] && obj[propName]._id) {
                 obj[propName] = obj[propName]._id
             }
         }
-        _map(req.body.contact, 'province');
-        _map(req.body.contact, 'city');
-        _map(req.body.education, 'grade');
-        _map(req.body.education, 'major');
-        _map(req.body.education, 'university');
-        _map(req.body.education, 'level');
-
-        //req.body.contact.province = req.body.contact.province._id;
-        //req.body.contact.city = req.body.contact.city._id;
-
-        //req.body.education.grade = req.body.education.grade._id;
-        //req.body.education.major = req.body.education.major._id;
-        //req.body.education.university = req.body.education.university._id;
-        //req.body.education.level = req.body.education.level._id;
-
-        //req.body.extra.language = req.body.extra.language._id;
-        //req.body.extra.dialect = req.body.extra.dialect._id;
-
-        if (req.body._id) {
-            repository.Update(req.body._id, req.body, function (err, obj) {
-                if (err) throw err;
-                res.json(obj);
-            });
-        } else {
-            var obj = new Account(req.body)
-            repository.Save(req.body, function (err) {
-                if (err) throw err;
-                res.json(obj);
-            });
-        }
-    });
-
-    router.delete('/item/:key', function (req, res) {
-        repository.Delete(req.params.key, function (err) {
-            if (err) res.send(err);
-            res.json({
-                success: true
-            });
-        });
+        _map(obj.contact, 'province');
+        _map(obj.contact, 'city');
+        _map(obj.education, 'grade');
+        _map(obj.education, 'major');
+        _map(obj.education, 'university');
+        _map(obj.education, 'level');
     });
 
     router.get('/setup', function (req, res) {

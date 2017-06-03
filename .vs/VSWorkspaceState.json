@@ -8,11 +8,8 @@
     "\\server\\features\\department",
     "\\server\\features\\role",
     "\\server\\features\\_infrastructure",
-    "\\src",
-    "\\src\\app",
-    "\\src\\app\\components",
-    "\\src\\app\\models"
+    "\\server\\web",
+    "\\server\\web\\middleware"
   ],
-  "SelectedNode": "\\server\\features\\account\\index.js",
   "PreviewInSolutionExplorer": false
 }

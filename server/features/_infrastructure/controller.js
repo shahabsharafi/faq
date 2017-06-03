@@ -1,13 +1,7 @@
-function (router, mapper) {
+module.exports = function (router, Model, repository, mapper) {
     if (!router) return;
 
-    router.get('/test', function (req, res) {
-        var obj = { _id: "592bd88a0cd0d20a009d8539" };
-        repository.Save(obj, function (err) {
-            if (err) next(err);
-            res.json(obj);
-        });
-    });
+    const utility = require('../_infrastructure/utility');
 
     router.get('/', function (req, res) {
         var oData = utility.getODataInfo(req.url);
@@ -27,7 +21,7 @@ function (router, mapper) {
 
     router.post('/', function (req, res) {
 
-        mapper(req.body);
+        if (mapper) mapper(req.body);
 
         if (req.body._id) {
             repository.Update(req.body._id, req.body, function (err, obj) {
@@ -35,7 +29,7 @@ function (router, mapper) {
                 res.json(obj);
             });
         } else {
-            var obj = new Account(req.body)
+            var obj = new Model(req.body)
             repository.Save(req.body, function (err) {
                 if (err) throw err;
                 res.json(obj);
