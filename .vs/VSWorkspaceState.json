@@ -9,10 +9,8 @@
     "\\server\\features\\role",
     "\\server\\features\\_infrastructure",
     "\\src",
-    "\\src\\app",
-    "\\src\\app\\components",
-    "\\src\\app\\models"
+    "\\src\\app"
   ],
-  "SelectedNode": "\\server\\features\\account\\index.js",
+  "SelectedNode": "\\server\\features\\_infrastructure\\repository.js",
   "PreviewInSolutionExplorer": false
 }
