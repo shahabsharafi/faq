@@ -75,3 +75,7 @@ module.exports.insertList = function (list, callback) {
     }
     _fn(list, callback);
 }
+
+module.exports.random = function (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}

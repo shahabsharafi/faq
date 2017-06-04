@@ -17,41 +17,55 @@ var register = function (option) {
 
     router.use(function (req, res, next) {
 
-        if (req.url == '/accounts/authenticate' || req.url == '/accounts/test' || req.url == '/accounts/setup' || req.url == '/roles/setup' || req.url == '/attributes/setup' || req.url == '/departments/setup' || req.url == '/access') {
-            console.log('go to next')
-            next();
-        } else {
-            // check header or url parameters or post parameters for token
-            var token = req.body.token || req.params['token'] || req.headers['x-access-token'];
+        var ignoreUrls = [
+            '/accounts/sendcode',
+            '/accounts/authenticate',
+            '/accounts/test',
+            '/accounts/setup',
+            '/roles/setup',
+            '/attributes/setup',
+            '/departments/setup',
+            '/access'
+        ];
 
-            // decode token
-            if (token) {
-
-                // verifies secret and checks exp
-                jwt.verify(token, option.app.get('superSecret'), function (err, decoded) {
-
-                    if (err) {
-                        return res.json({
-                            success: false,
-                            message: 'Failed to authenticate token.'
-                        });
-                    } else {
-                        // if everything is good, save to request for use in other routes
-                        req.decoded = decoded;
-                        next();
-                    }
-                });
-
-            } else {
-
-                // if there is no token
-                // return an error
-                return res.status(403).send({
-                    success: false,
-                    message: 'No token provided.'
-                });
-
+        for (var i = 0; i < ignoreUrls.length; i++) {
+            var url = ignoreUrls[i];
+            if (req.url.startsWith(url)) {
+                next();
+                return;
             }
+        }
+
+        // check header or url parameters or post parameters for token
+        var token = req.body.token || req.params['token'] || req.headers['x-access-token'];
+
+        // decode token
+        if (token) {
+
+            // verifies secret and checks exp
+            jwt.verify(token, option.app.get('superSecret'), function (err, decoded) {
+
+                if (err) {
+                    return res.json({
+                        success: false,
+                        message: 'Failed to authenticate token.'
+                    });
+                } else {
+                    // if everything is good, save to request for use in other routes
+                    req.decoded = decoded;
+                    next();
+                }
+            });
+
+        } else {
+
+            // if there is no token
+            // return an error
+            return res.status(403).send({
+                success: false,
+                message: 'No token provided.'
+            });
+
         }
     });
 
