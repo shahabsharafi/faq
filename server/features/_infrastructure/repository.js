@@ -14,6 +14,10 @@ var repository = function (model) {
         });
     };
 
+    self.FindObject = function (option, cb) {
+        self.Model.findOne(option, cb);
+    };
+
     self.FindOne = function (query, cb) {
         var oData = parseOData(query);
         var option = oData ? (oData.option || {}) : {};
