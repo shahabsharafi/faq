@@ -14,22 +14,6 @@ var register = function (option) {
     router.get('/test', function (req, res, next) {
         var code = utility.random(1000, 9999);
         res.send(code + '');
-        /*
-        request({
-            uri: "http://tsms.ir/url/tsmshttp.php",
-            method: "POST",
-            form: {
-                from: "30001403",
-                to: "09352143201",
-                username: "rahi_porsane",
-                password: "a1s2d3f4",
-                message: code
-            }
-        }, function (error, response, body) {
-            console.log(body);
-            res.send(code);
-        });
-        */
     });
     controller(router, Account, repository, function (obj) {
         var _map = function (obj, propName) {
@@ -233,7 +217,9 @@ var register = function (option) {
             }
         }, function (error, response, body) {
             console.log(body);
-            res.json({ data: code });
+            res.json({
+                data: code
+            });
         });
     });
 
