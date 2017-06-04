@@ -11,7 +11,7 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Account);
 
-<<<<<<< HEAD
+
     router.get('/test/:mobile', function (req, res, next) {
         var mobile = req.params.mobile;
         console.log(mobile);
@@ -20,28 +20,8 @@ var register = function (option) {
             console.log(obj);
             res.sendStatus(200);
         });
-        /*
-        request({
-            uri: "http://tsms.ir/url/tsmshttp.php",
-            method: "POST",
-            form: {
-                from: "30001403",
-                to: "09352143201",
-                username: "rahi_porsane",
-                password: "a1s2d3f4",
-                message: code
-            }
-        }, function (error, response, body) {
-            console.log(body);
-            res.send(code);
-        });
-        */
-=======
-    router.get('/test', function (req, res, next) {
-        var code = utility.random(1000, 9999);
-        res.send(code + '');
->>>>>>> origin/master
     });
+
     controller(router, Account, repository, function (obj) {
         var _map = function (obj, propName) {
             if (obj[propName] && obj[propName]._id) {
@@ -231,7 +211,6 @@ var register = function (option) {
 
     router.get('/sendcode/:mobile', function (req, res) {
         var mobile = req.params.mobile;
-<<<<<<< HEAD
         repository.FindObject({ "mobile": mobile }, function (err, obj) {
             var code = utility.random(1000, 9999);
             request({
@@ -253,33 +232,15 @@ var register = function (option) {
 
     router.post('/signup', function (req, res) {
         var model = {
+            code: req.body.code,
             username: req.body.username,
             password: req.body.password,
-            email: req.body.email,
             mobile: req.body.mobile
         }
         var obj = new Account(model);
         repository.Save(req.body, function (err) {
             if (err) throw err;
             res.json(obj);
-=======
-        var code = utility.random(1000, 9999);
-        request({
-            uri: "http://tsms.ir/url/tsmshttp.php",
-            method: "POST",
-            form: {
-                from: "30001403",
-                to: mobile,
-                username: "rahi_porsane",
-                password: "a1s2d3f4",
-                message: code
-            }
-        }, function (error, response, body) {
-            console.log(body);
-            res.json({
-                data: code
-            });
->>>>>>> origin/master
         });
     });
 
