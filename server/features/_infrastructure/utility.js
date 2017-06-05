@@ -1,7 +1,11 @@
-module.exports.getODataInfo = function (url) {
-    const URL = require('url');
-    const parser = require("odata-parser");
+const request = require("request");
+const NodeCache = require("node-cache");
+const URL = require('url');
+const parser = require("odata-parser");
 
+const myCache = new NodeCache();
+
+module.exports.getODataInfo = function (url) {
     var oData = null;
     var queryString = URL.parse(url).query;
     if (queryString) {
@@ -10,6 +14,59 @@ module.exports.getODataInfo = function (url) {
     }
     return oData;
 }
+
+var getCode = function (mobile, successHandller, errHandller) {
+    var key = 'mobile_' + mobile;
+    myCache.get(key, function (err, value) {
+        if (!err) {
+            if (value == undefined) {
+                console.log('getCode notfount');
+                if (errHandller) errHandller();
+            } else {
+                console.log('getCode successfully');
+                if (successHandller) successHandller(value);
+            }
+        } else {
+            console.log('getCode error');
+            if (errHandller) errHandller();
+        }
+    });
+}
+module.exports.getCode = getCode;
+
+module.exports.checkCode = function (mobile, code, successHandller, errHandller) {
+    getCode(mobile, function (value) {
+        if (value.code == code) {
+            console.log('checkCode successfully');
+            if (successHandller) successHandller(value);
+        } else {
+            console.log('checkCode notmatch');
+            if (errHandller) errHandller();
+        }
+    }, function () {
+        console.log('checkCode notfount');
+        if (errHandller) errHandller();
+    });
+}
+
+module.exports.createCode = function (mobile, successHandller, errHandller) {
+    var key = 'mobile_' + mobile;
+    getCode(mobile, successHandller, function () {
+        var obj = {
+            code: random(1000, 9999)
+        };
+        myCache.set(key, obj, 20, function (err, success) {
+            if (!err && success) {
+                console.log('createCode successfully');
+                if (successHandller) successHandller(obj);
+            } else {
+                console.log('createCode error');
+                if (errHandller) errHandller();
+            }
+        }, successHandller);
+    })
+}
+
 
 module.exports.taskRunner = function (fnList, callback) {
     var _fn = function (fnList, callback) {
@@ -76,6 +133,7 @@ module.exports.insertList = function (list, callback) {
     _fn(list, callback);
 }
 
-module.exports.random = function (min, max) {
+var random = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
+module.exports.random = random;

@@ -34,6 +34,7 @@
     "mongoose": "4.9.7",
     "mongoose-paginate": "^5.0.3",
     "morgan": "1.8.1",
+    "node-cache": "4.1.1",
     "object-merge": "^2.5.1",
     "odata-parser": "1.4.1",
     "primeng": "^4.0.0-rc.2",

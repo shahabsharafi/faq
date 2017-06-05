@@ -5,23 +5,30 @@ var register = function (option) {
     const controller = require('../_infrastructure/controller');
     const utility = require('../_infrastructure/utility');
     const Account = require('./account');
-    const Security = require('./security');
     const Attribute = require('../attribute/attribute');
     const request = require("request");
 
     var router = option.express.Router();
     var repository = new Repository(Account);
-    var repSecurity = new Repository(Security);
 
 
     router.get('/test/:mobile', function (req, res, next) {
         var mobile = req.params.mobile;
-        console.log(mobile);
-        repository.FindObject({ "mobile": mobile }, function (err, obj) {
-            console.log('###########################');
-            console.log(obj);
-            res.sendStatus(200);
-        });
+        utility.createCode(mobile, function (obj) {
+            res.send(obj);
+        }, function () {
+            res.sendStatus(500);
+        })
+    });
+
+    router.get('/test/:mobile/:code', function (req, res, next) {
+        var mobile = req.params.mobile;
+        var code = req.params.code;
+        utility.checkCode(mobile, code, function (obj) {
+            res.send(obj);
+        }, function () {
+            res.sendStatus(500);
+        })
     });
 
     controller(router, Account, repository, function (obj) {
@@ -209,68 +216,50 @@ var register = function (option) {
 
     router.get('/sendcode/:mobile', function (req, res) {
         var mobile = req.params.mobile;
-        repository.FindObject({ "mobile": mobile }, function (err, obj) {
-            if (err) throw err;
-
-            var code = utility.random(1000, 9999);
-            request({
-                uri: "http://tsms.ir/url/tsmshttp.php",
-                method: "POST",
-                form: {
-                    from: "30001403",
-                    to: mobile,
-                    username: "rahi_porsane",
-                    password: "a1s2d3f4",
-                    message: code
-                }
-            }, function (err, response, body) {
+        utility.createCode(mobile, function (obj) {
+            repository.FindObject({
+                "mobile": mobile
+            }, function (err, obj) {
                 if (err) throw err;
 
-                console.log(body);
-                res.json({ code: code, username: (obj ? obj.username : '') });
+                request({
+                    uri: "http://tsms.ir/url/tsmshttp.php",
+                    method: "POST",
+                    form: {
+                        from: "30001403",
+                        to: mobile,
+                        username: "rahi_porsane",
+                        password: "a1s2d3f4",
+                        message: code
+                    }
+                }, function (err, response, body) {
+                    if (err) throw err;
+
+                    console.log(body);
+                    res.json({
+                        code: code,
+                        username: (obj ? obj.username : '')
+                    });
+                });
             });
+        }, function () {
+            res.sendStatus(500);
         });
     });
 
     router.post('/signup', function (req, res) {
-        var model = {
-            code: req.body.code,
-            username: req.body.username,
-            password: req.body.password,
-            mobile: req.body.mobile
-        }
-        var obj = new Account(model);
-        repository.Save(req.body, function (err) {
-            if (err) throw err;
+        var mobile = req.body.mobile;
+        var code = req.body.code;
+        utility.checkCode(mobile, code, function (obj) {
+            var model = {
+                username: req.body.username,
+                password: req.body.password,
+                mobile: req.body.mobile
+            }
+            var obj = new Account(model);
+            repository.Save(req.body, function (err) {
+                if (err) throw err;
 
-            var token = jwt.sign(account, option.app.get('superSecret'), {});
-
-            // return the information including token as JSON
-            res.json({
-                success: true,
-                message: 'Enjoy your token!',
-                token: token,
-                username: account.username,
-                firstName: '',
-                lastName: ''
-            });
-        });
-    });
-
-    router.post('/resetpassword', function (req, res) {
-        var model = {
-            code: req.body.code,
-            username: req.body.username,
-            password: req.body.password,
-            mobile: req.body.mobile
-        }
-        Account.findOne({
-            username: req.body.username
-        }, function (err, account) {
-            if (err) throw err;
-
-            account.password = req.body.password;
-            account.save(function () {
                 var token = jwt.sign(account, option.app.get('superSecret'), {});
 
                 // return the information including token as JSON
@@ -279,10 +268,46 @@ var register = function (option) {
                     message: 'Enjoy your token!',
                     token: token,
                     username: account.username,
-                    firstName: account.profile.firstName,
-                    lastName: account.profile.lastName
+                    firstName: '',
+                    lastName: ''
                 });
             });
+        }, function () {
+            res.sendStatus(500);
+        });
+    });
+
+    router.post('/resetpassword', function (req, res) {
+        var mobile = req.body.mobile;
+        var code = req.body.code;
+        utility.checkCode(mobile, code, function (obj) {
+            var model = {
+                username: req.body.username,
+                password: req.body.password,
+                mobile: req.body.mobile
+            }
+            Account.findOne({
+                username: req.body.username
+            }, function (err, account) {
+                if (err) throw err;
+
+                account.password = req.body.password;
+                account.save(function () {
+                    var token = jwt.sign(account, option.app.get('superSecret'), {});
+
+                    // return the information including token as JSON
+                    res.json({
+                        success: true,
+                        message: 'Enjoy your token!',
+                        token: token,
+                        username: account.username,
+                        firstName: account.profile.firstName,
+                        lastName: account.profile.lastName
+                    });
+                });
+            });
+        }, function () {
+            res.sendStatus(500);
         });
     });
 
