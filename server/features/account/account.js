@@ -8,10 +8,6 @@ var schema = new mongoose.Schema({
     email: String,
     mobile: String,
     isAdmin: Boolean,
-    activation: {
-        state: Boolean,
-        code: String
-    },
     profile: {
         firstName: String,
         lastName: String,
