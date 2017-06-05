@@ -18,6 +18,7 @@ var register = function (option) {
     router.use(function (req, res, next) {
 
         var ignoreUrls = [
+            '/accounts/resetpassword',
             '/accounts/signup',
             '/accounts/sendcode',
             '/accounts/authenticate',

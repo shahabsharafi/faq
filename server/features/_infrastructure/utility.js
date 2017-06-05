@@ -55,7 +55,7 @@ module.exports.createCode = function (mobile, successHandller, errHandller) {
         var obj = {
             code: random(1000, 9999)
         };
-        myCache.set(key, obj, 20, function (err, success) {
+        myCache.set(key, obj, 180, function (err, success) {
             if (!err && success) {
                 console.log('createCode successfully');
                 if (successHandller) successHandller(obj);

@@ -217,6 +217,7 @@ var register = function (option) {
     router.get('/sendcode/:mobile', function (req, res) {
         var mobile = req.params.mobile;
         utility.createCode(mobile, function (obj) {
+            var code = obj.code;
             repository.FindObject({
                 "mobile": mobile
             }, function (err, obj) {
@@ -260,14 +261,14 @@ var register = function (option) {
             repository.Save(req.body, function (err) {
                 if (err) throw err;
 
-                var token = jwt.sign(account, option.app.get('superSecret'), {});
+                var token = jwt.sign(model, option.app.get('superSecret'), {});
 
                 // return the information including token as JSON
                 res.json({
                     success: true,
                     message: 'Enjoy your token!',
                     token: token,
-                    username: account.username,
+                    username: model.username,
                     firstName: '',
                     lastName: ''
                 });
@@ -278,33 +279,41 @@ var register = function (option) {
     });
 
     router.post('/resetpassword', function (req, res) {
+        console.log('resetpassword...')
         var mobile = req.body.mobile;
         var code = req.body.code;
         utility.checkCode(mobile, code, function (obj) {
+            console.log('resetpassword checked')
             var model = {
                 username: req.body.username,
                 password: req.body.password,
                 mobile: req.body.mobile
             }
             Account.findOne({
-                username: req.body.username
+                mobile: req.body.mobile
             }, function (err, account) {
                 if (err) throw err;
 
-                account.password = req.body.password;
-                account.save(function () {
-                    var token = jwt.sign(account, option.app.get('superSecret'), {});
+                if (account) {
+                    console.log('resetpassword find')
+                    account.password = req.body.password;
+                    account.save(function () {
+                        var token = jwt.sign(account, option.app.get('superSecret'), {});
 
-                    // return the information including token as JSON
-                    res.json({
-                        success: true,
-                        message: 'Enjoy your token!',
-                        token: token,
-                        username: account.username,
-                        firstName: account.profile.firstName,
-                        lastName: account.profile.lastName
+                        console.log('resetpassword token')
+                        // return the information including token as JSON
+                        res.json({
+                            success: true,
+                            message: 'Enjoy your token!',
+                            token: token,
+                            username: account.username,
+                            firstName: account.profile.firstName,
+                            lastName: account.profile.lastName
+                        });
                     });
-                });
+                } else {
+                    res.sendStatus(500);
+                }
             });
         }, function () {
             res.sendStatus(500);
