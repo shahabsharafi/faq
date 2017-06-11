@@ -12,25 +12,6 @@ var register = function (option) {
     var repository = new Repository(Account);
 
 
-    router.get('/test/:mobile', function (req, res, next) {
-        var mobile = req.params.mobile;
-        utility.createCode(mobile, function (obj) {
-            res.send(obj);
-        }, function () {
-            res.sendStatus(500);
-        })
-    });
-
-    router.get('/test/:mobile/:code', function (req, res, next) {
-        var mobile = req.params.mobile;
-        var code = req.params.code;
-        utility.checkCode(mobile, code, function (obj) {
-            res.send(obj);
-        }, function () {
-            res.sendStatus(500);
-        })
-    });
-
     controller(router, Account, repository, function (obj) {
         var _map = function (obj, propName) {
             if (obj[propName] && obj[propName]._id) {

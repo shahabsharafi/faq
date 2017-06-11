@@ -22,7 +22,7 @@ var schema = new mongoose.Schema({
     },
     createDate: Date,
     expDate: Date,
-    content: [{
+    items: [{
         owner: {
             type: String,
             ref: 'Account'

@@ -22,7 +22,7 @@ var register = function (option) {
             '/accounts/signup',
             '/accounts/sendcode',
             '/accounts/authenticate',
-            '/accounts/test',
+            '/discussions/test',
             '/accounts/setup',
             '/roles/setup',
             '/attributes/setup',
