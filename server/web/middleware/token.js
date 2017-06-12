@@ -11,6 +11,19 @@ var router = express.Router();
 // ---------------------------------------------------------
 // route middleware to authenticate and check token
 // ---------------------------------------------------------
+var parseBearerToken = function (req) {
+  var auth;
+  if (!req.headers || !(auth = req.headers.authorization)) {
+    return null;
+  }
+  var parts = auth.split(' ');
+  if (2 > parts.length) return null;
+  var schema = parts.shift().toLowerCase();
+  var token = parts.join(' ');
+  if ('bearer' != schema) return null;
+  return token;
+}
+
 var register = function (option) {
 
     console.log('register authenticate middleware')
@@ -38,8 +51,12 @@ var register = function (option) {
             }
         }
 
+        var token = parseBearerToken(req);
+
         // check header or url parameters or post parameters for token
-        var token = req.body.token || req.params['token'] || req.headers['x-access-token'];
+        if (!token) {
+            token = req.body.token || req.params['token'] || req.headers['x-access-token'];
+        }
 
         // decode token
         if (token) {
@@ -48,11 +65,13 @@ var register = function (option) {
             jwt.verify(token, option.app.get('superSecret'), function (err, decoded) {
 
                 if (err) {
+                    console.log('err token');
                     return res.json({
                         success: false,
                         message: 'Failed to authenticate token.'
                     });
                 } else {
+                    console.log('success token');
                     // if everything is good, save to request for use in other routes
                     req.decoded = decoded;
                     next();
