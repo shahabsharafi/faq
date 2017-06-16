@@ -15,7 +15,6 @@ var register = function (option) {
     controller(router, Discussion, repository, function (obj) {
         obj.from = obj.from._id;
         obj.to = obj.to._id;
-        obj.state = obj.state._id;
         obj.department = obj.department._id;
         for (var i = 0; i < obj.items; i++) {
             var item = obj.items[i];

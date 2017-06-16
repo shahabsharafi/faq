@@ -12,10 +12,7 @@ var schema = new mongoose.Schema({
         type: String,
         ref: 'Account'
     },
-    state: {
-        type: String,
-        ref: 'Attribute'
-    },
+    state: Number,
     department: {
         type: String,
         ref: 'Department'

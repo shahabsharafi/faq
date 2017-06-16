@@ -4,27 +4,27 @@
         "children": [
             {
                 "name": "dashboard",
-                "access": "dashboard",
+                "access": "access_management",
                 "url": "/dashboard"
             },
             {
                 "name": "account",
-                "access": "account_view",
+                "access": "access_management",
                 "url": "/account-list"
             },
             {
                 "name": "role",
-                "access": "role_view",
+                "access": "access_management",
                 "url": "/role-list"
             },
             {
                 "name": "salary",
-                "access": "salary",
+                "access": "access_management",
                 "url": "/salary"
             },
             {
                 "name": "setting",
-                "access": "setting",
+                "access": "access_management",
                 "url": "/setting"
             }
         ]
@@ -34,32 +34,32 @@
         "children": [
             {
                 "name": "department",
-                "access": "department_tree",
+                "access": "access_management",
                 "url": "/department-tree"
             },
             {
                 "name": "discount",
-                "access": "discount_view",
+                "access": "access_management",
                 "url": "/discount-list"
             },
             {
                 "name": "donate",
-                "access": "donate",
+                "access": "access_management",
                 "url": "/donate"
             },
             {
                 "name": "message",
-                "access": "message",
+                "access": "access_management",
                 "url": "/message"
             },
             {
                 "name": "faq",
-                "access": "faq",
+                "access": "access_management",
                 "url": "/faq"
             },
             {
                 "name": "poll",
-                "access": "poll",
+                "access": "access_management",
                 "url": "/poll"
             }
         ]
