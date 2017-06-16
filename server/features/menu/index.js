@@ -15,8 +15,8 @@ var register = function (option) {
                 var _checkAccess = function (node) {
                     var hasAccess = false;
                     for (var k = 0; k < req.decoded._doc.access.length; k++) {
-                        var access = req.decoded._doc.access[j];
-                        if (access = node.access) {
+                        var access = req.decoded._doc.access[k];
+                        if (access == node.access) {
                             hasAccess = true;
                             break;
                         }
@@ -31,7 +31,7 @@ var register = function (option) {
                     };
                     if (menuItem.children) {
                         item.children = [];
-                        for (var j = 0; j < menuItem.children; j++) {
+                        for (var j = 0; j < menuItem.children.length; j++) {
                             var subMenuItem = menuItem.children[j];
                             if (subMenuItem.access) {
                                 if (_checkAccess(subMenuItem)) {

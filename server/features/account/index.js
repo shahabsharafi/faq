@@ -334,7 +334,8 @@ var register = function (option) {
                         token: token,
                         username: account.username,
                         firstName: account.profile.firstName,
-                        lastName: account.profile.lastName
+                        lastName: account.profile.lastName,
+                        access: account.access
                     });
                 }
             }
