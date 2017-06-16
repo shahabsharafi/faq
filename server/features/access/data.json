@@ -1,6 +1,6 @@
 [
     { "name": "access_management" },
-    { "name": "access_oprator" },
+    { "name": "access_operator" },
     { "name": "access_user" }
 ]
 
