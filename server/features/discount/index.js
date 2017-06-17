@@ -11,7 +11,6 @@ var register = function (option) {
     var repository = new Repository(Discount);
 
     controller(router, Discount, repository, function (obj) {
-        obj.state = obj.state._id;
     });
 
     option.app.use('/api/discounts', router);
