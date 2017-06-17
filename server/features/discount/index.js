@@ -10,7 +10,9 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Discount);
 
-    controller(router, Discount, repository);
+    controller(router, Discount, repository, function (obj) {
+        obj.state = obj.state._id;
+    });
 
     option.app.use('/api/discounts', router);
 }

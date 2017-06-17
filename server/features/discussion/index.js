@@ -13,9 +13,15 @@ var register = function (option) {
     var repository = new Repository(Discussion);
 
     controller(router, Discussion, repository, function (obj) {
-        obj.from = obj.from._id;
-        obj.to = obj.to._id;
-        obj.department = obj.department._id;
+        if (obj.from) {
+            obj.from = obj.from._id;
+        }
+        if (obj.to) {
+            obj.to = obj.to._id;
+        }
+        if (obj.department) {
+            obj.department = obj.department._id;
+        }
         for (var i = 0; i < obj.items; i++) {
             var item = obj.items[i];
             item.owner = item.owner._id;
