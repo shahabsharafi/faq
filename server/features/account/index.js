@@ -12,7 +12,7 @@ var register = function (option) {
     var repository = new Repository(Account);
 
 
-    controller(router, Account, repository, function (obj) {
+    controller(router, Account, repository, function (obj, callback) {
         var _map = function (obj, propName) {
             if (obj[propName] && obj[propName]._id) {
                 obj[propName] = obj[propName]._id
@@ -24,6 +24,7 @@ var register = function (option) {
         _map(obj.education, 'major');
         _map(obj.education, 'university');
         _map(obj.education, 'level');
+        if (callback) callback();
     });
 
     router.get('/setup', function (req, res) {

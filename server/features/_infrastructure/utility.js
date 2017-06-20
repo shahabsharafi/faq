@@ -74,13 +74,26 @@ module.exports.taskRunner = function (fnList, callback) {
             if (callback)
                 callback();
         } else {
-            var fn = fnList.shift();
-            fn(function (err) {
-                if (err)
-                    if (callback)
-                        callback(err);
-                _fn(fnList, callback);
-            });
+            var item = fnList.shift();
+            console.log(item);
+            if (typeof(item) === 'function') {
+                var fn = item;
+                fn(function (err) {
+                    if (err)
+                        if (callback)
+                            callback(err);
+                    _fn(fnList, callback);
+                });
+            } else  {
+                var fn = item.fn;
+                var params = item.params;
+                fn(params, function (err) {
+                    if (err)
+                        if (callback)
+                            callback(err);
+                    _fn(fnList, callback);
+                });
+            }
         }
     }
     _fn(fnList, callback);

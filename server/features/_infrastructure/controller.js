@@ -20,21 +20,27 @@ module.exports = function (router, Model, repository, mapper) {
     });
 
     router.post('/', function (req, res) {
-
-        if (mapper) mapper(req.body);
-
-        if (req.body._id) {
-            repository.Update(req.body._id, req.body, function (err, obj) {
-                if (err) throw err;
-                res.json(obj);
-            });
-        } else {
-            var obj = new Model(req.body)
-            repository.Save(req.body, function (err) {
-                if (err) throw err;
-                res.json(obj);
-            });
+        var _fn = function (req, res) {
+            if (req.body._id) {
+                repository.Update(req.body._id, req.body, function (err, obj) {
+                    if (err) throw err;
+                    res.json(obj);
+                });
+            } else {
+                var obj = new Model(req.body)
+                repository.Save(req.body, function (err) {
+                    if (err) throw err;
+                    res.json(obj);
+                });
+            }
         }
+        if (mapper) {
+            mapper(req.body, function () { _fn(req, res); });
+        }
+        else {
+            _fn(req, res);
+        }
+
     });
 
     router.delete('/item/:key', function (req, res) {

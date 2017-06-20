@@ -12,20 +12,59 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Discussion);
 
-    controller(router, Discussion, repository, function (obj) {
-        if (obj.from) {
-            obj.from = obj.from._id;
-        }
-        if (obj.to) {
-            obj.to = obj.to._id;
-        }
+    controller(router, Discussion, repository, function (obj, callback) {
         if (obj.department) {
             obj.department = obj.department._id;
         }
-        for (var i = 0; i < obj.items; i++) {
-            var item = obj.items[i];
-            item.owner = item.owner._id;
+        var _accounts = {};
+        var setAccountId = function (source, fieldName, callback) {
+            if (obj[fieldName]) {
+                if (obj[fieldName]._id) {
+                    obj[fieldName] = obj[fieldName]._id;
+                } else if (obj[fieldName].username) {
+                    var username = obj[fieldName].username;
+                    if (_accounts[username]) {
+                        obj[fieldName] = _accounts[username];
+                    } else {
+                        Account.findOne({
+                            username: username
+                        }, function (err, o) {
+                            if (err) {
+                                callback(err)
+                            } else {
+                                _accounts[username] = o._id;
+                                obj[fieldName] = o._id;
+                                callback();
+                            }
+                        });
+                    }
+                }
+            } else {
+                callback();
+            }
         }
+        var taskArray = [];
+        taskArray.push(function (callback) {
+            setAccountId(obj, 'from', callback);
+        });
+        taskArray.push(function (callback) {
+            setAccountId(obj, 'to', callback);
+        });
+        console.log(taskArray);
+        for (var i = 0; i < obj.items; i++) {
+            console.log(taskArray);
+            var item = obj.items[i];
+            taskArray.push({
+                params: { source: item },
+                fn: function (params, callback) {
+                    setAccountId(params.source, 'owner', callback)
+                }
+            });
+        }
+        utility.taskRunner(taskArray, function (err) {
+            if (err) res.send(err);
+            if (callback) callback();
+        });
     });
 
     router.get('/test', function (req, res, next) {
