@@ -50,14 +50,14 @@ var register = function (option) {
         taskArray.push(function (callback) {
             setAccountId(obj, 'to', callback);
         });
-        console.log(taskArray);
-        for (var i = 0; i < obj.items; i++) {
-            console.log(taskArray);
+        for (var i = 0; i < obj.items.length; i++) {
             var item = obj.items[i];
             taskArray.push({
-                params: { source: item },
+                params: {
+                    source: item
+                },
                 fn: function (params, callback) {
-                    setAccountId(params.source, 'owner', callback)
+                    setAccountId(params.source, 'owner', callback);
                 }
             });
         }
