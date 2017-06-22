@@ -20,14 +20,11 @@ var getCode = function (mobile, successHandller, errHandller) {
     myCache.get(key, function (err, value) {
         if (!err) {
             if (value == undefined) {
-                console.log('getCode notfount');
                 if (errHandller) errHandller();
             } else {
-                console.log('getCode successfully');
                 if (successHandller) successHandller(value);
             }
         } else {
-            console.log('getCode error');
             if (errHandller) errHandller();
         }
     });
@@ -37,14 +34,11 @@ module.exports.getCode = getCode;
 module.exports.checkCode = function (mobile, code, successHandller, errHandller) {
     getCode(mobile, function (value) {
         if (value.code == code) {
-            console.log('checkCode successfully');
             if (successHandller) successHandller(value);
         } else {
-            console.log('checkCode notmatch');
             if (errHandller) errHandller();
         }
     }, function () {
-        console.log('checkCode notfount');
         if (errHandller) errHandller();
     });
 }
@@ -57,10 +51,8 @@ module.exports.createCode = function (mobile, successHandller, errHandller) {
         };
         myCache.set(key, obj, 180, function (err, success) {
             if (!err && success) {
-                console.log('createCode successfully');
                 if (successHandller) successHandller(obj);
             } else {
-                console.log('createCode error');
                 if (errHandller) errHandller();
             }
         }, successHandller);
@@ -75,7 +67,6 @@ module.exports.taskRunner = function (fnList, callback) {
                 callback();
         } else {
             var item = fnList.shift();
-            console.log(item);
             if (typeof(item) === 'function') {
                 var fn = item;
                 fn(function (err) {

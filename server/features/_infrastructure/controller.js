@@ -7,6 +7,7 @@ module.exports = function (router, Model, repository, mapper) {
         var oData = utility.getODataInfo(req.url);
         repository.Find(oData, function (err, list) {
             if (err) res.send(err);
+            console.log(list);
             res.json(list);
         })
     });

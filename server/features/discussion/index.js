@@ -18,13 +18,14 @@ var register = function (option) {
         }
         var _accounts = {};
         var setAccountId = function (source, fieldName, callback) {
-            if (obj[fieldName]) {
-                if (obj[fieldName]._id) {
-                    obj[fieldName] = obj[fieldName]._id;
-                } else if (obj[fieldName].username) {
-                    var username = obj[fieldName].username;
+            if (source[fieldName]) {
+                if (source[fieldName]._id) {
+                    source[fieldName] = source[fieldName]._id;
+                } else if (source[fieldName].username) {
+                    var username = source[fieldName].username;
                     if (_accounts[username]) {
-                        obj[fieldName] = _accounts[username];
+                        source[fieldName] = _accounts[username];
+                        callback();
                     } else {
                         Account.findOne({
                             username: username
@@ -32,8 +33,8 @@ var register = function (option) {
                             if (err) {
                                 callback(err)
                             } else {
-                                _accounts[username] = o._id;
-                                obj[fieldName] = o._id;
+                                _accounts[username] = o._id + '';
+                                source[fieldName] = o._id + '';
                                 callback();
                             }
                         });
@@ -64,6 +65,35 @@ var register = function (option) {
         utility.taskRunner(taskArray, function (err) {
             if (err) res.send(err);
             if (callback) callback();
+        });
+    });
+
+    router.get('/getlist/:isuser/:username/:state', function (req, res) {
+        console.log(req.params.isuser);
+        (function (cb) {
+            Account.findOne({ username: req.params.username }, function (err, user) {
+                if (err) {
+                    cb(err);
+                } else {
+                    if (req.params.isuser.toLowerCase() === 'true') {
+                        Discussion
+                            .find({ state: req.params.state, from: user._id })
+                            .populate('from to department')
+                            .populate('items.owner')
+                            .exec(cb);
+                    } else {
+                        Discussion
+                            .find({ state: req.params.state, to: user._id })
+                            .populate('from to department')
+                            .populate('items.owner')
+                            .exec(cb);
+                    }
+                }
+            });
+        })(function (err, list) {
+            if (err) res.send(err);
+            console.log(list);
+            res.json(list);
         });
     });
 
