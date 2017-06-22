@@ -21,6 +21,7 @@ var register = function (option) {
             if (source[fieldName]) {
                 if (source[fieldName]._id) {
                     source[fieldName] = source[fieldName]._id;
+                    callback();
                 } else if (source[fieldName].username) {
                     var username = source[fieldName].username;
                     if (_accounts[username]) {
@@ -39,6 +40,8 @@ var register = function (option) {
                             }
                         });
                     }
+                } else {
+                    callback();
                 }
             } else {
                 callback();
@@ -69,7 +72,6 @@ var register = function (option) {
     });
 
     router.get('/getlist/:isuser/:username/:state', function (req, res) {
-        console.log(req.params.isuser);
         (function (cb) {
             Account.findOne({ username: req.params.username }, function (err, user) {
                 if (err) {
@@ -92,8 +94,25 @@ var register = function (option) {
             });
         })(function (err, list) {
             if (err) res.send(err);
-            console.log(list);
             res.json(list);
+        });
+    });
+
+    router.get('/recive', function (req, res) {
+        Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+            Discussion
+                .findOne({ 'state': '0' }).sort({createDate: -1})
+                .populate('from to department')
+                .populate('items.owner')
+                .exec(function(err, obj) {
+                    res.json(obj);
+                });
+        })
+    });
+
+    router.get('/test2', function (req, res, next) {
+        Discussion.findOne({ 'state': '0' }).sort({createDate: -1}).exec(function(err, obj) {
+            console.log(obj);
         });
     });
 

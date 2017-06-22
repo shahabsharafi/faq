@@ -72,6 +72,7 @@ var register = function (option) {
                     });
                 } else {
                     console.log('success token');
+                    console.log(decoded._doc.username);
                     // if everything is good, save to request for use in other routes
                     req.decoded = decoded;
                     next();
