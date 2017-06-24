@@ -71,21 +71,22 @@ var register = function (option) {
         });
     });
 
-    router.get('/getlist/:isuser/:username/:state', function (req, res) {
+    router.get('/getlist/:isuser/:username/:states', function (req, res) {
         (function (cb) {
             Account.findOne({ username: req.params.username }, function (err, user) {
                 if (err) {
                     cb(err);
                 } else {
+                    var states = req.params.states.split(',');
                     if (req.params.isuser.toLowerCase() === 'true') {
                         Discussion
-                            .find({ state: req.params.state, from: user._id })
+                            .find({ state: { $in: states }, from: user._id })
                             .populate('from to department')
                             .populate('items.owner')
                             .exec(cb);
                     } else {
                         Discussion
-                            .find({ state: req.params.state, to: user._id })
+                            .find({ state: { $in: states }, to: user._id })
                             .populate('from to department')
                             .populate('items.owner')
                             .exec(cb);
