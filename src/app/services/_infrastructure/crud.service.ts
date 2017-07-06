@@ -5,7 +5,6 @@ import 'rxjs/add/operator/toPromise';
 import { Pagination } from './../../models/index';
 import { AuthenticationService } from './index';
 
-@Injectable()
 export class CrudService<T> {
 
     constructor(

@@ -14,8 +14,8 @@ export class AppComponent extends BaseComponent implements OnInit {
 
     //@ViewChild(SlideMenu) slideMenu: SlideMenu;
 
-    private menuItems: MenuItem[];
-    private currentInfo: any;
+    public menuItems: MenuItem[];
+    public currentInfo: any;
     //private sliderItems: MenuItem[];
 
 constructor (

@@ -1,3 +1,4 @@
+const compression = require('compression')
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -16,6 +17,7 @@ app.set('port', (process.env.PORT || config.port));
 app.set('superSecret', config.secret); // secret variable
 mongoose.connect(config.database); // connect to database
 
+app.use(compression())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true

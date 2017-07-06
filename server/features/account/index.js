@@ -197,33 +197,37 @@ var register = function (option) {
     });
 
     router.get('/sendcode/:mobile', function (req, res) {
+        console.log('send code');
         var mobile = req.params.mobile;
         utility.createCode(mobile, function (obj) {
             var code = obj.code;
             repository.FindObject({
                 "mobile": mobile
             }, function (err, obj) {
-                if (err) throw err;
-
-                request({
-                    uri: "http://tsms.ir/url/tsmshttp.php",
-                    method: "POST",
-                    form: {
-                        from: "30001403",
-                        to: mobile,
-                        username: "rahi_porsane",
-                        password: "a1s2d3f4",
-                        message: code
-                    }
-                }, function (err, response, body) {
-                    if (err) throw err;
-
-                    console.log(body);
-                    res.json({
-                        code: code,
-                        username: (obj ? obj.username : '')
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    request({
+                        uri: "http://tsms.ir/url/tsmshttp.php",
+                        method: "POST",
+                        form: {
+                            from: "30001403",
+                            to: mobile,
+                            username: "rahi_porsane",
+                            password: "a1s2d3f4",
+                            message: code
+                        }
+                    }, function (err, response, body) {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json({
+                                code: code,
+                                username: (obj ? obj.username : '')
+                            });
+                        }
                     });
-                });
+                }
             });
         }, function () {
             res.sendStatus(500);
@@ -233,27 +237,32 @@ var register = function (option) {
     router.post('/signup', function (req, res) {
         var mobile = req.body.mobile;
         var code = req.body.code;
+        console.log('mobile: ' + mobile + ' code: ' + code)
         utility.checkCode(mobile, code, function (obj) {
             var model = {
                 username: req.body.username,
                 password: req.body.password,
-                mobile: req.body.mobile
+                mobile: req.body.mobile,
+                access: ['access_user']
             }
             var obj = new Account(model);
             repository.Save(req.body, function (err) {
-                if (err) throw err;
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    var token = jwt.sign(model, option.app.get('superSecret'), {});
 
-                var token = jwt.sign(model, option.app.get('superSecret'), {});
-
-                // return the information including token as JSON
-                res.json({
-                    success: true,
-                    message: 'Enjoy your token!',
-                    token: token,
-                    username: model.username,
-                    firstName: '',
-                    lastName: ''
-                });
+                    // return the information including token as JSON
+                    res.json({
+                        success: true,
+                        message: 'Enjoy your token!',
+                        token: token,
+                        username: model.username,
+                        firstName: '',
+                        lastName: '',
+                        access: model.access
+                    });
+                }
             });
         }, function () {
             res.sendStatus(500);
@@ -274,27 +283,30 @@ var register = function (option) {
             Account.findOne({
                 mobile: req.body.mobile
             }, function (err, account) {
-                if (err) throw err;
-
-                if (account) {
-                    console.log('resetpassword find')
-                    account.password = req.body.password;
-                    account.save(function () {
-                        var token = jwt.sign(account, option.app.get('superSecret'), {});
-
-                        console.log('resetpassword token')
-                        // return the information including token as JSON
-                        res.json({
-                            success: true,
-                            message: 'Enjoy your token!',
-                            token: token,
-                            username: account.username,
-                            firstName: account.profile.firstName,
-                            lastName: account.profile.lastName
-                        });
-                    });
+                if (err) {
+                    res.status(500).send(err);
                 } else {
-                    res.sendStatus(500);
+                    if (account) {
+                        console.log('resetpassword find')
+                        account.password = req.body.password;
+                        account.save(function () {
+                            var token = jwt.sign(account, option.app.get('superSecret'), {});
+
+                            console.log('resetpassword token')
+                            // return the information including token as JSON
+                            res.json({
+                                success: true,
+                                message: 'Enjoy your token!',
+                                token: token,
+                                username: account.username,
+                                firstName: account.profile.firstName,
+                                lastName: account.profile.lastName,
+                                access: account.access
+                            });
+                        });
+                    } else {
+                        res.sendStatus(500);
+                    }
                 }
             });
         }, function () {
@@ -303,41 +315,43 @@ var register = function (option) {
     });
 
     router.post('/authenticate', function (req, res) {
-        // find the account
+        console.log('authenticate');
         Account.findOne({
             username: req.body.username
         }, function (err, account) {
-            if (err) throw err;
-
-            if (!account) {
-                res.json({
-                    success: false,
-                    message: 'Authentication failed. Account not found.'
-                });
-            } else if (account) {
-
-                // check if password matches
-                if (account.password != req.body.password) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                if (!account) {
                     res.json({
                         success: false,
-                        message: 'Authentication failed. Wrong password.'
+                        message: 'Authentication failed. Account not found.'
                     });
                 } else {
 
-                    // if account is found and password is right
-                    // create a token
-                    var token = jwt.sign(account, option.app.get('superSecret'), {});
+                    // check if password matches
+                    if (account.password != req.body.password) {
+                        res.json({
+                            success: false,
+                            message: 'Authentication failed. Wrong password.'
+                        });
+                    } else {
+                        console.log('token');
+                        // if account is found and password is right
+                        // create a token
+                        var token = jwt.sign(account, option.app.get('superSecret'), {});
 
-                    // return the information including token as JSON
-                    res.json({
-                        success: true,
-                        message: 'Enjoy your token!',
-                        token: token,
-                        username: account.username,
-                        firstName: account.profile.firstName,
-                        lastName: account.profile.lastName,
-                        access: account.access
-                    });
+                        // return the information including token as JSON
+                        res.json({
+                            success: true,
+                            message: 'Enjoy your token!',
+                            token: token,
+                            username: account.username,
+                            firstName: account.profile.firstName,
+                            lastName: account.profile.lastName,
+                            access: account.access
+                        });
+                    }
                 }
             }
         });
