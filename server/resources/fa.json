@@ -68,6 +68,8 @@
     "department_caption": "عنوان",
     "department_description": "توضیحات",
     "department_roles": "نقش های مرتبط",
+    "department_tags": "نمایه ها",
+    "department_newtag": "نمایه جدید",
 
     "dashboard": "داشبورد",
     "dashboard_view": "نمایش",

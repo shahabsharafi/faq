@@ -49,6 +49,12 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-12">
+                <div>{{res.department_tags}}</div>
+                <rl-tag-input [(ngModel)]="item.tags" [placeholder]="res.department_newtag"></rl-tag-input>
+            </div>
+        </div>
+        <div class="ui-g">
+            <div class="ui-g-12">
                 <button pButton type="button" icon="fa-floppy-o btn-custom" iconPos="right" [label]="res.action_save" (click)="onSave()"></button>
                 <button pButton type="button" icon="fa-trash-o btn-custom" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
             </div>

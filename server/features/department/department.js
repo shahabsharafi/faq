@@ -8,7 +8,8 @@ var schema = new mongoose.Schema({
     parentId: String,
     description: String,
     language: String,
-    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }]
+    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }],
+    tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]
 });
 
 schema.plugin(mongoosePaginate);
