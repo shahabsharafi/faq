@@ -60,7 +60,7 @@ module.exports = function (router, Model, repository, mapper) {
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.sendStatus(200);
+                res.json({ success: true, message: 'successfully deleted!' });
             }
         });
     });

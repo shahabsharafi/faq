@@ -13,7 +13,6 @@
                             <div class="department-header">
                                 {{listItem.caption}}
                             </div>
-                            <div class="department-description">{{listItem.description}}</div>
                             <div class="department-btn">
                                 <i class="fa fa-sitemap" (click)="go(listItem)" style="cursor:pointer"></i>
                                 <i class="fa fa-pencil" (click)="onRowSelect(listItem)" style="cursor:pointer"></i>
@@ -40,12 +39,6 @@
             <div class="ui-g-12">
                 <div>{{res.department_caption}}</div>
                 <input pInputText [(ngModel)]="item.caption" />
-            </div>
-        </div>
-        <div class="ui-g">
-            <div class="ui-g-12">
-                <div>{{res.department_description}}</div>
-                <textarea class="department-description-edit" pInputTextarea [(ngModel)]="item.description"></textarea>
             </div>
         </div>
         <div class="ui-g">
