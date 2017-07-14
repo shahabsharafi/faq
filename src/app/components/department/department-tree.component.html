@@ -43,11 +43,22 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-12">
+                <div><p-checkbox name="groupname" [(ngModel)]="item.selectable" [label]="res.department_selectable"></p-checkbox></div>
+            </div>
+        </div>
+        <div class="ui-g" *ngIf="item.selectable">
+            <div class="ui-g-12">
+                <div>{{res.department_price}}</div>
+                <input pInputText [(ngModel)]="item.price" />
+            </div>
+        </div>
+        <div class="ui-g" *ngIf="item.selectable">
+            <div class="ui-g-12">
                 <div>{{res.department_roles}}</div>
                 <p-autoComplete [(ngModel)]="item.roles" [suggestions]="roles" (completeMethod)="onSearchRole($event)" [multiple]="true" field="name"></p-autoComplete>
             </div>
         </div>
-        <div class="ui-g">
+        <div class="ui-g" *ngIf="item.selectable">
             <div class="ui-g-12">
                 <div>{{res.department_tags}}</div>
                 <rl-tag-input [(ngModel)]="item.tags" [placeholder]="res.department_newtag"></rl-tag-input>

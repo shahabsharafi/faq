@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {RlTagInputModule} from 'angular2-tag-input';
-import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, DropdownModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule, DataGridModule, PanelModule, DialogModule, BreadcrumbModule, CarouselModule } from 'primeng/primeng';
+import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, DropdownModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule, DataGridModule, PanelModule, DialogModule, BreadcrumbModule, CarouselModule, CheckboxModule } from 'primeng/primeng';
 import {MomentModule} from 'angular2-moment';
 import * as $ from 'jquery';
 
@@ -40,7 +40,8 @@ enableProdMode();
         PanelModule,
         DialogModule,
         BreadcrumbModule,
-        CarouselModule
+        CarouselModule,
+        CheckboxModule
     ],
     declarations: [
         AppComponent,

@@ -70,6 +70,8 @@
     "department_roles": "نقش های مرتبط",
     "department_tags": "نمایه ها",
     "department_newtag": "نمایه جدید",
+    "department_selectable": "قابل انتخاب در بخش سوالات",
+    "department_price": "قیمت",
 
     "dashboard": "داشبورد",
     "dashboard_view": "نمایش",

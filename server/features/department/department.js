@@ -8,6 +8,8 @@ var schema = new mongoose.Schema({
     parentId: String,
     description: String,
     language: String,
+    selectable: Boolean,
+    price: Number,
     roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }],
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }]
 });
