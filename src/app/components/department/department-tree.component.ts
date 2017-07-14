@@ -89,11 +89,14 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
     onNew() {
         this.clear();
         this.item = <Department>{};
+        this.item.tags = [];
         if (this._parentId) {
             this.item.type = 'category';
             this.item.parentId = this._parentId;
+            this.item.selectable = true;
         } else {
             this.item.type = 'department';
+            this.item.selectable = false;
         }
     }
 

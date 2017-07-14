@@ -1,7 +1,4 @@
 import { Role } from './role';
-export interface Tag {
-    caption: String;
-}
 export interface Department {
     _id;
     type: String;
@@ -11,6 +8,6 @@ export interface Department {
     language: { _id: String, caption: String };
     selectable: boolean;
     price: number;
-    tags: Tag[];
+    tags: String[];
     roles: Role[];
 }

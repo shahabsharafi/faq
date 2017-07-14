@@ -346,13 +346,8 @@ department
 
 .department-header {
     font-family: 'Yekan';
-    font-size: 20px;
+    font-size: 40px;
     font-weight: bold;
-}
-
-.department-description {
-    font-family: 'Nazanin';
-    font-size: 16px;
 }
 
 .department-btn {
@@ -427,17 +422,42 @@ Welcome
 /*===================================
 ng2-tag-input
 =====================================*/
-.ng2-tag-input-remove {
-    margin-left: -6px !important;
-    margin-right: 6px !important;
-}
-
 .ng2-tag-input-field {
     font-family: "tahoma" !important;
 }
 
 rl-tag-input-item {
-    margin-bottom: 2px;
+    font-family: "tahoma" !important;
+    font-size: 15px !important;
+    height: 22px !important;
+    line-height: 0px !important;
+    display: inline-block !important;
+    padding: 0 8px 0 0 !important;
+    border-radius: 2px !important;
+    margin-right: 0px !important;
+    margin-left: 5px !important;
+    margin-bottom: 2px !important;
+    transition: all 0.12s !important;
+    border-color: #156090 !important;
+    background: #186ba0 !important;
+    color: #FFFFFF !important;
+}
+
+rl-tag-input-item .ng2-tag-input-remove {
+    background: #186ba0 !important;
+    border-radius: 2px 0 0 2px !important;
+    color: #e0e0e0 !important;
+    cursor: pointer !important;
+    display: inline-block !important;
+    font-size: 12px !important;
+    height: 22px !important;
+    line-height: 20px !important;
+    margin-left: 3px !important;
+    margin-right: 0px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    width: 12px !important;
+    font-weight: bolder !important;
 }
 
 rl-tag-input {

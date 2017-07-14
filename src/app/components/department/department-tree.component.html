@@ -41,7 +41,7 @@
                 <input pInputText [(ngModel)]="item.caption" />
             </div>
         </div>
-        <div class="ui-g">
+        <div class="ui-g" *ngIf="item.type == 'category'">
             <div class="ui-g-12">
                 <div><p-checkbox name="groupname" binary="true" [(ngModel)]="item.selectable" [label]="res.department_selectable"></p-checkbox></div>
             </div>
