@@ -43,7 +43,7 @@
         </div>
         <div class="ui-g">
             <div class="ui-g-12">
-                <div><p-checkbox name="groupname" [(ngModel)]="item.selectable" [label]="res.department_selectable"></p-checkbox></div>
+                <div><p-checkbox name="groupname" binary="true" [(ngModel)]="item.selectable" [label]="res.department_selectable"></p-checkbox></div>
             </div>
         </div>
         <div class="ui-g" *ngIf="item.selectable">

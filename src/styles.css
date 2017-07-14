@@ -331,6 +331,10 @@ dropdown
 department
 ===============================*/
 
+.department-list .ui-dialog {
+    width: 600px;
+}
+
 .department-panel {
     padding: 5px;
     position: relative;
@@ -430,4 +434,13 @@ ng2-tag-input
 
 .ng2-tag-input-field {
     font-family: "tahoma" !important;
+}
+
+rl-tag-input-item {
+    margin-bottom: 2px;
+}
+
+rl-tag-input {
+    overflow-y: scroll;
+    height: 100px;
 }
