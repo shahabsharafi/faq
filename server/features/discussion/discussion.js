@@ -4,6 +4,7 @@ const mongoosePaginate = require('mongoose-paginate');
 
 var schema = new mongoose.Schema({
     title: String,
+    display: String,
     from: {
         type: String,
         ref: 'Account'
@@ -26,7 +27,8 @@ var schema = new mongoose.Schema({
         },
         createDate: Date,
         text: String
-    }]
+    }],
+    tags: [String]
 });
 
 schema.plugin(mongoosePaginate);
