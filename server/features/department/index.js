@@ -105,6 +105,6 @@ var register = function (option) {
 }
 
 module.exports = {
-    name: 'attribute',
+    name: 'department',
     register: register
 };
