@@ -21,11 +21,10 @@
     "account_education": "اطلاعات تحصیلی",
     "account_extra": "اطلاعات تکمیلی",
 
-    "account_roles": "نقش های مرتبط",
     "account_username": "نام کاربری",
     "account_password": "کلمه عبور",
     "account_confirm": "تایید کلمه عبور",
-    "account_access": "دسترسی",
+    "account_price": "قیمت کارشناسی",
     "account_firstName": "نام",
     "account_lastName": "نام خانوادگی",
     "account_fatherName": "نام پدر",
@@ -67,9 +66,7 @@
     "department_new": "بخش جدید",
     "department_caption": "عنوان",
     "department_description": "توضیحات",
-    "department_roles": "نقش های مرتبط",
-    "department_tags": "نمایه ها",
-    "department_newtag": "نمایه جدید",
+    "department_accounts": "کارشناسان مرتبط",
     "department_selectable": "قابل انتخاب در بخش سوالات",
     "department_price": "قیمت",
 

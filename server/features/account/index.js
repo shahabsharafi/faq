@@ -27,6 +27,17 @@ var register = function (option) {
     }
     controller({ router: router, model: Account, repository: repository, mapper: mapper });
 
+    var getAccess = function (model) {
+        var arr = [];
+        if (model.isUser)
+            arr.push("access_user");
+        if (model.isOperation)
+            arr.push("access_operator");
+        if (model.isManagement)
+            arr.push("access_management");
+        return arr;
+    }
+
     router.get('/setup', function (req, res) {
 
         var attrs = {};
@@ -148,9 +159,11 @@ var register = function (option) {
             var obj = new Account({
                 username: 'admin',
                 password: '123456',
-                access: ['dashboard', 'discont'],
                 email: 'shahab.sharafi@gmail.com',
                 sms: '09124301687',
+                isUser: true,
+                isOperation: true,
+                isManagement: true,
                 isAdmin: true,
                 profile: {
                     firstName: 'شهاب',
@@ -243,7 +256,7 @@ var register = function (option) {
                 username: req.body.username,
                 password: req.body.password,
                 mobile: req.body.mobile,
-                access: ['access_user']
+                isUser: true
             }
             var obj = new Account(model);
             repository.Save(req.body, function (err) {
@@ -260,7 +273,7 @@ var register = function (option) {
                         username: model.username,
                         firstName: '',
                         lastName: '',
-                        access: model.access
+                        access: getAccess(model)
                     });
                 }
             });
@@ -301,7 +314,7 @@ var register = function (option) {
                                 username: account.username,
                                 firstName: account.profile.firstName,
                                 lastName: account.profile.lastName,
-                                access: account.access
+                                access: getAccess(account)
                             });
                         });
                     } else {
@@ -349,7 +362,7 @@ var register = function (option) {
                             username: account.username,
                             firstName: account.profile.firstName,
                             lastName: account.profile.lastName,
-                            access: account.access
+                            access: getAccess(account)
                         });
                     }
                 }

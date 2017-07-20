@@ -8,6 +8,5 @@ export interface Department {
     language: { _id: String, caption: String };
     selectable: boolean;
     price: number;
-    tags: String[];
-    roles: Role[];
+    accounts: Account[];
 }

@@ -4,9 +4,12 @@ const mongoosePaginate = require('mongoose-paginate');
 var schema = new mongoose.Schema({
     username: String,
     password: String,
-    access: [String],
     email: String,
     mobile: String,
+    isOperator: Boolean,
+    isUser: Boolean,
+    isManagement: Boolean,
+    price: Boolean,
     isAdmin: Boolean,
     profile: {
         firstName: String,
@@ -55,8 +58,7 @@ var schema = new mongoose.Schema({
     extra: {
         language: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attribute' }],
         dialect: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attribute' }]
-    },
-    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }]
+    }
 });
 
 schema.plugin(mongoosePaginate);

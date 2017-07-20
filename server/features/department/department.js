@@ -10,8 +10,7 @@ var schema = new mongoose.Schema({
     language: String,
     selectable: Boolean,
     price: Number,
-    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }],
-    tags: [String]
+    accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }]
 });
 
 schema.plugin(mongoosePaginate);

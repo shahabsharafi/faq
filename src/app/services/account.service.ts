@@ -31,4 +31,12 @@ export class AccountService extends CrudService<Account> {
         return obj._id;
     }
 
+    search(query: String): Promise<Account[]> {
+        var opt = {
+            $select: 'username',
+            $filter: "startswith(username,'" + query + "')",
+            $orderby: 'username'
+        }
+        return this.getPagedList(opt).then(data => { return <Account[]>data.docs });
+    }
 }

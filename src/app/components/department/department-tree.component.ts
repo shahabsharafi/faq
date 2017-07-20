@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Department } from '../../models/index';
-import { DepartmentService, ResourceService, RoleService } from '../../services/index';
+import { DepartmentService, ResourceService, AccountService } from '../../services/index';
 import { BaseComponent, CrudComponent } from '../index';
 import { LazyLoadEvent } from 'primeng/primeng';
 
@@ -14,12 +14,12 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
     _parentId: String;
     _chain: any[];
     _items: any[];
-    roles: any[];
+    accounts: any[];
 
     constructor(
         private departmentService: DepartmentService,
         protected resourceService: ResourceService,
-        protected roleService: RoleService)
+        protected accountService: AccountService)
     {
         super(resourceService, departmentService);
         this._chain = [];
@@ -75,7 +75,7 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
     }
 
     onRowSelect(event) {
-        this.selectOne(event._id, { expand: 'roles' });
+        this.selectOne(event._id, { expand: 'accounts' });
     }
 
     onSave() {
@@ -89,7 +89,6 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
     onNew() {
         this.clear();
         this.item = <Department>{};
-        this.item.tags = [];
         if (this._parentId) {
             this.item.type = 'category';
             this.item.parentId = this._parentId;
@@ -100,9 +99,9 @@ export class DepartmentTreeComponent extends CrudComponent<Department> implement
         }
     }
 
-    onSearchRole(event) {
-        this.roleService.search(event.query).then(data => {
-            this.roles = data;
+    onSearchAccount(event) {
+        this.accountService.search(event.query).then(data => {
+            this.accounts = data;
         });
     }
 }

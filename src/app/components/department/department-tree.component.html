@@ -54,14 +54,8 @@
         </div>
         <div class="ui-g" *ngIf="item.selectable">
             <div class="ui-g-12">
-                <div>{{res.department_roles}}</div>
-                <p-autoComplete [(ngModel)]="item.roles" [suggestions]="roles" (completeMethod)="onSearchRole($event)" [multiple]="true" field="name"></p-autoComplete>
-            </div>
-        </div>
-        <div class="ui-g" *ngIf="item.selectable">
-            <div class="ui-g-12">
-                <div>{{res.department_tags}}</div>
-                <rl-tag-input [(ngModel)]="item.tags" [placeholder]="res.department_newtag"></rl-tag-input>
+                <div>{{res.department_accounts}}</div>
+                <p-autoComplete [(ngModel)]="item.accounts" [suggestions]="accounts" (completeMethod)="onSearchAccount($event)" [multiple]="true" field="username"></p-autoComplete>
             </div>
         </div>
         <div class="ui-g">

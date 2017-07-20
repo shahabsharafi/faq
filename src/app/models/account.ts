@@ -35,15 +35,17 @@ export class Account {
         this.contact = <Contact>{};
         this.education = <Education>{};
         this.extra = <Extra>{};
-        this.access = new Array<String>();
     }
     _id;
     username: String;
-    access: Array<String>;
     email: String;
     mobile: String;
     profile: Profile;
     contact: Contact;
     education: Education;
     extra: Extra;
+    isOperator: Boolean;
+    isUser: Boolean;
+    isManagement: Boolean;
+    price: Boolean;
 }
