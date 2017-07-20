@@ -10,7 +10,7 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Accounting);
 
-    controller(router, Accounting, repository, null);
+    controller({ router: router, model: Accounting, repository: repository });
 
     router.post('/transaction', function (req, res) {
         var attrs = {};

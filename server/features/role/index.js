@@ -10,7 +10,7 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Role);
 
-    controller(router, Role, repository, null);
+    controller({ router: router, model: Role, repository: repository });
 
     router.get('/setup', function (req, res) {
         var obj = new Role({

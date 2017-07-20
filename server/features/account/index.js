@@ -11,8 +11,7 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Account);
 
-
-    controller(router, Account, repository, function (obj, callback) {
+    var mapper = function (obj, callback) {
         var _map = function (obj, propName) {
             if (obj[propName] && obj[propName]._id) {
                 obj[propName] = obj[propName]._id
@@ -25,7 +24,8 @@ var register = function (option) {
         _map(obj.education, 'university');
         _map(obj.education, 'level');
         if (callback) callback();
-    });
+    }
+    controller({ router: router, model: Account, repository: repository, mapper: mapper });
 
     router.get('/setup', function (req, res) {
 

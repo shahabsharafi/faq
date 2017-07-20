@@ -1,4 +1,11 @@
-module.exports = function (router, Model, repository, mapper) {
+module.exports = function (option){
+
+    var router = option.router;
+    var model = option.model;
+    var repository = option.repository;
+    var mapper = option.repository;
+    var changed = option.changed;
+
     if (!router) return;
 
     const utility = require('../_infrastructure/utility');
@@ -26,33 +33,42 @@ module.exports = function (router, Model, repository, mapper) {
     });
 
     router.post('/', function (req, res) {
-        var _fn = function (req, res) {
-            if (req.body._id) {
-                repository.Update(req.body._id, req.body, function (err, obj) {
-                    if (err) {
-                        res.status(500).send(err);
-                    } else {
-                        res.json(obj);
-                    }
-                });
-            } else {
-                var obj = new Model(req.body)
-                repository.Save(req.body, function (err) {
-                    if (err) {
-                        res.status(500).send(err);
-                    } else {
-                        res.json(obj);
-                    }
-                });
+
+        var _part1 = function (callback) {
+            if (mapper) {
+                mapper(req.body, callback);
+            }
+            else {
+                if (callback) callback();
             }
         }
-        if (mapper) {
-            mapper(req.body, function () { _fn(req, res); });
-        }
-        else {
-            _fn(req, res);
+
+        var _part2 = function (callback) {
+            if (req.body._id) {
+                repository.Update(req.body._id, req.body, callback);
+            } else {
+                var obj = new model(req.body)
+                repository.Save(req.body, callback);
+            }
         }
 
+        var _part3 = function (callback) {
+            if (changed) {
+                changed(callback);
+            } else {
+                if (callback) callback();
+            }
+        }
+
+        utility.taskRunner([_part1, _part2, _part3], function (err) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.json({
+                    success: true
+                });
+            }
+        });
     });
 
     router.delete('/item/:key', function (req, res) {

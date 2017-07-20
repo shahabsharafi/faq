@@ -12,7 +12,7 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Discussion);
 
-    controller(router, Discussion, repository, function (obj, callback) {
+    var mapper = function (obj, callback) {
         if (obj.department) {
             obj.department = obj.department._id;
         }
@@ -69,7 +69,8 @@ var register = function (option) {
             if (err) res.send(err);
             if (callback) callback();
         });
-    });
+    }
+    controller({ router: router, model: Discussion, repository: repository, mapper: mapper });
 
     router.get('/getlist/:isuser/:username/:states', function (req, res) {
         (function (cb) {
