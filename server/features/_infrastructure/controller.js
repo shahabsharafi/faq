@@ -3,7 +3,7 @@ module.exports = function (option){
     var router = option.router;
     var model = option.model;
     var repository = option.repository;
-    var mapper = option.repository;
+    var mapper = option.mapper;
     var changed = option.changed;
 
     if (!router) return;
