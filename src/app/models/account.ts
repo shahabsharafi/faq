@@ -46,6 +46,6 @@ export class Account {
     extra: Extra;
     isOperator: Boolean;
     isUser: Boolean;
-    isManagement: Boolean;
-    price: Boolean;
+    isManager: Boolean;
+    price: Number;
 }

@@ -29,12 +29,14 @@ var register = function (option) {
 
     var getAccess = function (model) {
         var arr = [];
+        console.log(model);
         if (model.isUser)
             arr.push("access_user");
-        if (model.isOperation)
+        if (model.isOperator)
             arr.push("access_operator");
-        if (model.isManagement)
-            arr.push("access_management");
+        if (model.isManager)
+            arr.push("access_manager");
+        console.log(arr);
         return arr;
     }
 
@@ -162,8 +164,8 @@ var register = function (option) {
                 email: 'shahab.sharafi@gmail.com',
                 sms: '09124301687',
                 isUser: true,
-                isOperation: true,
-                isManagement: true,
+                isOperator: true,
+                isManager: true,
                 isAdmin: true,
                 profile: {
                     firstName: 'شهاب',

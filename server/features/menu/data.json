@@ -4,27 +4,27 @@
         "children": [
             {
                 "name": "dashboard",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/dashboard"
             },
             {
                 "name": "account",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/account-list"
             },
             {
                 "name": "role",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/role-list"
             },
             {
                 "name": "salary",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/salary"
             },
             {
                 "name": "setting",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/setting"
             }
         ]
@@ -34,32 +34,32 @@
         "children": [
             {
                 "name": "department",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/department-tree"
             },
             {
                 "name": "discount",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/discount-list"
             },
             {
                 "name": "donate",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/donate"
             },
             {
                 "name": "message",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/message"
             },
             {
                 "name": "faq",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/faq"
             },
             {
                 "name": "poll",
-                "access": "access_management",
+                "access": "access_manager",
                 "url": "/poll"
             }
         ]

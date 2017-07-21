@@ -8,8 +8,8 @@ var schema = new mongoose.Schema({
     mobile: String,
     isOperator: Boolean,
     isUser: Boolean,
-    isManagement: Boolean,
-    price: Boolean,
+    isManager: Boolean,
+    price: Number,
     isAdmin: Boolean,
     profile: {
         firstName: String,

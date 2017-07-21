@@ -27,22 +27,22 @@
                         </div>
                     </div>
                     <div class="ui-g">
-                        <div class="ui-g-12">
+                        <div class="ui-g-3">
                             <p-checkbox name="groupname" binary="true" label="نقش کاربر" [(ngModel)]="item.isUser"></p-checkbox>
                         </div>
-                    </div>
-                    <div class="ui-g">
                         <div class="ui-g-3">
                             <p-checkbox name="groupname" binary="true" label="نقش کارشناس" [(ngModel)]="item.isOperator"></p-checkbox>
                         </div>
-                        <div class="ui-g-9" *ngIf="item.isOperator">
+                        <div class="ui-g-3">
+                            <p-checkbox name="groupname" binary="true" label="نقش مدیریت" [(ngModel)]="item.isManager"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g" *ngIf="item.isOperator">
+                        <div class="ui-g-4">
                             <span>{{res.account_price}}</span>
                             <input pInputText [(ngModel)]="item.price" />
                         </div>
-                    </div>
-                    <div class="ui-g">
-                        <div class="ui-g-12">
-                            <p-checkbox name="groupname" binary="true" label="نقش مدیریت" [(ngModel)]="item.isManagement"></p-checkbox>
+                        <div class="ui-g-8">
                         </div>
                     </div>
                 </p-tabPanel>
