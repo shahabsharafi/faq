@@ -19,6 +19,7 @@ var schema = new mongoose.Schema({
         ref: 'Department'
     },
     createDate: Date,
+    answerDate: Date,
     expDate: Date,
     items: [{
         owner: {
