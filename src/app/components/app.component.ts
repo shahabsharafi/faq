@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { Response } from '@angular/http';
 import { Router, NavigationEnd  } from '@angular/router';
 
@@ -9,6 +9,8 @@ import { BaseComponent } from './index';
 @Component({
     selector:'app-root',
     templateUrl: './app.component.html',
+    styleUrls: ['./styles.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AppComponent extends BaseComponent implements OnInit {
 
