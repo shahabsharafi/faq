@@ -48,18 +48,18 @@
 body,
 .ui-widget,
 .ui-widget input {
-    font-family: Tahoma;
+    font-family: IranianSans;
     font-size: 14px;
 }
 
 h1,
 h2,
 h3 {
-    font-family: 'Yekan';
+    font-family: 'IranianSans';
 }
 
 .bootstrap-iso {
-    font-family: Nazanin, Tahoma;
+    font-family: IranianSans, Tahoma;
 }
 
 
@@ -72,7 +72,7 @@ rtl fa
 }
 
 .ui-breadcrumb {
-    font-family: 'Yekan';
+    font-family: 'IranianSans';
     font-weight: bold;
     height: 25px;
     color: gray;
@@ -97,7 +97,7 @@ menu
 .bootstrap-iso .navbar-nav li,
 .bootstrap-iso .dropdown-menu>li>a,
 .navbar-brand {
-    font-family: Yekan, Tahoma;
+    font-family: IranianSans, Tahoma;
     font-weight: bold;
 }
 
@@ -345,7 +345,7 @@ department
 }
 
 .department-header {
-    font-family: 'Yekan';
+    font-family: 'IranianSans';
     font-size: 40px;
     font-weight: bold;
 }
@@ -373,13 +373,13 @@ department
 }
 
 .department-header-new .department-title {
-    font-family: 'Yekan';
+    font-family: 'IranianSans';
     font-weight: bold;
     font-size: 20px;
 }
 
 .department-header-new .department-detail {
-    font-family: 'Nazanin';
+    font-family: 'IranianSans';
     font-size: 14px;
 }
 
@@ -400,7 +400,7 @@ department
 
 .department-list .ui-dialog-titlebar {
     color: gray;
-    font-family: 'Yekan';
+    font-family: 'IranianSans';
     font-size: 20px;
     font-weight: bold;
 }
