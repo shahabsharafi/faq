@@ -6,11 +6,13 @@ var register = function (option) {
     const Discussion = require('./discussion');
     const Account = require('../account/account');
     const Attribute = require('../attribute/attribute');
+    const Department = require('../department/department');
     const URL = require('url');
     const parser = require("odata-parser");
 
     var router = option.express.Router();
     var repository = new Repository(Discussion);
+    var repDepartment = new Repository(Department);
 
     var mapper = function (obj, callback) {
         if (obj.department) {
@@ -21,30 +23,30 @@ var register = function (option) {
             if (source[fieldName]) {
                 if (source[fieldName]._id) {
                     source[fieldName] = source[fieldName]._id;
-                    callback();
+                    if (callback) callback();
                 } else if (source[fieldName].username) {
                     var username = source[fieldName].username;
                     if (_accounts[username]) {
                         source[fieldName] = _accounts[username];
-                        callback();
+                        if (callback) callback();
                     } else {
                         Account.findOne({
                             username: username
                         }, function (err, o) {
                             if (err) {
-                                callback(err)
+                                if (callback) callback(err);
                             } else {
                                 _accounts[username] = o._id + '';
                                 source[fieldName] = o._id + '';
-                                callback();
+                                if (callback) callback();
                             }
                         });
                     }
                 } else {
-                    callback();
+                    if (callback) callback();
                 }
             } else {
-                callback();
+                if (callback) callback();
             }
         }
         var taskArray = [];
@@ -65,10 +67,31 @@ var register = function (option) {
                 }
             });
         }
-        utility.taskRunner(taskArray, function (err) {
-            if (err) res.send(err);
+        utility.taskRunner(taskArray, callback);
+    }
+    var changed = function (callback) {
+
+        var attr = {};
+
+        var part1 = function (callback) {
             if (callback) callback();
-        });
+        }
+
+        var part2 = function (callback) {
+            var _fn = function (err, o) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    attr.price = o.price;
+                    if (callback) callback();
+                }
+            }
+            if (obj.department) {
+                Department.findOne({ _id: obj.department }, _fn);
+            } else (obj.to) {
+                Account.findOne({ _id: obj.to }, _fn);
+            }
+        }
     }
     controller({ router: router, model: Discussion, repository: repository, mapper: mapper });
 
@@ -127,10 +150,10 @@ var register = function (option) {
                 username: 'admin'
             }, function (err, obj) {
                 if (err) {
-                    callback(err)
+                    if (callback) callback(err);
                 } else {
                     attrs.account = obj;
-                    callback()
+                    if (callback) callback();
                 }
             });
         }
@@ -140,10 +163,10 @@ var register = function (option) {
                 caption: 'آلمانی'
             }, function (err, obj) {
                 if (err) {
-                    callback(err)
+                    if (callback) callback(err);
                 } else {
                     attrs.department = obj;
-                    callback()
+                    if (callback) callback();
                 }
             });
         }
