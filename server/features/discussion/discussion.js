@@ -13,7 +13,9 @@ var schema = new mongoose.Schema({
         type: String,
         ref: 'Account'
     },
-    state: Number,
+    state: Number,//0: created, 1: recived, 2:finished, 3: report
+    operatorRead: Boolean,
+    userRead: Boolean,
     department: {
         type: String,
         ref: 'Department'

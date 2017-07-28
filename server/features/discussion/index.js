@@ -56,6 +56,23 @@ var register = function (option) {
         taskArray.push(function (callback) {
             setAccountId(obj, 'to', callback);
         });
+        taskArray.push(function (callback) {
+            var _fn = function (err, o) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    obj.price = o.price;
+                    if (callback) callback();
+                }
+            }
+            if (!obj.price) {
+                if (obj.department) {
+                    Department.findOne({ _id: obj.department }, _fn);
+                } else if (obj.to) {
+                    Account.findOne({ _id: obj.to }, _fn);
+                }
+            }
+        });
         for (var i = 0; i < obj.items.length; i++) {
             var item = obj.items[i];
             taskArray.push({
@@ -68,30 +85,6 @@ var register = function (option) {
             });
         }
         utility.taskRunner(taskArray, callback);
-    }
-    var changed = function (callback) {
-
-        var attr = {};
-
-        var part1 = function (callback) {
-            if (callback) callback();
-        }
-
-        var part2 = function (callback) {
-            var _fn = function (err, o) {
-                if (err) {
-                    if (callback) callback(err);
-                } else {
-                    attr.price = o.price;
-                    if (callback) callback();
-                }
-            }
-            if (obj.department) {
-                Department.findOne({ _id: obj.department }, _fn);
-            } else (obj.to) {
-                Account.findOne({ _id: obj.to }, _fn);
-            }
-        }
     }
     controller({ router: router, model: Discussion, repository: repository, mapper: mapper });
 
