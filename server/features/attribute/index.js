@@ -12,6 +12,16 @@ var register = function (option) {
 
     controller({ router: router, model: Attribute, repository: repository });
 
+    router.get('/all', function (req, res) {
+        Attribute.find( { type: { $in: [ 'grade', 'major', 'university', 'level', 'language', 'dialect' ] } }, function (err, list) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.json(list);
+            }
+        });
+    });
+
     router.get('/setup', function (req, res) {
 
         var _partOne = function (callback) {
