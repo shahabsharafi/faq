@@ -334,7 +334,8 @@ var register = function (option) {
     });
 
     router.get('/me', function (req, res) {
-        Attribute.find( { username: req.decoded._doc.username }, function (err, obj) {
+        Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
+            console.log(obj);
             if (err) {
                 res.status(500).send(err);
             } else {
