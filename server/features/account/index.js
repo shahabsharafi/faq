@@ -17,12 +17,16 @@ var register = function (option) {
                 obj[propName] = obj[propName]._id
             }
         }
-        _map(obj.contact, 'province');
-        _map(obj.contact, 'city');
-        _map(obj.education, 'grade');
-        _map(obj.education, 'major');
-        _map(obj.education, 'university');
-        _map(obj.education, 'level');
+        if (obj.contact) {
+            _map(obj.contact, 'province');
+            _map(obj.contact, 'city');
+        }
+        if (obj.education) {
+            _map(obj.education, 'grade');
+            _map(obj.education, 'major');
+            _map(obj.education, 'university');
+            _map(obj.education, 'level');
+        }
         if (callback) callback();
     }
     controller({ router: router, model: Account, repository: repository, mapper: mapper });
@@ -326,6 +330,16 @@ var register = function (option) {
             });
         }, function () {
             res.sendStatus(500);
+        });
+    });
+
+    router.get('/me', function (req, res) {
+        Attribute.find( { username: req.decoded._doc.username }, function (err, obj) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.json(obj);
+            }
         });
     });
 
