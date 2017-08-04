@@ -6,6 +6,7 @@ var schema = new mongoose.Schema({
     createDate: Date,
     debit: Number,
     credit: Number,
+    type: Number,
     description: String,
     account: {
         type: String,
