@@ -73,6 +73,35 @@ var register = function (option) {
                 }
             }
         });
+        taskArray.push(function (callback) {
+            if (obj.state == 0) {
+                obj.payment = obj.price;
+            } else if (obj.state == 1) {
+                obj.payment = obj.price;
+            } else if (obj.state == 2) {
+                obj.payment = obj.price;
+                obj.wage = obj.price;
+            } else if (obj.state == 3) {
+                switch (obj.cancelation) {
+                    case 1:
+                        obj.payment = 0;
+                        break;
+                    case 2:
+                        obj.payment = 0;
+                        break;
+                    case 3:
+                        obj.payment = 0.1 * obj.price;
+                        break;
+                    case 4:
+                        obj.payment = 0.2 * obj.price;
+                        break;
+                    default:
+                        obj.payment = 0;
+                        break;
+                }
+                obj.wage = 0;
+            }
+        });
         for (var i = 0; i < obj.items.length; i++) {
             var item = obj.items[i];
             taskArray.push({

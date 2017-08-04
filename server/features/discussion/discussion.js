@@ -15,6 +15,9 @@ var schema = new mongoose.Schema({
     },
     state: Number,//0: created, 1: recived, 2:finished, 3: report
     cancelation: Number,//1: CANCELATION_UNCLEAR, 2:CANCELATION_UNRELATED, 3:CANCELATION_ANNOYING, 4:CANCELATION_OFFENSIV
+    price: Number,
+    payment: Number,
+    wage: Number,
     operatorRead: Boolean,
     userRead: Boolean,
     department: {
@@ -31,10 +34,6 @@ var schema = new mongoose.Schema({
         },
         createDate: Date,
         text: String
-    }],
-    accountings: [{
-        type: String,
-        ref: 'Accounting'
     }],
     tags: [String]
 });
