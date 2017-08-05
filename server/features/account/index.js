@@ -5,6 +5,7 @@ var register = function (option) {
     const controller = require('../_infrastructure/controller');
     const utility = require('../_infrastructure/utility');
     const Account = require('./account');
+    const Discussion = require('../discussion/discussion');
     const Attribute = require('../attribute/attribute');
     const request = require("request");
 
@@ -33,14 +34,12 @@ var register = function (option) {
 
     var getAccess = function (model) {
         var arr = [];
-        console.log(model);
         if (model.isUser)
             arr.push("access_user");
         if (model.isOperator)
             arr.push("access_operator");
         if (model.isManager)
             arr.push("access_manager");
-        console.log(arr);
         return arr;
     }
 
@@ -216,7 +215,6 @@ var register = function (option) {
     });
 
     router.get('/sendcode/:mobile', function (req, res) {
-        console.log('send code');
         var mobile = req.params.mobile;
         utility.createCode(mobile, function (obj) {
             var code = obj.code;
@@ -256,7 +254,6 @@ var register = function (option) {
     router.post('/signup', function (req, res) {
         var mobile = req.body.mobile;
         var code = req.body.code;
-        console.log('mobile: ' + mobile + ' code: ' + code)
         utility.checkCode(mobile, code, function (obj) {
             var model = {
                 username: req.body.username,
@@ -289,11 +286,9 @@ var register = function (option) {
     });
 
     router.post('/resetpassword', function (req, res) {
-        console.log('resetpassword...')
         var mobile = req.body.mobile;
         var code = req.body.code;
         utility.checkCode(mobile, code, function (obj) {
-            console.log('resetpassword checked')
             var model = {
                 username: req.body.username,
                 password: req.body.password,
@@ -306,12 +301,10 @@ var register = function (option) {
                     res.status(500).send(err);
                 } else {
                     if (account) {
-                        console.log('resetpassword find')
                         account.password = req.body.password;
                         account.save(function () {
                             var token = jwt.sign(account, option.app.get('superSecret'), {});
 
-                            console.log('resetpassword token')
                             // return the information including token as JSON
                             res.json({
                                 success: true,
@@ -335,17 +328,29 @@ var register = function (option) {
 
     router.get('/me', function (req, res) {
         Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
-            console.log(obj);
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.json(obj);
+                Discussion.aggregate([
+                    { $match: { from: obj._id + "" }},
+                    { $group: {
+                        _id: { from: "$from" },
+                        total: { $sum: "$payment" }
+                    }}
+                ], function (err, arr) {
+                    var credit = 20000;
+                    if (arr && arr.length == 1 && arr[0].total) {
+                        credit = credit - arr[0].total;
+                    }
+                    obj = obj.toObject();
+                    obj.credit = credit;
+                    res.json(obj);
+                });
             }
         });
     });
 
     router.post('/authenticate', function (req, res) {
-        console.log('authenticate');
         Account.findOne({
             username: req.body.username
         }, function (err, account) {
@@ -366,7 +371,6 @@ var register = function (option) {
                             message: 'Authentication failed. Wrong password.'
                         });
                     } else {
-                        console.log('token');
                         // if account is found and password is right
                         // create a token
                         var token = jwt.sign(account, option.app.get('superSecret'), {});

@@ -157,12 +157,6 @@ var register = function (option) {
         })
     });
 
-    router.get('/test2', function (req, res, next) {
-        Discussion.findOne({ 'state': '0' }).sort({createDate: -1}).exec(function(err, obj) {
-            console.log(obj);
-        });
-    });
-
     router.get('/test', function (req, res, next) {
 
         var attrs = {};
