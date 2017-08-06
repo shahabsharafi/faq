@@ -73,6 +73,7 @@ var register = function (option) {
                 }
             }
         });
+
         taskArray.push(function (callback) {
             if (obj.state == 0) {
                 obj.payment = obj.price;
@@ -101,7 +102,9 @@ var register = function (option) {
                 }
                 obj.wage = 0;
             }
+            if (callback) callback();
         });
+
         for (var i = 0; i < obj.items.length; i++) {
             var item = obj.items[i];
             taskArray.push({
