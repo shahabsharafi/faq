@@ -67,10 +67,16 @@ var register = function (option) {
             }
             if (!obj.price) {
                 if (obj.department) {
-                    Department.findOne({ _id: obj.department }, _fn);
+                    Department.findOne({
+                        _id: obj.department
+                    }, _fn);
                 } else if (obj.to) {
-                    Account.findOne({ _id: obj.to }, _fn);
+                    Account.findOne({
+                        _id: obj.to
+                    }, _fn);
                 }
+            } else {
+                if (callback) callback();
             }
         });
 
@@ -118,24 +124,41 @@ var register = function (option) {
         }
         utility.taskRunner(taskArray, callback);
     }
-    controller({ router: router, model: Discussion, repository: repository, mapper: mapper });
+    controller({
+        router: router,
+        model: Discussion,
+        repository: repository,
+        mapper: mapper
+    });
 
     router.get('/getlist/:isuser/:username/:states', function (req, res) {
         (function (cb) {
-            Account.findOne({ username: req.params.username }, function (err, user) {
+            Account.findOne({
+                username: req.params.username
+            }, function (err, user) {
                 if (err) {
                     cb(err);
                 } else {
                     var states = req.params.states.split(',');
                     if (req.params.isuser.toLowerCase() === 'true') {
                         Discussion
-                            .find({ state: { $in: states }, from: user._id })
+                            .find({
+                                state: {
+                                    $in: states
+                                },
+                                from: user._id
+                            })
                             .populate('from to department')
                             .populate('items.owner')
                             .exec(cb);
                     } else {
                         Discussion
-                            .find({ state: { $in: states }, to: user._id })
+                            .find({
+                                state: {
+                                    $in: states
+                                },
+                                to: user._id
+                            })
                             .populate('from to department')
                             .populate('items.owner')
                             .exec(cb);
@@ -149,12 +172,18 @@ var register = function (option) {
     });
 
     router.get('/recive', function (req, res) {
-        Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+        Account.findOne({
+            username: req.decoded._doc.username
+        }, function (err, user) {
             Discussion
-                .findOne({ 'state': '0' }).sort({createDate: -1})
+                .findOne({
+                    'state': '0'
+                }).sort({
+                    createDate: -1
+                })
                 .populate('from to department')
                 .populate('items.owner')
-                .exec(function(err, obj) {
+                .exec(function (err, obj) {
                     res.json(obj);
                 });
         })
