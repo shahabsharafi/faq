@@ -148,6 +148,36 @@ var register = function (option) {
         });
     });
 
+    router.get('/getcount/:isuser/:username/:states', function (req, res) {
+        console.log('aaaaa');
+        (function (cb) {
+            Account.findOne({ username: req.params.username }, function (err, user) {
+                if (err) {
+                    cb(err);
+                } else {
+                    var states = req.params.states.split(',');
+                    if (req.params.isuser.toLowerCase() === 'true') {
+                        Discussion
+                            .count({ state: { $in: states }, from: user._id, userRead: false })
+                            .populate('from to department')
+                            .populate('items.owner')
+                            .exec(cb);
+                    } else {
+                        Discussion
+                            .count({ state: { $in: states }, to: user._id, operatorRead: false })
+                            .populate('from to department')
+                            .populate('items.owner')
+                            .exec(cb);
+                    }
+                }
+            });
+        })(function (err, list) {
+            console.log(list);
+            if (err) res.send(err);
+            res.json(list);
+        });
+    });
+
     router.get('/recive', function (req, res) {
         Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
             Discussion
