@@ -19,16 +19,20 @@ var register = function (option) {
             if (req.body.account) {
                 req.body.account = req.body.account._id;
             } else {
-                Account.findOne({
-                    username: req.decoded._doc.username
-                }, function (err, obj) {
-                    if (err) {
-                        callback(err)
-                    } else {
-                        req.body.account = obj;
-                        callback()
-                    }
-                });
+                if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+                    Account.findOne({
+                        username: req.decoded._doc.username
+                    }, function (err, obj) {
+                        if (err) {
+                            callback(err)
+                        } else {
+                            req.body.account = obj;
+                            callback()
+                        }
+                    });
+                } else {
+                    callback({ success: false });
+                }
             }
         }
 

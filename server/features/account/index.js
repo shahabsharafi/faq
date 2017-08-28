@@ -327,27 +327,31 @@ var register = function (option) {
     });
 
     router.get('/me', function (req, res) {
-        Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                Discussion.aggregate([
-                    { $match: { from: obj._id + "" }},
-                    { $group: {
-                        _id: { from: "$from" },
-                        total: { $sum: "$payment" }
-                    }}
-                ], function (err, arr) {
-                    var credit = 20000;
-                    if (arr && arr.length == 1 && arr[0].total) {
-                        credit = credit - arr[0].total;
-                    }
-                    obj = obj.toObject();
-                    obj.credit = credit;
-                    res.json(obj);
-                });
-            }
-        });
+        if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+            Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    Discussion.aggregate([
+                        { $match: { from: obj._id + "" }},
+                        { $group: {
+                            _id: { from: "$from" },
+                            total: { $sum: "$payment" }
+                        }}
+                    ], function (err, arr) {
+                        var credit = 20000;
+                        if (arr && arr.length == 1 && arr[0].total) {
+                            credit = credit - arr[0].total;
+                        }
+                        obj = obj.toObject();
+                        obj.credit = credit;
+                        res.json(obj);
+                    });
+                }
+            });
+        } else {
+            res.status(500).send({ success: false });
+        }
     });
 
     router.post('/authenticate', function (req, res) {

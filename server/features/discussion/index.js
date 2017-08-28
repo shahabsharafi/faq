@@ -179,15 +179,19 @@ var register = function (option) {
     });
 
     router.get('/recive', function (req, res) {
-        Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
-            Discussion
-                .findOne({ 'state': '0' }).sort({createDate: -1})
-                .populate('from to department')
-                .populate('items.owner')
-                .exec(function(err, obj) {
-                    res.json(obj);
-                });
-        })
+        if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+            Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+                Discussion
+                    .findOne({ 'state': '0' }).sort({createDate: -1})
+                    .populate('from to department')
+                    .populate('items.owner')
+                    .exec(function(err, obj) {
+                        res.json(obj);
+                    });
+            })
+        } else {
+            res.status(500).send({ success: false });
+        }
     });
 
     router.get('/test', function (req, res, next) {
