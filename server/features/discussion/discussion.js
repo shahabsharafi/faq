@@ -33,7 +33,8 @@ var schema = new mongoose.Schema({
             ref: 'Account'
         },
         createDate: Date,
-        text: String
+        text: String,
+        attachment: String
     }],
     tags: [String]
 });
