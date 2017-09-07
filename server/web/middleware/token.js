@@ -29,7 +29,7 @@ var register = function (option) {
     console.log('register authenticate middleware')
 
     router.use(function (req, res, next) {
-
+        console.log('check token...');
         var ignoreUrls = [
             '/accounts/resetpassword',
             '/accounts/signup',

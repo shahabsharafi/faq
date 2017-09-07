@@ -1,75 +1,51 @@
 var register = function (option) {
 
-    const multer = require('multer');
-    const Guid = require('guid');
-    const config = require('../../config');
     const Discussion = require('../discussion/discussion');
-
-    const storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, config.uploadPath)
-        },
-        filename: function (req, file, cb) {
-            var guid = Guid.create();
-            var ext = file.originalname.split('.').pop();
-            cb(null, guid.value + '.' + ext)
-        }
-    })
-
-    const upload = multer({ dest: config.uploadPath, storage: storage });
+    const Account = require('../account/account');
     const fs = require('fs');
 
     var router = option.express.Router();
 
-    router.post('/uploads', upload.any(), (req, res) => {
-        var cb = function (err) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.status(200).json({ success: true });
-            }
+    router.post('/', (req, res) => {
+        var sendErr = function (err) {
+            res.status(500).send(err || { success: false });
         }
         if (req.files && req.files.length) {
-            console.log(1);
-            console.log(req.decoded);
             var file = req.files[0];
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
-                console.log(2);
                 Account.findOne( { username: req.decoded._doc.username }, function (err, owner) {
-                    console.log(3);
                     if (req.body.EntityName == 'discussion') {
-                        console.log(4);
                         var id = req.body.EntityKey;
                         Discussion.findOne({ _id: id }, function (err, oldEntity) {
-                            console.log(5);
                             if (err) {
-                                cb(err);
+                                sendErr(err);
                             } else {
-                                console.log(6);
                                 var item = {
                                     owner: owner,
                                     createDate: new Date(),
                                     text: '',
-                                    attachment: file.fileName
+                                    attachment: file.filename
                                 }
                                 var items = oldEntity.items || [];
                                 items.push(item);
                                 oldEntity.items = items;
-                                oldEntity.save(cb);
+                                oldEntity.save(function () {
+                                    res.status(200).json(item);
+                                });
                             }
                         });
                     }  else {
-                        cb({ success: false });
+                        sendErr();
                     }
                 });
             } else {
-                cb({ success: false });
+                sendErr();
             }
         } else {
-            cb({ success: false });
+            sendErr();
         }
     });
-    option.app.use('/', router);
+    option.app.use('/api/uploads', router);
 }
 
 module.exports = {
