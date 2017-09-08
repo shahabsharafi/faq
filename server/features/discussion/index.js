@@ -120,61 +120,74 @@ var register = function (option) {
     }
     controller({ router: router, model: Discussion, repository: repository, mapper: mapper });
 
-    router.get('/getlist/:isuser/:username/:states', function (req, res) {
+    router.get('/getlist/:states', function (req, res) {
+        //res.status(500).send({ success: false, message: 'message_unknown_error' });
         (function (cb) {
-            Account.findOne({ username: req.params.username }, function (err, user) {
-                if (err) {
-                    cb(err);
-                } else {
-                    var states = req.params.states.split(',');
-                    if (req.params.isuser.toLowerCase() === 'true') {
-                        Discussion
-                            .find({ state: { $in: states }, from: user._id })
-                            .populate('from to department')
-                            .populate('items.owner')
-                            .exec(cb);
+            if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+                Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+                    if (err) {
+                        cb(err);
                     } else {
-                        Discussion
-                            .find({ state: { $in: states }, to: user._id })
-                            .populate('from to department')
-                            .populate('items.owner')
-                            .exec(cb);
+                        var states = req.params.states.split(',');
+                        if (user.isUser === true) {
+                            Discussion
+                                .find({ state: { $in: states }, from: user._id })
+                                .populate('from to department')
+                                .populate('items.owner')
+                                .exec(cb);
+                        } else {
+                            Discussion
+                                .find({ state: { $in: states }, to: user._id })
+                                .populate('from to department')
+                                .populate('items.owner')
+                                .exec(cb);
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                cb(err);
+            }
         })(function (err, list) {
-            if (err) res.send(err);
-            res.json(list);
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).json(list);
+            }
         });
     });
 
-    router.get('/getcount/:isuser/:username/:states', function (req, res) {
-        console.log('aaaaa');
+    router.get('/getcount/:states', function (req, res) {
         (function (cb) {
-            Account.findOne({ username: req.params.username }, function (err, user) {
-                if (err) {
-                    cb(err);
-                } else {
-                    var states = req.params.states.split(',');
-                    if (req.params.isuser.toLowerCase() === 'true') {
-                        Discussion
-                            .count({ state: { $in: states }, from: user._id, userRead: false })
-                            .populate('from to department')
-                            .populate('items.owner')
-                            .exec(cb);
+            if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+                Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+                    if (err) {
+                        cb(err);
                     } else {
-                        Discussion
-                            .count({ state: { $in: states }, to: user._id, operatorRead: false })
-                            .populate('from to department')
-                            .populate('items.owner')
-                            .exec(cb);
+                        var states = req.params.states.split(',');
+                        if (user.isUser === true) {
+                            Discussion
+                                .count({ state: { $in: states }, from: user._id, userRead: false })
+                                .populate('from to department')
+                                .populate('items.owner')
+                                .exec(cb);
+                        } else {
+                            Discussion
+                                .count({ state: { $in: states }, to: user._id, operatorRead: false })
+                                .populate('from to department')
+                                .populate('items.owner')
+                                .exec(cb);
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                cb(err);
+            }
         })(function (err, list) {
-            console.log(list);
-            if (err) res.send(err);
-            res.json(list);
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.status(200).json(list);
+            }
         });
     });
 
