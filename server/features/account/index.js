@@ -8,6 +8,7 @@ var register = function (option) {
     const Discussion = require('../discussion/discussion');
     const Attribute = require('../attribute/attribute');
     const request = require("request");
+    const constants = require('../../_infrastructure/constants');
 
     var router = option.express.Router();
     var repository = new Repository(Account);
@@ -207,10 +208,11 @@ var register = function (option) {
         }
 
         utility.taskRunner([_part1, _part2, _part3, _part4, _part5, _part6, _part7, _part8, _part9], function (err) {
-            if (err) res.send(err);
-            res.json({
-                success: true
-            });
+            if (err) {
+                res.send_err(err);
+            } else {
+                res.send_ok();
+            }
         });
     });
 
@@ -222,7 +224,7 @@ var register = function (option) {
                 "mobile": mobile
             }, function (err, obj) {
                 if (err) {
-                    res.status(500).send(err);
+                    res.send_err(err);
                 } else {
                     request({
                         uri: "http://tsms.ir/url/tsmshttp.php",
@@ -236,9 +238,9 @@ var register = function (option) {
                         }
                     }, function (err, response, body) {
                         if (err) {
-                            res.status(500).send(err);
+                            res.send_err(err);
                         } else {
-                            res.json({
+                            res.send_ok({
                                 code: code,
                                 username: (obj ? obj.username : '')
                             });
@@ -247,7 +249,7 @@ var register = function (option) {
                 }
             });
         }, function () {
-            res.sendStatus(500);
+            res.send_err();
         });
     });
 
@@ -264,12 +266,12 @@ var register = function (option) {
             var obj = new Account(model);
             repository.Save(req.body, function (err) {
                 if (err) {
-                    res.status(500).send(err);
+                    res.send_err(err);
                 } else {
                     var token = jwt.sign(model, option.app.get('superSecret'), {});
 
                     // return the information including token as JSON
-                    res.json({
+                    res.send_ok({
                         success: true,
                         message: 'Enjoy your token!',
                         token: token,
@@ -281,7 +283,7 @@ var register = function (option) {
                 }
             });
         }, function () {
-            res.sendStatus(500);
+            res.send_err();
         });
     });
 
@@ -298,7 +300,7 @@ var register = function (option) {
                 mobile: req.body.mobile
             }, function (err, account) {
                 if (err) {
-                    res.status(500).send(err);
+                    res.send_err(err);
                 } else {
                     if (account) {
                         account.password = req.body.password;
@@ -306,7 +308,7 @@ var register = function (option) {
                             var token = jwt.sign(account, option.app.get('superSecret'), {});
 
                             // return the information including token as JSON
-                            res.json({
+                            res.send_ok({
                                 success: true,
                                 message: 'Enjoy your token!',
                                 token: token,
@@ -317,12 +319,12 @@ var register = function (option) {
                             });
                         });
                     } else {
-                        res.sendStatus(500);
+                        res.send_err();
                     }
                 }
             });
         }, function () {
-            res.sendStatus(500);
+            res.send_err();
         });
     });
 
@@ -330,7 +332,7 @@ var register = function (option) {
         if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
             Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
                 if (err) {
-                    res.status(500).send(err);
+                    res.send_err(err);
                 } else {
                     Discussion.aggregate([
                         { $match: { from: obj._id + "" }},
@@ -345,12 +347,12 @@ var register = function (option) {
                         }
                         obj = obj.toObject();
                         obj.credit = credit;
-                        res.json(obj);
+                        res.send_ok(obj);
                     });
                 }
             });
         } else {
-            res.status(500).send({ success: false });
+            res.send_err();
         }
     });
 
@@ -359,28 +361,22 @@ var register = function (option) {
             username: req.body.username
         }, function (err, account) {
             if (err) {
-                res.status(500).send(err);
+                res.send_err(err);
             } else {
                 if (!account) {
-                    res.json({
-                        success: false,
-                        message: 'Authentication failed. Account not found.'
-                    });
+                    res.send_err(constants.message_unauthentication_error);
                 } else {
 
                     // check if password matches
                     if (account.password != req.body.password) {
-                        res.json({
-                            success: false,
-                            message: 'Authentication failed. Wrong password.'
-                        });
+                        res.send_err(constants.message_unauthentication_error);
                     } else {
                         // if account is found and password is right
                         // create a token
                         var token = jwt.sign(account, option.app.get('superSecret'), {});
 
                         // return the information including token as JSON
-                        res.json({
+                        res.send_ok({
                             success: true,
                             message: 'Enjoy your token!',
                             token: token,

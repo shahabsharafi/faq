@@ -120,16 +120,16 @@ var register = function (option) {
     }
     controller({ router: router, model: Discussion, repository: repository, mapper: mapper });
 
-    router.get('/getlist/:states', function (req, res) {
-        //res.status(500).send({ success: false, message: 'message_unknown_error' });
+    router.get('/getlist/:asuser', function (req, res) {
         (function (cb) {
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
                 Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
                     if (err) {
                         cb(err);
                     } else {
-                        var states = req.params.states.split(',');
-                        if (user.isUser === true) {
+                        var asUser = req.params.asuser;
+                        var states = [ 0, 1, 2, 3 ];
+                        if (asUser === true) {
                             Discussion
                                 .find({ state: { $in: states }, from: user._id })
                                 .populate('from to department')
@@ -149,22 +149,23 @@ var register = function (option) {
             }
         })(function (err, list) {
             if (err) {
-                res.status(500).send(err);
+                res.send_err(err);
             } else {
-                res.status(200).json(list);
+                res.send_ok(list);
             }
         });
     });
 
-    router.get('/getcount/:states', function (req, res) {
+    router.get('/getcount/:asuser', function (req, res) {
         (function (cb) {
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
                 Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
                     if (err) {
                         cb(err);
                     } else {
-                        var states = req.params.states.split(',');
-                        if (user.isUser === true) {
+                        var asUser = req.params.asuser;
+                        var states = [ 0, 1, 2, 3 ];
+                        if (asUser === true) {
                             Discussion
                                 .count({ state: { $in: states }, from: user._id, userRead: false })
                                 .populate('from to department')
@@ -182,11 +183,11 @@ var register = function (option) {
             } else {
                 cb(err);
             }
-        })(function (err, list) {
+        })(function (err, count) {
             if (err) {
-                res.status(500).send(err);
+                res.send_err(err);
             } else {
-                res.status(200).json(list);
+                res.send_ok(count);
             }
         });
     });
@@ -203,7 +204,7 @@ var register = function (option) {
                     });
             })
         } else {
-            res.status(500).send({ success: false });
+            res.send_err();
         }
     });
 
