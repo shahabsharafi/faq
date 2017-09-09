@@ -7,9 +7,6 @@ var register = function (option) {
     var router = option.express.Router();
 
     router.post('/', (req, res) => {
-        var sendErr = function (err) {
-            res.status(500).send(err || { success: false });
-        }
         if (req.files && req.files.length) {
             var file = req.files[0];
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
@@ -18,7 +15,7 @@ var register = function (option) {
                         var id = req.body.EntityKey;
                         Discussion.findOne({ _id: id }, function (err, oldEntity) {
                             if (err) {
-                                sendErr(err);
+                                res.send_err(err);
                             } else {
                                 var item = {
                                     owner: owner,
@@ -30,19 +27,19 @@ var register = function (option) {
                                 items.push(item);
                                 oldEntity.items = items;
                                 oldEntity.save(function () {
-                                    res.status(200).json(item);
+                                    res.send_ok(item);
                                 });
                             }
                         });
                     }  else {
-                        sendErr();
+                        res.send_err();
                     }
                 });
             } else {
-                sendErr();
+                res.send_err();
             }
         } else {
-            sendErr();
+            res.send_err();
         }
     });
     option.app.use('/api/uploads', router);

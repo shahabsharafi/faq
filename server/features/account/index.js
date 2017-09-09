@@ -356,6 +356,10 @@ var register = function (option) {
         }
     });
 
+    router.post('/connect', function (req, res) {
+        res.send_ok();
+    });
+
     router.post('/authenticate', function (req, res) {
         Account.findOne({
             username: req.body.username
