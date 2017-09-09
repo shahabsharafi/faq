@@ -11,8 +11,22 @@ var router = express.Router();
 var register = function (option) {
 
     router.use(function (req, res, next) {
-        res.send_err = function (message) {
-            this.status(500).send({ success: false, message: message || constants.message_unknown_error });
+        res.send_err = function (e, er) {
+            var code = 500;
+            var err = { success: false, message: constants.message_unknown_error };
+            if (typeof e === 'number') {
+                code = e;
+                if (typeof er === 'string') {
+                    err.message = er;
+                } else if (typeof er === 'object') {
+                    err = er;
+                }
+            } else if (typeof e === 'string') {
+                err.message = e;
+            } else if (typeof e === 'object') {
+                err = e;
+            }
+            this.status(code).send(err);
         };
         res.send_ok = function (obj) {
             if (obj)

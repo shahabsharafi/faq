@@ -364,12 +364,12 @@ var register = function (option) {
                 res.send_err(err);
             } else {
                 if (!account) {
-                    res.send_err(constants.message_unauthentication_error);
+                    res.send_err(401, constants.message_unauthentication_error);
                 } else {
 
                     // check if password matches
                     if (account.password != req.body.password) {
-                        res.send_err(constants.message_unauthentication_error);
+                        res.send_err(401, constants.message_unauthentication_error);
                     } else {
                         // if account is found and password is right
                         // create a token
