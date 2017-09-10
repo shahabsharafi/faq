@@ -71,6 +71,8 @@ var register = function (option) {
                 } else if (obj.to) {
                     Account.findOne({ _id: obj.to }, _fn);
                 }
+            } else {
+                if (callback) callback();
             }
         });
 
