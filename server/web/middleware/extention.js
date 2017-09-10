@@ -29,10 +29,15 @@ var register = function (option) {
             this.status(code).send(err);
         };
         res.send_ok = function (obj) {
-            if (obj)
-                this.status(200).json(obj);
-            else
-                this.status(200).send({ success: true });
+			if (obj != null && obj != undefined) {
+				if (typeof obj === 'object') {
+					this.status(200).json(obj);
+				} else {
+					this.status(200).send(obj + '');
+				}
+			} else {
+                this.status(200).json({ success: true });
+			}
         };
         next();
     });

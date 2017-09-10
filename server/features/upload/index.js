@@ -18,7 +18,7 @@ var register = function (option) {
                                 res.send_err(err);
                             } else {
                                 var item = {
-                                    owner: owner,
+                                    owner: owner._id,
                                     createDate: new Date(),
                                     text: '',
                                     attachment: file.filename
