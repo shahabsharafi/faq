@@ -27,6 +27,7 @@ var register = function (option) {
                                 items.push(item);
                                 oldEntity.items = items;
                                 oldEntity.save(function () {
+                                    item.owner = owner;
                                     res.send_ok(item);
                                 });
                             }
