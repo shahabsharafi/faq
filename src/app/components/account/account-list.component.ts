@@ -45,6 +45,26 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         ];
         
         this.load(null);
+
+        this.attributeService.getByType('sex', null).then(data => {
+            if (data.length) {
+                this._defaultSex = data[0];
+            }
+            this.sexes = ComponentUtility.getDropdownData(data);
+        });
+        this.attributeService.getByType('status', null).then(data => {
+            if (data.length) {
+                this._defaultStatus = data[0];
+            }
+            this.states = ComponentUtility.getDropdownData(data);
+        });
+        this.attributeService.getByType('job_state', null).then(data => {
+            if (data.length) {
+                this._defaultJobState = data[0];
+            }
+            this.jobStates = ComponentUtility.getDropdownData(data);
+        });
+
         this.accessService.getList().then(list => {
             var _fn = function(list) {
                 var accessList = [];
@@ -76,13 +96,42 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        this.load(event, { expand: 'province,city' });
+        this.load(event, { expand: 'sex,status,jobState,country,province,city' });
     }
 
     onSearchRole(event) {
         this.roleService.search(event.query).then(data => {
             this.roles = data;
         });
+    }
+
+    onSearchReligion(event) {
+        this.attributeService.getByType('religion', event.query).then(data => {
+            this.religions = data;
+        });
+    }
+
+    onSearchSect(event) {
+        this.attributeService.getByType('sect', event.query).then(data => {
+            this.sects = data;
+        });
+    }
+
+    onSearchReference(event) {
+        this.attributeService.getByType('reference', event.query).then(data => {
+            this.references = data;
+        });
+    }
+
+    onSearchCountry(event) {
+        this.attributeService.getByType('country', event.query).then(data => {
+            this.countries = data;
+        });
+    }
+
+    onSelectCountry(event) {
+        if (this.item && this.item.contact)
+            this.item.contact.province = null;
     }
 
     onSearchProvince(event) {
@@ -141,7 +190,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect,roles' });
+        this.selectOne(event.data._id, { expand: 'contact_country,contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect,roles' });
     }
 
     onSave() {
@@ -155,6 +204,9 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     onNew() {
         this.clear();
         this.item = new Account();
+        this.item.sex = <{ _id: String, caption: String }>this._defaultSex;
+        this.item.status = <{ _id: String, caption: String }>this._defaultStatus;
+        this.item.jobState = <{ _id: String, caption: String }>this._defaultJobState;
     }
 
 }

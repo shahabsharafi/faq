@@ -9,11 +9,16 @@ export interface Profile {
     nationalCode: String;
     birthPlace: String;
     sex: Number;
-    status: Number
+    status: Number;
+    jobState: Number;
+    religion: { _id: String, caption: String };
+    sect: { _id: String, caption: String };
+    reference: { _id: String, caption: String };
 }
 export interface Contact {
     house: String;
     work: String;
+    country: { _id: String, caption: String };
     province: { _id: String, caption: String };
     city: { _id: String, caption: String };
     address: String;

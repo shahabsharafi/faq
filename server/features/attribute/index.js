@@ -32,41 +32,49 @@ var register = function (option) {
             var treeInfo = [
                 {
                     content: new Attribute({
-                        type: 'province',
-                        caption: 'تهران'
+                        type: 'country',
+                        caption: 'ایران'
                     }),
                     children: [
                         {
                             content: new Attribute({
-                                type: 'city',
+                                type: 'province',
                                 caption: 'تهران'
-                            })
+                            }),
+                            children: [
+                                {
+                                    content: new Attribute({
+                                        type: 'city',
+                                        caption: 'تهران'
+                                    })
+                                },
+                                {
+                                    content: new Attribute({
+                                        type: 'city',
+                                        caption: 'ورامین'
+                                    })
+                                }
+                            ]
                         },
                         {
                             content: new Attribute({
-                                type: 'city',
-                                caption: 'ورامین'
-                            })
-                        }
-                    ]
-                },
-                {
-                    content: new Attribute({
-                        type: 'province',
-                        caption: 'مازندران'
-                    }),
-                    children: [
-                        {
-                            content: new Attribute({
-                                type: 'city',
-                                caption: 'ساری'
-                            })
-                        },
-                        {
-                            content: new Attribute({
-                                type: 'city',
-                                caption: 'قائم شهر'
-                            })
+                                type: 'province',
+                                caption: 'مازندران'
+                            }),
+                            children: [
+                                {
+                                    content: new Attribute({
+                                        type: 'city',
+                                        caption: 'ساری'
+                                    })
+                                },
+                                {
+                                    content: new Attribute({
+                                        type: 'city',
+                                        caption: 'قائم شهر'
+                                    })
+                                }
+                            ]
                         }
                     ]
                 }
@@ -77,6 +85,64 @@ var register = function (option) {
 
         var _partThree = function (callback) {
             utility.insertList([
+                //sex
+                new Attribute({
+                    type: 'sex',
+                    caption: 'مرد'
+                }),
+                new Attribute({
+                    type: 'sex',
+                    caption: 'زن'
+                }),
+                //status
+                new Attribute({
+                    type: 'status',
+                    caption: 'مجرد'
+                }),
+                new Attribute({
+                    type: 'status',
+                    caption: 'متاهل'
+                }),
+                //job_state
+                new Attribute({
+                    type: 'job_state',
+                    caption: 'بی کار'
+                }),
+                new Attribute({
+                    type: 'job_state',
+                    caption: 'شاغل'
+                }),
+                new Attribute({
+                    type: 'job_state',
+                    caption: 'در حال تحصیل'
+                }),
+                //religion
+                new Attribute({
+                    type: 'religion',
+                    caption: 'مسلمان'
+                }),
+                new Attribute({
+                    type: 'religion',
+                    caption: 'مسیحی'
+                }),
+                new Attribute({
+                    type: 'religion',
+                    caption: 'کلیمی'
+                }),
+                new Attribute({
+                    type: 'religion',
+                    caption: 'زرتشتی'
+                }),
+                //sect
+                new Attribute({
+                    type: 'sect',
+                    caption: 'شیعه'
+                }),
+                new Attribute({
+                    type: 'sect',
+                    caption: 'سنی'
+                }),
+                /*
                 //grade
                 new Attribute({
                     type: 'grade',
@@ -204,10 +270,11 @@ var register = function (option) {
                     type: 'discount_state',
                     caption: 'دارای محدوده زمانی'
                 })
+                */
             ], callback);
         }
 
-        utility.taskRunner([_partOne, _partTwo, _partThree], function (err) {
+        utility.taskRunner([/*_partOne, _partTwo,*/ _partThree], function (err) {
             if (err) res.send(err);
             res.json({
                 success: true

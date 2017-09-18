@@ -80,6 +80,30 @@
                             <span>{{res.account_birthPlace}}</span>
                             <input pInputText [(ngModel)]="item.profile.birthPlace" />
                         </div>
+                        <div class="ui-g-12 ui-lg-4 ui-md-6">
+                            <span>{{res.account_sex}}</span>
+                            <p-dropdown [options]="sexes" [(ngModel)]="item.sex._id" [style]="{'width':'100%'}"></p-dropdown>
+                        </div>
+                        <div class="ui-g-12 ui-lg-4 ui-md-6">
+                            <span>{{res.account_status}}</span>
+                            <p-dropdown [options]="states" [(ngModel)]="item.status._id" [style]="{'width':'100%'}"></p-dropdown>
+                        </div>
+                        <div class="ui-g-12 ui-lg-4 ui-md-6">
+                            <span>{{res.account_jobState}}</span>
+                            <p-dropdown [options]="jobStates" [(ngModel)]="item.jobState._id" [style]="{'width':'100%'}"></p-dropdown>
+                        </div>
+                        <div class="ui-g-12 ui-lg-4 ui-md-6">
+                            <span>{{res.account_religion}}</span>
+                            <p-autoComplete [(ngModel)]="item.profile.religion" [suggestions]="religions" (completeMethod)="onSearchReligion($event)" field="caption"></p-autoComplete>
+                        </div>
+                        <div class="ui-g-12 ui-lg-4 ui-md-6">
+                            <span>{{res.account_sect}}</span>
+                            <p-autoComplete [(ngModel)]="item.profile.sect" [suggestions]="sects" (completeMethod)="onSearchSect($event)" field="caption"></p-autoComplete>
+                        </div>
+                        <div class="ui-g-12 ui-lg-4 ui-md-6">
+                            <span>{{res.account_reference}}</span>
+                            <p-autoComplete [(ngModel)]="item.profile.reference" [suggestions]="references" (completeMethod)="onSearchReference($event)" field="caption"></p-autoComplete>
+                        </div>
                     </div>
                 </p-tabPanel>
                 <p-tabPanel [header]="res.account_contact" *ngIf="item.contact">
@@ -91,6 +115,10 @@
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_work}}</span>
                             <input pInputText [(ngModel)]="item.contact.work" />
+                        </div>
+                        <div class="ui-g-12 ui-lg-3 ui-md-6">
+                            <span>{{res.account_country}}</span>
+                            <p-autoComplete [(ngModel)]="item.contact.country" [suggestions]="countries" (completeMethod)="onSearchCountry($event)" (onSelect)="onSelectCountry($event)" field="caption"></p-autoComplete>
                         </div>
                         <div class="ui-g-12 ui-lg-3 ui-md-6">
                             <span>{{res.account_province}}</span>

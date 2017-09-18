@@ -50,6 +50,12 @@
     "account_language": "زبان",
     "account_dialect": "لهجه",
     "account_upload": "پیوست مستندات",
+    "account_sex": "",
+    "account_state": "",
+    "account_jobState": "",
+    "account_religion": "",
+    "account_sect": "",
+    "account_reference": "",
 
     "role_name": "نقش",
 
