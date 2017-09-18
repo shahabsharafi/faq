@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Account, Attribute } from '../../models/index';
 import { AccountService, ResourceService, AccessService, AttributeService, RoleService } from '../../services/index';
-import { BaseComponent, CrudComponent, TreeComponent } from '../index';
+import { BaseComponent, CrudComponent, TreeComponent, ComponentUtility } from '../index';
 import { TreeNode, LazyLoadEvent } from 'primeng/primeng';
 
 @Component({
@@ -14,6 +14,13 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     treeData: TreeNode[];
     caption: any;
     scrollWidth: String;
+    sexes: Attribute[];
+    states: Attribute[];
+    jobStates: Attribute[];
+    religions: Attribute[];
+    sects: Attribute[];
+    references: Attribute[];
+    countries: Attribute[];
     provinces: Attribute[];
     cities: Attribute[];
     grades: Attribute[];
@@ -24,6 +31,10 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     dialects: Attribute[];
     roles: any[];
     
+    _defaultSex: any;
+    _defaultStatus: any;
+    _defaultJobState: any;
+
     constructor(
         private accountService: AccountService,
         protected resourceService: ResourceService,
@@ -96,7 +107,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        this.load(event, { expand: 'sex,status,jobState,country,province,city' });
+        this.load(event, { expand: 'sex,status,jobState,religion,sect,reference,country,province,city' });
     }
 
     onSearchRole(event) {
@@ -204,9 +215,9 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     onNew() {
         this.clear();
         this.item = new Account();
-        this.item.sex = <{ _id: String, caption: String }>this._defaultSex;
-        this.item.status = <{ _id: String, caption: String }>this._defaultStatus;
-        this.item.jobState = <{ _id: String, caption: String }>this._defaultJobState;
+        this.item.profile.sex = <{ _id: String, caption: String }>this._defaultSex;
+        this.item.profile.status = <{ _id: String, caption: String }>this._defaultStatus;
+        this.item.profile.jobState = <{ _id: String, caption: String }>this._defaultJobState;
     }
 
 }

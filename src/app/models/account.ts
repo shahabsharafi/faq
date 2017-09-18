@@ -1,5 +1,13 @@
 import { Attribute } from './attribute';
-export interface Profile {
+export class Profile {
+    constructor () {
+        this.sex = <{ _id: String, caption: String }>{};
+        this.status = <{ _id: String, caption: String }>{};
+        this.jobState = <{ _id: String, caption: String }>{};
+        this.religion = <{ _id: String, caption: String }>{};
+        this.sect = <{ _id: String, caption: String }>{};
+        this.reference = <{ _id: String, caption: String }>{}
+    }
     firstName: String;
     lastName: String;
     fatherName: String;
@@ -8,9 +16,9 @@ export interface Profile {
     placeOfIssues: String;
     nationalCode: String;
     birthPlace: String;
-    sex: Number;
-    status: Number;
-    jobState: Number;
+    sex: { _id: String, caption: String };
+    status: { _id: String, caption: String };
+    jobState: { _id: String, caption: String };
     religion: { _id: String, caption: String };
     sect: { _id: String, caption: String };
     reference: { _id: String, caption: String };
@@ -36,7 +44,7 @@ export interface Extra {
 }
 export class Account {
     constructor () {
-        this.profile = <Profile>{};
+        this.profile = new Profile();
         this.contact = <Contact>{};
         this.education = <Education>{};
         this.extra = <Extra>{};
