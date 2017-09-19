@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Account, Attribute } from '../../models/index';
 import { AccountService, ResourceService, AccessService, AttributeService, RoleService } from '../../services/index';
 import { BaseComponent, CrudComponent, TreeComponent, ComponentUtility } from '../index';
-import { TreeNode, LazyLoadEvent } from 'primeng/primeng';
+import { TreeNode, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 
 @Component({
     selector:'account-list',
@@ -14,9 +14,6 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     treeData: TreeNode[];
     caption: any;
     scrollWidth: String;
-    sexes: Attribute[];
-    states: Attribute[];
-    jobStates: Attribute[];
     religions: Attribute[];
     sects: Attribute[];
     references: Attribute[];
@@ -31,6 +28,10 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     dialects: Attribute[];
     roles: any[];
     
+    sexes: SelectItem[];
+    states: SelectItem[];
+    jobStates: SelectItem[];
+
     _defaultSex: any;
     _defaultStatus: any;
     _defaultJobState: any;
@@ -146,7 +147,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onSearchProvince(event) {
-        this.attributeService.getByType('province', event.query).then(data => {
+        this.attributeService.getByParentId(this.item.contact.country._id, event.query).then(data => {
             this.provinces = data;
         });
     }
@@ -201,7 +202,21 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'contact_country,contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect,roles' });
+        this.selectOne(event.data._id, { expand: 'profile_sex,profile_status,profile_jobState,profile_religion,profile_sect,profile_reference,contact_country,contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect,roles' });
+    }
+
+    onSelect() {
+        if (!this.item.profile.sex)
+            this.item.profile.sex = <{ _id: String, caption: String }>{};
+        if (!this.item.profile.status)
+            this.item.profile.status = <{ _id: String, caption: String }>{};
+        if (!this.item.profile.jobState)
+            this.item.profile.jobState = <{ _id: String, caption: String }>{};
+        $(document).ready(function () {
+            $('.ui-dropdown-trigger').removeClass('ui-corner-right').addClass('ui-corner-left');
+            $('.ui-dropdown-trigger').removeClass('ui-dropdown-trigger').addClass('ui-dropdown-trigger-rtl');
+            $('.ui-dropdown-label').removeClass('ui-dropdown-label').addClass('ui-dropdown-label-rtl');
+        });
     }
 
     onSave() {

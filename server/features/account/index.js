@@ -19,6 +19,14 @@ var register = function (option) {
                 obj[propName] = obj[propName]._id
             }
         }
+        if (obj.profile) {
+            _map(obj.profile, 'sex');
+            _map(obj.profile, 'status');
+            _map(obj.profile, 'jobState');
+            _map(obj.profile, 'religion');
+            _map(obj.profile, 'sect');
+            _map(obj.profile, 'reference');
+        }
         if (obj.contact) {
             _map(obj.contact, 'province');
             _map(obj.contact, 'city');
@@ -47,6 +55,20 @@ var register = function (option) {
     router.get('/setup', function (req, res) {
 
         var attrs = {};
+
+        var _part0 = function (callback) {
+            Attribute.findOne({
+                caption: 'ایران',
+                type: 'country'
+            }, function (err, obj) {
+                if (err) {
+                    callback(err)
+                } else {
+                    attrs.country = obj;
+                    callback()
+                }
+            });
+        }
 
         var _part1 = function (callback) {
             Attribute.findOne({
@@ -179,14 +201,14 @@ var register = function (option) {
                     no: '16',
                     placeOfIssues: 'Sary',
                     nationalCode: '1234567890',
-                    birthPlace: 'Sary',
-                    status: 1
+                    birthPlace: 'Sary'
                 },
                 contact: {
                     mobile: '09124301687',
                     house: '01244876598',
                     work: '02188765432',
                     email: 'shahab.sharafi@gmail.com',
+                    country: attrs.country._id,
                     province: attrs.province._id,
                     city: attrs.city._id,
                     address: 'ستاری - پیامبر',
@@ -207,7 +229,7 @@ var register = function (option) {
             repository.Setup(obj, callback);
         }
 
-        utility.taskRunner([_part1, _part2, _part3, _part4, _part5, _part6, _part7, _part8, _part9], function (err) {
+        utility.taskRunner([_part0, _part1, _part2, _part3, _part4, _part5, _part6, _part7, _part8, _part9], function (err) {
             if (err) {
                 res.send_err(err);
             } else {

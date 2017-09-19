@@ -142,7 +142,7 @@ var register = function (option) {
                     type: 'sect',
                     caption: 'سنی'
                 }),
-                /*
+
                 //grade
                 new Attribute({
                     type: 'grade',
@@ -270,11 +270,11 @@ var register = function (option) {
                     type: 'discount_state',
                     caption: 'دارای محدوده زمانی'
                 })
-                */
+
             ], callback);
         }
 
-        utility.taskRunner([/*_partOne, _partTwo,*/ _partThree], function (err) {
+        utility.taskRunner([_partOne, _partTwo, _partThree], function (err) {
             if (err) res.send(err);
             res.json({
                 success: true

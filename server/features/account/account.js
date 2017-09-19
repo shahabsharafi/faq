@@ -20,9 +20,18 @@ var schema = new mongoose.Schema({
         placeOfIssues: String,
         nationalCode: String,
         birthPlace: String,
-        sex: Number,
-        status: Number,
-        jobState: Number,
+        sex: {
+            type: String,
+            ref: 'Attribute'
+        },
+        status: {
+            type: String,
+            ref: 'Attribute'
+        },
+        jobState: {
+            type: String,
+            ref: 'Attribute'
+        },
         religion: {
             type: String,
             ref: 'Attribute'

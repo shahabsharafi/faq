@@ -82,15 +82,15 @@
                         </div>
                         <div class="ui-g-12 ui-lg-4 ui-md-6">
                             <span>{{res.account_sex}}</span>
-                            <p-dropdown [options]="sexes" [(ngModel)]="item.sex._id" [style]="{'width':'100%'}"></p-dropdown>
+                            <p-dropdown [options]="sexes" [(ngModel)]="item.profile.sex._id" [style]="{'width':'100%'}"></p-dropdown>
                         </div>
                         <div class="ui-g-12 ui-lg-4 ui-md-6">
                             <span>{{res.account_status}}</span>
-                            <p-dropdown [options]="states" [(ngModel)]="item.status._id" [style]="{'width':'100%'}"></p-dropdown>
+                            <p-dropdown [options]="states" [(ngModel)]="item.profile.status._id" [style]="{'width':'100%'}"></p-dropdown>
                         </div>
                         <div class="ui-g-12 ui-lg-4 ui-md-6">
                             <span>{{res.account_jobState}}</span>
-                            <p-dropdown [options]="jobStates" [(ngModel)]="item.jobState._id" [style]="{'width':'100%'}"></p-dropdown>
+                            <p-dropdown [options]="jobStates" [(ngModel)]="item.profile.jobState._id" [style]="{'width':'100%'}"></p-dropdown>
                         </div>
                         <div class="ui-g-12 ui-lg-4 ui-md-6">
                             <span>{{res.account_religion}}</span>

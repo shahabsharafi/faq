@@ -9,8 +9,13 @@ var repository = function (model) {
     self.FindById = function (id, query, cb) {
         var oData = parseOData(query);
         var option = oData ? (oData.option || {}) : {};
-        self.Model.paginate({ _id: id }, oData.option, function (err, list) {
-            if (cb) cb(err, list.docs[0]);
+        /*
+        if (id.match(/^[0-9a-fA-F]{24}$/)) {
+
+        }
+        */
+        self.Model.paginate({ _id: id }, oData.option, function (err, data) {
+            if (cb) cb(err, data.docs[0]);
         });
     };
 
@@ -138,6 +143,7 @@ var repository = function (model) {
                 }
                 */
                 var populate = oData.$expand.join(' ').replace(/\_/g, '.');
+                console.log(populate);
                 option.populate = populate;
             }
         }
