@@ -63,26 +63,29 @@ module.exports.createCode = function (mobile, successHandller, errHandller) {
 module.exports.taskRunner = function (fnList, callback) {
     var _fn = function (fnList, callback) {
         if (fnList.length == 0) {
-            if (callback)
-                callback();
+            if (callback) callback();
         } else {
             var item = fnList.shift();
             if (typeof(item) === 'function') {
                 var fn = item;
                 fn(function (err) {
-                    if (err)
-                        if (callback)
-                            callback(err);
-                    _fn(fnList, callback);
+                    if (err) {
+                        if (callback) callback(err);
+                    }
+                    else{
+                        _fn(fnList, callback);
+                    }
                 });
             } else  {
                 var fn = item.fn;
                 var params = item.params;
                 fn(params, function (err) {
-                    if (err)
-                        if (callback)
-                            callback(err);
-                    _fn(fnList, callback);
+                    if (err) {
+                        if (callback) callback(err);
+                    }
+                    else {
+                        _fn(fnList, callback);
+                    }
                 });
             }
         }

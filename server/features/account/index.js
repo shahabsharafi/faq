@@ -15,8 +15,12 @@ var register = function (option) {
 
     var mapper = function (obj, callback) {
         var _map = function (obj, propName) {
-            if (obj[propName] && obj[propName]._id) {
-                obj[propName] = obj[propName]._id
+            if (obj[propName]) {
+                if (obj[propName]._id) {
+                    obj[propName] = obj[propName]._id
+                } else {
+                    delete obj[propName];
+                }
             }
         }
         if (obj.profile) {
@@ -290,17 +294,25 @@ var register = function (option) {
                 if (err) {
                     res.send_err(err);
                 } else {
-                    var token = jwt.sign(model, option.app.get('superSecret'), {});
+                    Account.findOne({
+                        mobile: req.body.mobile
+                    }, function (err, account) {
+                         if (err) {
+                            res.send_err(err);
+                        } else {
+                            var token = jwt.sign(account, option.app.get('superSecret'), {});
 
-                    // return the information including token as JSON
-                    res.send_ok({
-                        success: true,
-                        message: 'Enjoy your token!',
-                        token: token,
-                        username: model.username,
-                        firstName: '',
-                        lastName: '',
-                        access: getAccess(model)
+                            // return the information including token as JSON
+                            res.send_ok({
+                                success: true,
+                                message: 'Enjoy your token!',
+                                token: token,
+                                username: account.username,
+                                firstName: '',
+                                lastName: '',
+                                access: getAccess(model)
+                            });
+                        }
                     });
                 }
             });

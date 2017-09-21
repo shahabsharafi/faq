@@ -14,8 +14,6 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     treeData: TreeNode[];
     caption: any;
     scrollWidth: String;
-    religions: Attribute[];
-    sects: Attribute[];
     references: Attribute[];
     countries: Attribute[];
     provinces: Attribute[];
@@ -31,10 +29,14 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     sexes: SelectItem[];
     states: SelectItem[];
     jobStates: SelectItem[];
+    religions: SelectItem[];
+    sects: SelectItem[];
 
     _defaultSex: any;
     _defaultStatus: any;
     _defaultJobState: any;
+    _defaultReligion: any;
+    _defaultSect: any;
 
     constructor(
         private accountService: AccountService,
@@ -76,6 +78,18 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
             }
             this.jobStates = ComponentUtility.getDropdownData(data);
         });
+        this.attributeService.getByType('religion', null).then(data => {
+            if (data.length) {
+                this._defaultReligion = data[0];
+            }
+            this.religions = ComponentUtility.getDropdownData(data);
+        });
+        this.attributeService.getByType('sect', null).then(data => {
+            if (data.length) {
+                this._defaultSect = data[0];
+            }
+            this.sects = ComponentUtility.getDropdownData(data);
+        });
 
         this.accessService.getList().then(list => {
             var _fn = function(list) {
@@ -114,18 +128,6 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     onSearchRole(event) {
         this.roleService.search(event.query).then(data => {
             this.roles = data;
-        });
-    }
-
-    onSearchReligion(event) {
-        this.attributeService.getByType('religion', event.query).then(data => {
-            this.religions = data;
-        });
-    }
-
-    onSearchSect(event) {
-        this.attributeService.getByType('sect', event.query).then(data => {
-            this.sects = data;
         });
     }
 
@@ -212,6 +214,10 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
             this.item.profile.status = <{ _id: String, caption: String }>{};
         if (!this.item.profile.jobState)
             this.item.profile.jobState = <{ _id: String, caption: String }>{};
+        if (!this.item.profile.religion)
+            this.item.profile.religion = <{ _id: String, caption: String }>{};
+        if (!this.item.profile.sect)
+            this.item.profile.sect = <{ _id: String, caption: String }>{};
         $(document).ready(function () {
             $('.ui-dropdown-trigger').removeClass('ui-corner-right').addClass('ui-corner-left');
             $('.ui-dropdown-trigger').removeClass('ui-dropdown-trigger').addClass('ui-dropdown-trigger-rtl');
@@ -233,6 +239,8 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         this.item.profile.sex = <{ _id: String, caption: String }>this._defaultSex;
         this.item.profile.status = <{ _id: String, caption: String }>this._defaultStatus;
         this.item.profile.jobState = <{ _id: String, caption: String }>this._defaultJobState;
+        this.item.profile.religion = <{ _id: String, caption: String }>this._defaultReligion;
+        this.item.profile.sect = <{ _id: String, caption: String }>this._defaultSect;
     }
 
 }
