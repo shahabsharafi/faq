@@ -46,6 +46,7 @@ var register = function (option) {
     controller({ router: router, model: Account, repository: repository, mapper: mapper });
 
     var getAccess = function (model) {
+        console.log(model);//
         var arr = [];
         if (model.isUser)
             arr.push("access_user");
@@ -290,7 +291,7 @@ var register = function (option) {
                 isUser: true
             }
             var obj = new Account(model);
-            repository.Save(req.body, function (err) {
+            repository.Save(obj, function (err) {
                 if (err) {
                     res.send_err(err);
                 } else {
@@ -310,7 +311,7 @@ var register = function (option) {
                                 username: account.username,
                                 firstName: '',
                                 lastName: '',
-                                access: getAccess(model)
+                                access: getAccess(account)
                             });
                         }
                     });
@@ -325,11 +326,6 @@ var register = function (option) {
         var mobile = req.body.mobile;
         var code = req.body.code;
         utility.checkCode(mobile, code, function (obj) {
-            var model = {
-                username: req.body.username,
-                password: req.body.password,
-                mobile: req.body.mobile
-            }
             Account.findOne({
                 mobile: req.body.mobile
             }, function (err, account) {
