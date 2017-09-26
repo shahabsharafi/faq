@@ -60,6 +60,24 @@ var repository = function (model) {
         })
     };
 
+    self.SaveOrUpdate = function (obj, mapper, cb) {
+        if (obj._id) {
+            self.Model.findOne({ _id: obj._id }, function (err, oldEntity) {
+                if (err) {
+                    if (cb) cb(err);
+                } else {
+                    Object.assign(oldEntity, obj);
+                    oldEntity.save(cb);
+                }
+            })
+        } else {
+            var entity = new self.Model(obj);
+            entity.save(function (err) {
+                if (cb) cb(err);
+            });
+        }
+    }
+
     self.Delete = function (id, cb) {
         self.Model.findOne({ _id: id }, function (err, oldEntity) {
             if (err) {

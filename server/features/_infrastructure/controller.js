@@ -47,7 +47,6 @@ module.exports = function (option){
             if (req.body._id) {
                 repository.Update(req.body._id, req.body, callback);
             } else {
-                var obj = new model(req.body)
                 repository.Save(req.body, callback);
             }
         }
