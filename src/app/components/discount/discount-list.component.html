@@ -13,7 +13,13 @@
                 </div>
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_category}}</span>
-                    <input pInputText [(ngModel)]="item.category" />
+                    <div class="bootstrap-iso">
+                        <ngx-dropdown-treeview
+                            [config]="dropdownTreeviewConfig"
+                            [items]="categoryItems">
+                        </ngx-dropdown-treeview>
+                        <input pInputText [(ngModel)]="item.category" />
+                    </div>
                 </div>
             </div>
             <div class="ui-g">

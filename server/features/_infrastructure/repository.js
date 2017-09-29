@@ -135,9 +135,13 @@ var repository = function (model) {
                 limit: oData.$skip | 10
             }
 
-            if (oData.$orderby && oData.$orderby.length)
-                option.sort = oData.$orderby[0];
-
+            if (oData.$orderby && oData.$orderby.length) {
+                var sortOldObj = oData.$orderby[0];
+                var oldKey = Object.keys(sortOldObj)[0];
+                var key = oldKey.replace(/\_/g, '.') + '';
+                var sortObj = JSON.parse('{ "' + key + '": "' + sortOldObj[oldKey] + '" }');
+                option.sort = sortObj;
+            }
             if (oData.$select && oData.$select.length) {
                 var select = {};
                 for (var i = 0; i < oData.$select.length; i++) {

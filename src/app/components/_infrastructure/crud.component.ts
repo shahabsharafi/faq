@@ -50,7 +50,11 @@ export class CrudComponent<T> extends BaseComponent {
         if (option) {
             var filterString = this.getODataFilter(option.filters);
             if (filterString) opt.$filter = filterString;
-            if (option.sortField) opt.$orderby = option.sortField + (option.sortOrder == -1 ? ' desc' : ' asc')
+            if (option.sortField) {
+                var sortField = option.sortField.replace(/\./, '_');
+                var expression = (option.sortOrder == -1 ? ' desc' : ' asc');
+                opt.$orderby = sortField + expression;
+            }
             if (option.first) opt.$top = option.first;
             if (option.rows) opt.$skip = option.rows;
         }

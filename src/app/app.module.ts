@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {RlTagInputModule} from 'angular2-tag-input';
 import { DataTableModule, SharedModule, InputTextModule, PasswordModule, AutoCompleteModule, DropdownModule, FileUploadModule, ButtonModule, TreeModule, TabViewModule, DataGridModule, PanelModule, DialogModule, BreadcrumbModule, CarouselModule, CheckboxModule } from 'primeng/primeng';
+import { TreeviewModule } from 'ngx-treeview';
 import {MomentModule} from 'angular2-moment';
 import * as $ from 'jquery';
 
@@ -41,7 +42,8 @@ enableProdMode();
         DialogModule,
         BreadcrumbModule,
         CarouselModule,
-        CheckboxModule
+        CheckboxModule,
+        TreeviewModule.forRoot()
     ],
     declarations: [
         AppComponent,
