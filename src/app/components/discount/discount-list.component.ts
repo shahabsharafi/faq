@@ -50,6 +50,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
             decoupleChildFromParent: false,
             maxHeight: 500
         });
+        /*
         this.departmentService.getList().then(list => {
             var _fn = function(list) {
                 var items = new Array<TreeviewItem>();
@@ -66,7 +67,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
             }
             this.categoryItems = <TreeviewItem[]> _fn(list);
         });
-        /*
+        */
         this.categoryItems = [new TreeviewItem({
             text: 'Children', value: 1, collapsed: false, children: [
                 { text: 'Baby 3-5', value: 11 },
@@ -74,7 +75,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
                 { text: 'Baby 9-12', value: 13 }
             ]
         })];
-        */
+
     }
 
     loadCarsLazy(event: LazyLoadEvent) {

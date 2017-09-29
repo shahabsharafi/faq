@@ -1,3 +1,12 @@
+<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+    <div class="form-check">
+        <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa" [class.fa-caret-right]="item.collapsed"
+            [class.fa-caret-down]="!item.collapsed"></i>
+        <label class="form-check-label" (click)="onCheckedChange()">
+            {{item.text}}
+        </label>
+    </div>
+</ng-template>
 <div class="discount-list ui-fluid">
     <div class="ui-g list-top">
         <div class="ui-g-6">
@@ -16,7 +25,8 @@
                     <div class="bootstrap-iso">
                         <ngx-dropdown-treeview
                             [config]="dropdownTreeviewConfig"
-                            [items]="categoryItems">
+                            [items]="categoryItems"
+                            [itemTemplate]="itemTemplate">
                         </ngx-dropdown-treeview>
                         <input pInputText [(ngModel)]="item.category" />
                     </div>
