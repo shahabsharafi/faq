@@ -31,6 +31,14 @@ export class CrudService<T> {
                 .then(data => { return data; });
     }
 
+    getTree(): Promise<T[]> {
+        var options = this.getOption(null);
+        return this.http.get(this.baseUrl + '/tree', options)
+                .toPromise()
+                .then(res => <T[]> res.json())
+                .then(data => { return data; });
+    }
+
     getPagedList(params: any): Promise<Pagination<T>> {
         var options = this.getOption(params);
         return this.http.get(this.baseUrl, options)

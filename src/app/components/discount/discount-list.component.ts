@@ -60,24 +60,32 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
             decoupleChildFromParent: false,
             maxHeight: 500
         });
-        /*
-        this.departmentService.getList().then(list => {
+
+        this.departmentService.getTree().then(data => {
             var _fn = function(list) {
                 var items = new Array<TreeviewItem>();
                 for (var i = 0; i < list.length; i++) {
                     var obj = list[i];
-                    var item = new TreeviewItem({
-                        text: obj.caption,
-                        value: obj._id,
-                        children: <TreeviewItem[]> _fn(obj.children)
-                    });
+                    var item = obj.children
+                        ? new TreeviewItem({
+                            text: obj.caption,
+                            value: obj._id,
+                            children: <TreeviewItem[]> _fn(obj.children)
+                        })
+                        : new TreeviewItem({
+                            text: obj.caption,
+                            value: obj._id
+                        });
                     items.push(item);
                 }
                 return items;
             }
-            this.categoryItems = <TreeviewItem[]> _fn(list);
+            if (data) {
+                var list = <Department[]>data;
+                this.categoryItems = <TreeviewItem[]> _fn(list);
+            }
         });
-        */
+        /*
         this.categoryItems = [new TreeviewItem({
             text: 'Children', value: 1, collapsed: false, children: [
                 { text: 'Baby 3-5', value: 11 },
@@ -85,7 +93,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
                 { text: 'Baby 9-12', value: 13 }
             ]
         })];
-
+        */
     }
 
     select(item: TreeviewItem) {

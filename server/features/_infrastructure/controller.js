@@ -21,6 +21,16 @@ module.exports = function (option){
         })
     });
 
+    router.get('/tree', function (req, res) {
+        repository.GetTree(function (err, list) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.json(list);
+            }
+        })
+    });
+
     router.get('/item/:key', function (req, res) {
         var oData = utility.getODataInfo(req.url);
         repository.FindById(req.params.key, oData, function (err, obj) {

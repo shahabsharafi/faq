@@ -1,10 +1,48 @@
 var mongoose = require('mongoose');
+var _ = require('lodash');
 
 var repository = function (model) {
 
     var self = this;
 
     self.Model = model;
+
+    self.GetTree = function (cb) {
+        self.Model.paginate({}, {}, function(err, data) {
+            if (err) {
+                cb(err);
+            } else {
+                if (data && data.docs) {
+                    var _fn = function (parentId) {
+                        var l = _.filter(data.docs, function(o) { return o.parentId == parentId; });
+                        if (l && l.length) {
+                            for (var i = 0; i < l.length; i++) {
+                                var obj = l[i];
+                                l[i] = {
+                                    _id: obj._id,
+                                    type: obj.type,
+                                    caption: obj.caption,
+                                    parentId: obj.parentId,
+                                    description: obj.description,
+                                    language: obj.language,
+                                    selectable: obj.selectable,
+                                    price: obj.price,
+                                    children: _fn(obj._id),
+                                    accounts: obj.accounts,
+                                };
+                            }
+                        }
+                        return l;
+                    }
+                    var list = _fn(null);
+                    console.log(list);
+                    cb(null, list);
+                } else {
+                    cb();
+                }
+            }
+        });
+    };
 
     self.FindById = function (id, query, cb) {
         var oData = parseOData(query);

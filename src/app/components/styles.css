@@ -464,3 +464,9 @@ rl-tag-input {
     overflow-y: scroll;
     height: 100px;
 }
+/*===================================
+dropdown
+=====================================*/
+.btn-outline-secondary {
+    margin-right: 0!important;
+}
