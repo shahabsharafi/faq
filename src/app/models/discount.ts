@@ -1,10 +1,14 @@
+import { Department } from './department';
+import { Account } from './account';
 export class Discount {
     constructor () {
-        this.state = <{ _id: String, caption: String }>{}
+        this.owner = new Account();
+        this.category = <Department>{};
+        this.state = <{ _id: String, caption: String }>{};
     }
     _id;
-    owner;
-    category;
+    owner: Account;
+    category: Department;
     price;
     count;
     cover;

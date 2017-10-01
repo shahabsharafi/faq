@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
 var schema = new mongoose.Schema({
-    owner: String,
-    category: String,
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' },
     price: Number,
     count: Number,
     cover: Number,

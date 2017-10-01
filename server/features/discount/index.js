@@ -11,6 +11,8 @@ var register = function (option) {
     var repository = new Repository(Discount);
 
     var mapper = function (obj, callback) {
+        obj.owner = obj.owner._id;
+        obj.category = obj.category._id;
         obj.state = obj.state._id;
         if (callback) callback();
     }
