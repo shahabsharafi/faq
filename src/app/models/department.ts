@@ -1,4 +1,3 @@
-import { Role } from './role';
 export interface Department {
     _id;
     type: String;

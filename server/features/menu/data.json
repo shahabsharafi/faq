@@ -3,19 +3,9 @@
         "name": "administration",
         "children": [
             {
-                "name": "dashboard",
-                "access": "access_manager",
-                "url": "/dashboard"
-            },
-            {
                 "name": "account",
                 "access": "access_manager",
                 "url": "/account-list"
-            },
-            {
-                "name": "role",
-                "access": "access_manager",
-                "url": "/role-list"
             },
             {
                 "name": "salary",
@@ -41,11 +31,6 @@
                 "name": "discount",
                 "access": "access_manager",
                 "url": "/discount-list"
-            },
-            {
-                "name": "donate",
-                "access": "access_manager",
-                "url": "/donate"
             },
             {
                 "name": "message",

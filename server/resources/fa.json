@@ -58,8 +58,6 @@
     "account_sect": "مذهب",
     "account_reference": "مرجع تقلید",
 
-    "role_name": "نقش",
-
     "discount_owner": "اهدا کننده",
     "discount_category": "بخش",
     "discount_price": "فی",
@@ -78,8 +76,6 @@
     "department_selectable": "قابل انتخاب در بخش سوالات",
     "department_price": "قیمت",
 
-    "dashboard": "داشبورد",
-    "dashboard_view": "نمایش",
     "account": "کاربران",
     "account_view": "نمایش",
     "account_modify": "تغییر",
@@ -90,10 +86,8 @@
     "signin": "ورود",
 
     "welcome": "خانه",
-    "role": "نقش",
     "department": "دپارتمان",
     "discount": "بن",
-    "donate": "دیوار مهربانی",
     "message": "پیغام",
     "faq": "پرسش و پاسخ",
     "poll": "نظرسنجی",

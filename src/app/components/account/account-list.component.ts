@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Account, Attribute } from '../../models/index';
-import { AccountService, ResourceService, AccessService, AttributeService, RoleService } from '../../services/index';
+import { AccountService, ResourceService, AccessService, AttributeService } from '../../services/index';
 import { BaseComponent, CrudComponent, TreeComponent, ComponentUtility } from '../index';
 import { TreeNode, LazyLoadEvent, SelectItem } from 'primeng/primeng';
 
@@ -24,7 +24,6 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     levels: Attribute[];
     languages: Attribute[];
     dialects: Attribute[];
-    roles: any[];
     
     sexes: SelectItem[];
     states: SelectItem[];
@@ -42,8 +41,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         private accountService: AccountService,
         protected resourceService: ResourceService,
         protected accessService: AccessService,
-        protected attributeService: AttributeService,
-        protected roleService: RoleService)
+        protected attributeService: AttributeService)
     {
         super(resourceService, accountService);
 
@@ -125,12 +123,6 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
         this.load(event, { expand: 'sex,status,jobState,religion,sect,reference,country,province,city' });
     }
 
-    onSearchRole(event) {
-        this.roleService.search(event.query).then(data => {
-            this.roles = data;
-        });
-    }
-
     onSearchReference(event) {
         this.attributeService.getByType('reference', event.query).then(data => {
             this.references = data;
@@ -204,7 +196,7 @@ export class AccountListComponent extends CrudComponent<Account> implements OnIn
     }
 
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'profile_sex,profile_status,profile_jobState,profile_religion,profile_sect,profile_reference,contact_country,contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect,roles' });
+        this.selectOne(event.data._id, { expand: 'profile_sex,profile_status,profile_jobState,profile_religion,profile_sect,profile_reference,contact_country,contact_province,contact_city,education_grade,education_major,education_university,education_level,extra_language,extra_dialect' });
     }
 
     onSelect() {

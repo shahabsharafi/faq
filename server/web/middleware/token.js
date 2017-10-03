@@ -37,7 +37,6 @@ var register = function (option) {
             '/accounts/authenticate',
             '/discussions/test',
             '/accounts/setup',
-            '/roles/setup',
             '/attributes/setup',
             '/departments/setup',
             '/access'
