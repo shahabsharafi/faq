@@ -16,9 +16,9 @@ export class AttributeService extends CrudService<Attribute> {
 getByType(type: String, query: String): Promise<Attribute[]> {
         var q = "type eq '" + type + "'";
         var opt = {
-            $select: 'caption',
+            $select: 'caption,value',
             $filter: query ? ("startswith(caption,'" + query + "') and " + q) : q,
-            $orderby: 'caption'
+            $orderby: 'caption,value'
         }
         return this.getPagedList(opt).then(data => { return <Attribute[]> data.docs });
     }
@@ -26,9 +26,9 @@ getByType(type: String, query: String): Promise<Attribute[]> {
 getByParentId(parentId: String, query: String): Promise<Attribute[]> {
         var q = "parentId eq '" + parentId + "'";
         var opt = {
-            $select: 'caption',
+            $select: 'caption,value',
             $filter: query ? ("startswith(caption,'" + query + "') and " + q) : q,
-            $orderby: 'caption'
+            $orderby: 'caption,value'
         }
         return this.getPagedList(opt).then(data => { return <Attribute[]> data.docs });
     }

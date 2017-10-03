@@ -7,6 +7,7 @@ import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { CalendarConvertor }  from '../../_infrastructure/index';
 import { TreeviewHelper, TreeviewI18n, TreeviewItem, TreeviewConfig, DownlineTreeviewItem, DropdownTreeviewComponent } from 'ngx-treeview';
 import { DropdownTreeviewSelectI18n } from './dropdown-treeview-select-i18n';
+import * as _ from 'lodash'
 
 @Component({
     selector:'discount-list',
@@ -17,6 +18,7 @@ import { DropdownTreeviewSelectI18n } from './dropdown-treeview-select-i18n';
 })
 export class DiscountListComponent extends CrudComponent<Discount> implements OnInit {
 
+    stateCollection: Attribute[];
     states: SelectItem[];
     _defaultState: any;
     dropdownTreeviewConfig: any;
@@ -51,6 +53,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
             if (data.length) {
                 this._defaultState = data[0];
             }
+            this.stateCollection = <Attribute[]>data;
             this.states = ComponentUtility.getDropdownData(data);
         });
          this.dropdownTreeviewConfig = TreeviewConfig.create({
@@ -141,6 +144,18 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         });
     }
 
+    onStateSelect(event){
+        var state = _.find(this.stateCollection, { '_id': event.value });
+        if (state && state.value && this.item.state.value != state.value) {
+            this.item.state.value = state.value;
+            if (state.value == 'limited') {
+                this.item.expireDate = this.item.beginDate;
+            } else {
+                this.item.expireDate = null;
+            }
+        }
+    }
+
     onSave() {
         this.save(null, { expand: 'state,owner,category' });
     }
@@ -156,7 +171,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         //const currentInfo = this.authenticationService.getCurrentInfo();
         //this.item.owner = currentInfo.account;
         this.item.category = <Department>{};
-        this.item.state = <{ _id: String, caption: String }>this._defaultState;
+        this.item.state = <Attribute>this._defaultState;
         this.item.beginDate = CalendarConvertor.gregorianToJalali(d.toJSON());
         this.item.expireDate = CalendarConvertor.gregorianToJalali(d.toJSON());
     }

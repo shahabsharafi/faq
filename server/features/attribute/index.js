@@ -268,7 +268,7 @@ var register = function (option) {
                 }),
                 new Attribute({
                     type: 'discount_state',
-                    caption: 'دارای محدوده زمانی'
+                    caption: 'مدت دار'
                 })
 
             ], callback);

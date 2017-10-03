@@ -1,10 +1,11 @@
 import { Department } from './department';
 import { Account } from './account';
+import { Attribute } from './attribute';
 export class Discount {
     constructor () {
         this.owner = new Account();
         this.category = <Department>{};
-        this.state = <{ _id: String, caption: String }>{};
+        this.state = <Attribute>{};
     }
     _id;
     owner: Account;
@@ -13,7 +14,7 @@ export class Discount {
     count;
     total;
     used;
-    state: { _id: String, caption: String };
+    state: Attribute;
     beginDate;
     expireDate;
 }

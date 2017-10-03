@@ -5,6 +5,7 @@ const mongoosePaginate = require('mongoose-paginate');
 var schema = new mongoose.Schema({
     type: String,
     caption: String,
+    value: String,
     parentId: String
 });
 

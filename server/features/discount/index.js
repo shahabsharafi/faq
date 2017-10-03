@@ -14,7 +14,14 @@ var register = function (option) {
         console.log(obj.category);
         obj.owner = obj.owner._id;
         obj.category = obj.category._id;
+        console.log(obj.state);
+        if (obj.state && obj.state.value != "limited") {
+            obj.expireDate = null;
+        }
         obj.state = obj.state._id;
+        obj.price = obj.price || 0;
+        obj.count = obj.count || 0;
+        obj.total = obj.price * obj.count;
         if (callback) callback();
     }
     controller({ router: router, model: Discount, repository: repository, mapper: mapper });
