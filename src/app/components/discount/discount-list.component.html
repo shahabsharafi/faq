@@ -55,9 +55,15 @@
             </div>
             <div class="ui-g">
                 <div class="ui-g-12 ui-lg-6">
-                    <span>{{res.discount_cover}}</span>
-                    <input pInputText [(ngModel)]="item.cover" />
+                    <span>{{res.discount_total}}</span>
+                    <input pInputText [(ngModel)]="item.total" readonly />
                 </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <span>{{res.discount_used}}</span>
+                    <input pInputText [(ngModel)]="item.used" readonly />
+                </div>
+            </div>
+            <div class="ui-g">
                 <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_state}}</span>
                     <p-dropdown [options]="states" [(ngModel)]="item.state._id" [style]="{'width':'100%'}"></p-dropdown>

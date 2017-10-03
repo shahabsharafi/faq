@@ -23,6 +23,8 @@ export class DiscountService extends CrudService<Discount> {
     }
 
     beforSave(obj: Discount): void {
+        const currentInfo = this.authenticationService.getCurrentInfo();
+        obj.owner = currentInfo.account;
         obj.beginDate = CalendarConvertor.jalaliToGregorian(obj.beginDate);
         obj.expireDate = CalendarConvertor.jalaliToGregorian(obj.expireDate);
     }

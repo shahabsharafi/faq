@@ -5,7 +5,7 @@ import { DiscountService, DepartmentService, ResourceService, AttributeService, 
 import { BaseComponent, CrudComponent, ComponentUtility } from '../index';
 import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { CalendarConvertor }  from '../../_infrastructure/index';
-import { TreeviewI18n, TreeviewItem, TreeviewConfig, DownlineTreeviewItem, DropdownTreeviewComponent } from 'ngx-treeview';
+import { TreeviewHelper, TreeviewI18n, TreeviewItem, TreeviewConfig, DownlineTreeviewItem, DropdownTreeviewComponent } from 'ngx-treeview';
 import { DropdownTreeviewSelectI18n } from './dropdown-treeview-select-i18n';
 
 @Component({
@@ -40,13 +40,13 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     ngOnInit() {
         super.ngOnInit();
         this.cols = [
-            {field: 'owner', header: this.res.discount_owner, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
+            {field: 'owner.username', header: this.res.discount_owner, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
+            {field: 'category.caption', header: this.res.discount_category, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
             {field: 'price', header: this.res.discount_price, filter: 'false', sortable: 'true'},
             {field: 'count', header: this.res.discount_count, filter: 'false', sortable: 'true'},
-            {field: 'cover', header: this.res.discount_cover, filter: 'false', sortable: 'true'},
             {field: 'state.caption', header: this.res.discount_state, filter: 'false', sortable: 'true'}
         ];
-        this.load(null, { expand: 'state' });
+        this.load(null, { expand: 'state,owner,category' });
         this.attributeService.getByType('discount_state', null).then(data => {
             if (data.length) {
                 this._defaultState = data[0];
@@ -98,67 +98,63 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
 
     select(item: TreeviewItem) {
         this.dropdownTreeviewComponent.dropdownDirective.close();
+        this.selectItem(item);
+        var opt: any = {};
+        this.departmentService.getItem(item.value, opt).then(o => {
+            this.item.category = o;
+        });
+    }
+
+    selectItem(item: TreeviewItem) {
         if (this.dropdownTreeviewSelectI18n.selectedItem !== item) {
             this.dropdownTreeviewSelectI18n.selectedItem = item;
-            var opt: any = {};
-            this.departmentService.getItem(item.value, opt).then(o => {
-                this.item.category = o;
-            });
         }
     }
 
     onSelectedChange(downlineItems: DownlineTreeviewItem[]) {
-        //this.rows = [];
         downlineItems.forEach(downlineItem => {
             const item = downlineItem.item;
-            /*
-            const value = item.value;
-            const texts = [item.text];
-            let parent = downlineItem.parent;
-            while (!_.isNil(parent)) {
-                texts.push(parent.item.text);
-                parent = parent.parent;
-            }
-            const reverseTexts = _.reverse(texts);
-            const row = `${reverseTexts.join(' -> ')} : ${value}`;
-
-            var opt: any = {};
-            this.departmentService.getItem(item.value, opt).then(o => {
-                this.item.category = o;
-            });*/
         });
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        this.load(event, { expand: 'state' });
+        this.load(event, { expand: 'state,owner,category' });
     }
 
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'state' });
-        setTimeout(function () {
-            $(document).ready(function () {
-                $('.ui-dropdown-trigger').removeClass('ui-corner-right').addClass('ui-corner-left');
-                $('.ui-dropdown-trigger').removeClass('ui-dropdown-trigger').addClass('ui-dropdown-trigger-rtl');
-                $('.ui-dropdown-label').removeClass('ui-dropdown-label').addClass('ui-dropdown-label-rtl');
-            });
-        }, 250);
+        this.selectOne(event.data._id, { expand: 'state,owner,category' });
+    }
 
+    onSelect() {
+        if (this.item.category) {
+            if (this.categoryItems && this.categoryItems.length) {
+                const selectedItem = TreeviewHelper.findItemInList(this.categoryItems, this.item.category._id);
+                if (selectedItem) {
+                    this.selectItem(selectedItem);
+                }
+            }
+        }
+        $(document).ready(function () {
+            $('.ui-dropdown-trigger').removeClass('ui-corner-right').addClass('ui-corner-left');
+            $('.ui-dropdown-trigger').removeClass('ui-dropdown-trigger').addClass('ui-dropdown-trigger-rtl');
+            $('.ui-dropdown-label').removeClass('ui-dropdown-label').addClass('ui-dropdown-label-rtl');
+        });
     }
 
     onSave() {
-        this.save(null, { expand: 'state' });
+        this.save(null, { expand: 'state,owner,category' });
     }
 
     onRemove() {
-        this.remove(null, { expand: 'state' });
+        this.remove(null, { expand: 'state,owner,category' });
     }
 
     onNew() {
         this.clear();
         this.item = new Discount();
         var d = new Date();
-        const currentInfo = this.authenticationService.getCurrentInfo();
-        this.item.owner = currentInfo.account;
+        //const currentInfo = this.authenticationService.getCurrentInfo();
+        //this.item.owner = currentInfo.account;
         this.item.category = <Department>{};
         this.item.state = <{ _id: String, caption: String }>this._defaultState;
         this.item.beginDate = CalendarConvertor.gregorianToJalali(d.toJSON());

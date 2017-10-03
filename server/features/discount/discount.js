@@ -7,7 +7,8 @@ var schema = new mongoose.Schema({
     category: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' },
     price: Number,
     count: Number,
-    cover: Number,
+    total: Number,
+    used: Number,
     state: {
         type: String,
         ref: 'Attribute'

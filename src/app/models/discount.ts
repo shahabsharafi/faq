@@ -11,7 +11,8 @@ export class Discount {
     category: Department;
     price;
     count;
-    cover;
+    total;
+    used;
     state: { _id: String, caption: String };
     beginDate;
     expireDate;
