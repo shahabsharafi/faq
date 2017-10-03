@@ -28,6 +28,11 @@
                 "url": "/department-tree"
             },
             {
+                "name": "faq",
+                "access": "access_manager",
+                "url": "/faq"
+            },
+            {
                 "name": "discount",
                 "access": "access_manager",
                 "url": "/discount-list"
@@ -36,11 +41,6 @@
                 "name": "message",
                 "access": "access_manager",
                 "url": "/message"
-            },
-            {
-                "name": "faq",
-                "access": "access_manager",
-                "url": "/faq"
             },
             {
                 "name": "poll",
