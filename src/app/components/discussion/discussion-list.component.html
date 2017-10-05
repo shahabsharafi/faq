@@ -1,0 +1,59 @@
+<div class="discussion-list ui-fluid">
+    <div class="ui-g list-top">
+        <div class="ui-g-6">
+            <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
+                <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
+            </p-dataTable>
+        </div>
+        <div class="ui-g-6" *ngIf="item">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <span>{{res.discussion_display}}</span>
+                    <input pInputText [(ngModel)]="item.price" />
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-lg-6">
+                    <span>{{res.discussion_from}}</span>
+                    <input pInputText [(ngModel)]="item.from.username" />
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <span>{{res.discussion_to}}</span>
+                    <input pInputText [(ngModel)]="item.to.username" />
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-lg-6">
+                    <span>{{res.discussion_state}}</span>
+                    <input pInputText [(ngModel)]="item.state" readonly />
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <span>{{res.discussion_cancelation}}</span>
+                    <input pInputText [(ngModel)]="item.cancelation" readonly />
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-lg-12">
+                    <span>{{res.discussion_department}}</span>
+                    <input pInputText [(ngModel)]="item.department.caption" readonly />
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12 ui-lg-6">
+                    <span>{{res.discussion_tag}}</span>
+                    <input pInputText [(ngModel)]="item.tags" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-6">
+            <button pButton type="button" icon="fa-plus" iconPos="right" [label]="res.action_new" (click)="onNew()"></button>
+        </div>
+        <div class="ui-g-6" *ngIf="item">
+            <button pButton type="button" icon="fa-floppy-o" iconPos="right" [label]="res.action_save" (click)="onSave()"></button>
+            <button pButton type="button" icon="fa-trash-o" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
+            <button pButton type="button" icon="fa-times" iconPos="right" [label]="res.action_cancel" (click)="clear()"></button>
+        </div>
+    </div>
+</div>
