@@ -8,6 +8,11 @@
                 "url": "/account-list"
             },
             {
+                "name": "charge",
+                "access": "access_manager",
+                "url": "/charge-list"
+            },
+            {
                 "name": "salary",
                 "access": "access_manager",
                 "url": "/salary"

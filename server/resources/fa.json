@@ -84,6 +84,11 @@
     "department_selectable": "قابل انتخاب در بخش سوالات",
     "department_price": "قیمت",
 
+    "charge_amount": "مبلغ",
+    "charge_account": "کاربر",
+    "charge_description": "شرح",
+    "charge_createDate": "تاریخ",
+
     "account": "کاربران",
     "account_view": "نمایش",
     "account_modify": "تغییر",
@@ -99,6 +104,7 @@
     "message": "پیغام",
     "discussion": "پرسش و پاسخ",
     "poll": "نظرسنجی",
+    "charge": "پرداخت",
     "salary": "دستمزد",
     "setting": "تنظیمات",
 

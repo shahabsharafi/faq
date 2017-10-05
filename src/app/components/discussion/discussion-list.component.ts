@@ -22,10 +22,10 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     ngOnInit() {
         super.ngOnInit();
         this.cols = [
-            {field: 'display', header: this.res.discount_display, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
-            {field: 'from.username', header: this.res.discount_from, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
-            {field: 'to.username', header: this.res.discount_to, filter: 'false', sortable: 'true'},
-            {field: 'department.caption', header: this.res.discount_department, filter: 'false', sortable: 'true'}
+            {field: 'display', header: this.res.discussion_display, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
+            {field: 'from.username', header: this.res.discussion_from, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
+            {field: 'to.username', header: this.res.discussion_to, filter: 'false', sortable: 'true'},
+            {field: 'department.caption', header: this.res.discussion_department, filter: 'false', sortable: 'true'}
         ];
         this.load(null, { expand: 'from,to,department' });
     }
