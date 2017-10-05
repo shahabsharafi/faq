@@ -68,6 +68,14 @@
     "discount_beginDate": "تاریخ فعال شدن",
     "discount_expireDate": "تاریخ انقضا",
 
+    "discussion_display": "عنوان گفتگو",
+    "discussion_from": "مطرح کننده",
+    "discussion_to": "پاسخ دهنده",
+    "discussion_state": "وضعیت",
+    "discussion_cancelation": "نوع انصراف",
+    "discussion_department": "دسته بندی",
+    "discussion_tags": "برچسب ها",
+
     "department_title": "بخش و طبقه بندی",
     "department_new": "بخش جدید",
     "department_caption": "عنوان",
@@ -89,7 +97,7 @@
     "department": "دپارتمان",
     "discount": "بن",
     "message": "پیغام",
-    "faq": "پرسش و پاسخ",
+    "discussion": "پرسش و پاسخ",
     "poll": "نظرسنجی",
     "salary": "دستمزد",
     "setting": "تنظیمات",

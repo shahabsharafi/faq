@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Discussion } from '../../models/index';
-import { DiscussionService, AuthenticationService } from '../../services/index';
+import { DiscussionService, ResourceService, AuthenticationService } from '../../services/index';
 import { BaseComponent, CrudComponent } from '../index';
 import { LazyLoadEvent } from 'primeng/primeng';
 
@@ -13,7 +13,8 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
 
     constructor(
         protected authenticationService: AuthenticationService,
-        private discussionService: DiscountService)
+        protected resourceService: ResourceService,
+        private discussionService: DiscussionService)
     {
         super(resourceService, discussionService);
     }

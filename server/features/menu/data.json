@@ -28,9 +28,9 @@
                 "url": "/department-tree"
             },
             {
-                "name": "faq",
+                "name": "discussion",
                 "access": "access_manager",
-                "url": "/faq"
+                "url": "/discussion-list"
             },
             {
                 "name": "discount",

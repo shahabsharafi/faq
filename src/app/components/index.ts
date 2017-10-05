@@ -6,3 +6,4 @@ export * from './account/index';
 export * from './discount/index';
 export * from './department/index';
 export * from './welcome/index';
+export * from './discussion/index';
