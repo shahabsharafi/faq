@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Discount, Department, Attribute, Account } from '../../models/index';
-import { DiscountService, DepartmentService, ResourceService, AttributeService, AuthenticationService } from '../../services/index';
+import { DiscountService, DepartmentService, ResourceService, AttributeService, AuthenticationService, AccountService } from '../../services/index';
 import { BaseComponent, CrudComponent, ComponentUtility } from '../index';
 import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
 import { CalendarConvertor }  from '../../_infrastructure/index';
@@ -23,6 +23,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     _defaultState: any;
     dropdownTreeviewConfig: any;
     categoryItems: TreeviewItem[];
+    accounts: any[];
 
     @ViewChild(DropdownTreeviewComponent) dropdownTreeviewComponent: DropdownTreeviewComponent;
     private dropdownTreeviewSelectI18n: DropdownTreeviewSelectI18n;
@@ -33,7 +34,8 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         private discountService: DiscountService,
         private departmentService: DepartmentService,
         protected resourceService: ResourceService,
-        protected attributeService: AttributeService)
+        protected attributeService: AttributeService,
+        protected accountService: AccountService)
     {
         super(resourceService, discountService);
         this.dropdownTreeviewSelectI18n = i18n as DropdownTreeviewSelectI18n;
@@ -168,11 +170,17 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         this.clear();
         this.item = new Discount();
         var d = new Date();
-        //const currentInfo = this.authenticationService.getCurrentInfo();
-        //this.item.owner = currentInfo.account;
+        const currentInfo = this.authenticationService.getCurrentInfo();
+        this.item.owner = currentInfo.account;
         this.item.category = <Department>{};
         this.item.state = <Attribute>this._defaultState;
         this.item.beginDate = CalendarConvertor.gregorianToJalali(d.toJSON());
         this.item.expireDate = CalendarConvertor.gregorianToJalali(d.toJSON());
+    }
+
+    onSearchAccount(event) {
+        this.accountService.search(event.query).then(data => {
+            this.accounts = data;
+        });
     }
 }

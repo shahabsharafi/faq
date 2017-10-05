@@ -49,7 +49,7 @@ export class Account {
         this.education = <Education>{};
         this.extra = <Extra>{};
     }
-    _id;
+    _id: String;
     username: String;
     email: String;
     mobile: String;

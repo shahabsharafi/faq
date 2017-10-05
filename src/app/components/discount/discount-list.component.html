@@ -8,6 +8,12 @@
         <div class="ui-g-6" *ngIf="item">
             <div class="ui-g">
                 <div class="ui-g-12">
+                    <div>{{res.discount_owner}}</div>
+                    <p-autoComplete [(ngModel)]="item.owner" [suggestions]="accounts" (completeMethod)="onSearchAccount($event)" [multiple]="false" field="username"></p-autoComplete>
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12">
                     <span>{{res.discount_category}}</span>
                     <div class="bootstrap-iso">
                         <ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
