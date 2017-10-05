@@ -64,6 +64,7 @@ export class CrudComponent<T> extends BaseComponent {
         }
         this.service.getPagedList(opt).then(data => {
             this.list = data.docs;
+            this.service.afterLoad(this.list);
             this.totalRecords = data.total;
             this.onLoad();
         });

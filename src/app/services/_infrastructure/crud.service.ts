@@ -75,6 +75,10 @@ export class CrudService<T> {
 
     }
 
+    afterLoad(list: T[]): void {
+
+    }
+
     copy(src): T {
         return null;
     }
