@@ -17,7 +17,7 @@ export class ChargeService extends CrudService<Charge> {
     copy(src): Charge {
         var dst = <Charge>{};
         Object.assign(dst, src);
-        dst.createDate = CalendarConvertor.jalaliToGregorian(src.createDate);
+        dst.createDate = CalendarConvertor.gregorianToJalali(src.createDate);
         return dst;
     }
 
@@ -29,7 +29,7 @@ export class ChargeService extends CrudService<Charge> {
         if (list && list.length) {
             for (var i = 0; i < list.length; i++) {
                 var obj = list[i];
-                obj.createDate = CalendarConvertor.jalaliToGregorian(obj.createDate);
+                obj.createDate = CalendarConvertor.gregorianToJalali(obj.createDate);
             }
         }
     }
