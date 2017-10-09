@@ -11,6 +11,7 @@ module.exports = function (option){
     const utility = require('../_infrastructure/utility');
 
     router.get('/', function (req, res) {
+        console.log('fortest')
         var oData = utility.getODataInfo(req.url);
         repository.Find(oData, function (err, list) {
             if (err) {

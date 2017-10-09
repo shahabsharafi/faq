@@ -13,10 +13,10 @@ var register = function (option) {
     var mapper = function (obj, callback) {
         obj.owner = obj.owner._id;
         obj.category = obj.category._id;
-        if (obj.state && obj.state.value != "limited") {
+        if (obj.type && obj.type.value != "limited") {
             obj.expireDate = null;
         }
-        obj.state = obj.state._id;
+        obj.type = obj.type._id;
         obj.price = obj.price || 0;
         obj.count = obj.count || 0;
         obj.total = obj.price * obj.count;

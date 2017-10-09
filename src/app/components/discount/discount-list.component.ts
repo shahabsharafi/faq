@@ -18,8 +18,8 @@ import * as _ from 'lodash'
 })
 export class DiscountListComponent extends CrudComponent<Discount> implements OnInit {
 
-    stateCollection: Attribute[];
-    states: SelectItem[];
+    typeCollection: Attribute[];
+    types: SelectItem[];
     _defaultState: any;
     dropdownTreeviewConfig: any;
     categoryItems: TreeviewItem[];
@@ -48,15 +48,15 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
             {field: 'category.caption', header: this.res.discount_category, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
             {field: 'price', header: this.res.discount_price, filter: 'false', sortable: 'true'},
             {field: 'count', header: this.res.discount_count, filter: 'false', sortable: 'true'},
-            {field: 'state.caption', header: this.res.discount_state, filter: 'false', sortable: 'true'}
+            {field: 'type.caption', header: this.res.discount_type, filter: 'false', sortable: 'true'}
         ];
-        this.load(null, { expand: 'state,owner,category' });
-        this.attributeService.getByType('discount_state', null).then(data => {
+        this.load(null, { expand: 'type,owner,category' });
+        this.attributeService.getByType('discount_type', null).then(data => {
             if (data.length) {
                 this._defaultState = data[0];
             }
-            this.stateCollection = <Attribute[]>data;
-            this.states = ComponentUtility.getDropdownData(data);
+            this.typeCollection = <Attribute[]>data;
+            this.types = ComponentUtility.getDropdownData(data);
         });
          this.dropdownTreeviewConfig = TreeviewConfig.create({
             hasAllCheckBox: false,
@@ -123,11 +123,11 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        this.load(event, { expand: 'state,owner,category' });
+        this.load(event, { expand: 'type,owner,category' });
     }
 
     onRowSelect(event) {
-        this.selectOne(event.data._id, { expand: 'state,owner,category' });
+        this.selectOne(event.data._id, { expand: 'type,owner,category' });
     }
 
     onSelect() {
@@ -147,10 +147,10 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     }
 
     onStateSelect(event){
-        var state = _.find(this.stateCollection, { '_id': event.value });
-        if (state && state.value && this.item.state.value != state.value) {
-            this.item.state.value = state.value;
-            if (state.value == 'limited') {
+        var type = _.find(this.typeCollection, { '_id': event.value });
+        if (type && type.value && this.item.type.value != type.value) {
+            this.item.type.value = type.value;
+            if (type.value == 'limited') {
                 this.item.expireDate = this.item.beginDate;
             } else {
                 this.item.expireDate = null;
@@ -159,11 +159,11 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     }
 
     onSave() {
-        this.save(null, { expand: 'state,owner,category' });
+        this.save(null, { expand: 'type,owner,category' });
     }
 
     onRemove() {
-        this.remove(null, { expand: 'state,owner,category' });
+        this.remove(null, { expand: 'type,owner,category' });
     }
 
     onNew() {
@@ -173,7 +173,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         const currentInfo = this.authenticationService.getCurrentInfo();
         this.item.owner = currentInfo.account;
         this.item.category = <Department>{};
-        this.item.state = <Attribute>this._defaultState;
+        this.item.type = <Attribute>this._defaultState;
         this.item.beginDate = CalendarConvertor.gregorianToJalali(d.toJSON());
         this.item.expireDate = CalendarConvertor.gregorianToJalali(d.toJSON());
     }

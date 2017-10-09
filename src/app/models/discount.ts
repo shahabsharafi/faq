@@ -5,7 +5,7 @@ export class Discount {
     constructor () {
         this.owner = new Account();
         this.category = <Department>{};
-        this.state = <Attribute>{};
+        this.type = <Attribute>{};
     }
     _id;
     owner: Account;
@@ -14,7 +14,7 @@ export class Discount {
     count;
     total;
     used;
-    state: Attribute;
+    type: Attribute;
     beginDate;
     expireDate;
 }

@@ -9,7 +9,7 @@ var schema = new mongoose.Schema({
     count: Number,
     total: Number,
     used: Number,
-    state: {
+    type: {
         type: String,
         ref: 'Attribute'
     },
