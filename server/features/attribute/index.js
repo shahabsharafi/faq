@@ -260,14 +260,17 @@ var register = function (option) {
                 //discount_state
                 new Attribute({
                     type: 'discount_state',
+                    value: 'enabled',
                     caption: 'فعال'
                 }),
                 new Attribute({
                     type: 'discount_state',
+                    value: 'disabled',
                     caption: 'غیر فعال'
                 }),
                 new Attribute({
                     type: 'discount_state',
+                    value: 'limited',
                     caption: 'مدت دار'
                 })
 

@@ -23,6 +23,7 @@ module.exports = function (option){
     });
 
     router.get('/tree', function (req, res) {
+        console.log('get tree');
         repository.GetTree(function (err, list) {
             if (err) {
                 res.status(500).send(err);
