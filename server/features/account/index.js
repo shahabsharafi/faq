@@ -196,6 +196,7 @@ var register = function (option) {
                 sms: '09124301687',
                 isUser: true,
                 isOperator: true,
+                isOrganization: true,
                 isManager: true,
                 isAdmin: true,
                 profile: {

@@ -28,21 +28,26 @@
                     </div>
                     <div class="ui-g">
                         <div class="ui-g-3">
-                            <p-checkbox name="groupname" binary="true" label="نقش کاربر" [(ngModel)]="item.isUser"></p-checkbox>
+                            <p-checkbox name="groupname" binary="true" [label]="res.account_group_user" [(ngModel)]="item.isUser"></p-checkbox>
                         </div>
                         <div class="ui-g-3">
-                            <p-checkbox name="groupname" binary="true" label="نقش کارشناس" [(ngModel)]="item.isOperator"></p-checkbox>
+                            <p-checkbox name="groupname" binary="true" [label]="res.account_group_operator" [(ngModel)]="item.isOperator"></p-checkbox>
                         </div>
                         <div class="ui-g-3">
-                            <p-checkbox name="groupname" binary="true" label="نقش مدیریت" [(ngModel)]="item.isManager"></p-checkbox>
+                            <p-checkbox name="groupname" binary="true" [label]="res.account_group_manager" [(ngModel)]="item.isManager"></p-checkbox>
+                        </div>
+                        <div class="ui-g-3">
+                            <p-checkbox name="groupname" binary="true" [label]="res.account_group_organization" [(ngModel)]="item.isOrganization"></p-checkbox>
                         </div>
                     </div>
-                    <div class="ui-g" *ngIf="item.isOperator">
-                        <div class="ui-g-4">
+                    <div class="ui-g" *ngIf="item.isOperator || item.isOrganization">
+                        <div class="ui-g-4" *ngIf="item.isOperator">
                             <span>{{res.account_price}}</span>
                             <input pInputText [(ngModel)]="item.price" />
                         </div>
-                        <div class="ui-g-8">
+                        <div class="ui-g-4" *ngIf="item.isOrganization">
+                            <span>{{res.account_orgCode}}</span>
+                            <input pInputText [(ngModel)]="item.orgCode" />
                         </div>
                     </div>
                 </p-tabPanel>

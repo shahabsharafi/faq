@@ -8,9 +8,11 @@ var schema = new mongoose.Schema({
     mobile: String,
     isOperator: Boolean,
     isUser: Boolean,
+    isOrganization: Boolean,
     isManager: Boolean,
     price: Number,
     isAdmin: Boolean,
+    orgCode: String,
     profile: {
         firstName: String,
         lastName: String,

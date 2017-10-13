@@ -70,9 +70,13 @@
                 </div>
             </div>
             <div class="ui-g">
-                <div class="ui-g-12 ui-lg-12">
+                <div class="ui-g-12 ui-lg-6">
                     <span>{{res.discount_type}}</span>
                     <p-dropdown [options]="types" [(ngModel)]="item.type._id" (onChange)="onStateSelect($event)" [style]="{'width':'100%'}"></p-dropdown>
+                </div>
+                <div class="ui-g-12 ui-lg-6">
+                    <span>{{res.discount_orgCode}}</span>
+                    <input pInputText [(ngModel)]="item.orgCode" />
                 </div>
             </div>
             <div class="ui-g">

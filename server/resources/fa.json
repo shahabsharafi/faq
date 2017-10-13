@@ -25,6 +25,7 @@
     "account_password": "کلمه عبور",
     "account_confirm": "تایید کلمه عبور",
     "account_price": "قیمت کارشناسی",
+    "account_orgCode": "کد سازمانی",
     "account_firstName": "نام",
     "account_lastName": "نام خانوادگی",
     "account_fatherName": "نام پدر",
@@ -58,13 +59,19 @@
     "account_sect": "مذهب",
     "account_reference": "مرجع تقلید",
 
+    "account_group_user": "نقش کاربری",
+    "account_group_operator": "نقش کارشناسی",
+    "account_group_manager": "نقش مدیریتی",
+    "account_group_organization": "نقش سازمانی",
+
     "discount_owner": "اهدا کننده",
     "discount_category": "بخش",
     "discount_price": "فی",
     "discount_count": "تعداد",
     "discount_total": "مقدارکل",
     "discount_used": "مصرف شده",
-    "discount_state": "وضعیت",
+    "discount_type": "وضعیت",
+    "discount_orgCode": "کد سازمانی",
     "discount_beginDate": "تاریخ فعال شدن",
     "discount_expireDate": "تاریخ انقضا",
 

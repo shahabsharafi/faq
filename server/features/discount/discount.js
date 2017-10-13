@@ -13,6 +13,7 @@ var schema = new mongoose.Schema({
         type: String,
         ref: 'Attribute'
     },
+    orgCode: String,
     beginDate: Date,
     expireDate: Date
 });

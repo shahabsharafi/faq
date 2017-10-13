@@ -53,6 +53,7 @@ export class Account {
     username: String;
     email: String;
     mobile: String;
+    orgCode: String;
     profile: Profile;
     contact: Contact;
     education: Education;
