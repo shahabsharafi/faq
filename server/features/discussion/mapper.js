@@ -1,6 +1,7 @@
 const utility = require('../_infrastructure/utility');
 const Department = require('../department/department');
 const Account = require('../account/account');
+const Discount = require('../discount/discount');
 
 module.exports = function (obj, callback) {
     if (obj.department) {
@@ -53,7 +54,7 @@ module.exports = function (obj, callback) {
                 if (callback) callback();
             }
         }
-        if (!obj.price) {
+        if (obj.state == 0) {//created
             if (obj.department) {
                 Department.findOne({ _id: obj.department }, _fn);
             } else if (obj.to) {
@@ -65,14 +66,12 @@ module.exports = function (obj, callback) {
     });
 
     taskArray.push(function (callback) {
-        if (obj.state == 0) {
+        if (obj.state == 0) {//created
             obj.payment = obj.price;
-        } else if (obj.state == 1) {
-            obj.payment = obj.price;
-        } else if (obj.state == 2) {
-            obj.payment = obj.price;
+        //} else if (obj.state == 1) {//recived
+        } else if (obj.state == 2) {//finished
             obj.wage = obj.price;
-        } else if (obj.state == 3) {
+        } else if (obj.state == 3) {//report
             switch (obj.cancelation) {
                 case 1:
                     obj.payment = 0;
@@ -93,6 +92,41 @@ module.exports = function (obj, callback) {
             obj.wage = 0;
         }
         if (callback) callback();
+    });
+
+    taskArray.push(function (callback) {
+        if (obj.state == 0 && obj.usedDiscount && obj.usedDiscount._id) {
+            Discount.findOne({ _id: obj.usedDiscount._id }, function(err, discount) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    var discount_remain = (discount.price * discount.count - discount.used);
+                    if (discount_remain > 0) {
+                        var discount_price = discount_remain > discount.price ? discount.price : discount_remain;
+                        var used = (discount_price > obj.price) ? obj.price : discount.price;
+                        discount.used = discount.used + used;
+                        Discount.save(function(err, discount) {
+                            if (err) {
+                                if (callback) callback(err);
+                            } else {
+                                Discount.save(function (err) {
+                                    if (err) {
+                                        if (callback) callback(err);
+                                    } else {
+                                        obj.payment = obj.payment - used;
+                                        if (callback) callback();
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        if (callback) callback();
+                    }
+                }
+            });
+        } else {
+            if (callback) callback();
+        }
     });
 
     for (var i = 0; i < obj.items.length; i++) {

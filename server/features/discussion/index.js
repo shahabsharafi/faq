@@ -89,6 +89,28 @@ var register = function (option) {
         });
     });
 
+    router.get('/withdiscount', function (req, res) {
+        (function (cb) {
+            if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+                Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+                    if (err) {
+                        cb(err);
+                    } else {
+                        Discussion
+                            .find({ discount: { $exists: true }, from: user._id })
+                            .exec(cb);
+                    }
+                });
+            }
+        })(function (err, list) {
+            if (err) {
+                res.send_err(err);
+            } else {
+                res.send_ok(list);
+            }
+        });
+    });
+
     router.get('/recive', function (req, res) {
         if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
             Account.findOne({ username: req.decoded._doc.username }, function (err, user) {

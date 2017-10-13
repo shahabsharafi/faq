@@ -5,33 +5,22 @@ const mongoosePaginate = require('mongoose-paginate');
 var schema = new mongoose.Schema({
     title: String,
     display: String,
-    from: {
-        type: String,
-        ref: 'Account'
-    },
-    to: {
-        type: String,
-        ref: 'Account'
-    },
+    from: { type: String, ref: 'Account' },
+    to: { type: String, ref: 'Account' },
     state: Number,//0: created, 1: recived, 2:finished, 3: report
     cancelation: Number,//1: CANCELATION_UNCLEAR, 2:CANCELATION_UNRELATED, 3:CANCELATION_ANNOYING, 4:CANCELATION_OFFENSIV
     price: Number,
     payment: Number,
     wage: Number,
+    usedDiscount: { type: String, ref: 'Discount' },
     operatorRead: Boolean,
     userRead: Boolean,
-    department: {
-        type: String,
-        ref: 'Department'
-    },
+    department: { type: String, ref: 'Department' },
     createDate: Date,
     answerDate: Date,
     expDate: Date,
     items: [{
-        owner: {
-            type: String,
-            ref: 'Account'
-        },
+        owner: { type: String, ref: 'Account' },
         createDate: Date,
         text: String,
         attachment: String
