@@ -259,17 +259,17 @@ var register = function (option) {
                 }),
                 //discount_state
                 new Attribute({
-                    type: 'discount_state',
+                    type: 'discount_type',
                     value: 'enabled',
                     caption: 'فعال'
                 }),
                 new Attribute({
-                    type: 'discount_state',
+                    type: 'discount_type',
                     value: 'disabled',
                     caption: 'غیر فعال'
                 }),
                 new Attribute({
-                    type: 'discount_state',
+                    type: 'discount_type',
                     value: 'limited',
                     caption: 'مدت دار'
                 })
