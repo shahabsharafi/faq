@@ -56,11 +56,11 @@ var register = function (option) {
         }
 
         var _part3 = function (callback) {
-            obj.category = obj.category._id;
+            if (obj.category)
+                obj.category = obj.category._id;
             obj.price = obj.price || 0;
             obj.count = obj.count || 0;
             obj.total = obj.price * obj.count;
-            console.log(obj);
             if (callback) callback();
         }
 

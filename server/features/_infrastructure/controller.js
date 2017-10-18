@@ -5,13 +5,13 @@ module.exports = function (option){
     var repository = option.repository;
     var mapper = option.mapper;
     var changed = option.changed;
+    var viewModel = option.viewModel;
 
     if (!router) return;
 
     const utility = require('../_infrastructure/utility');
 
     router.get('/', function (req, res) {
-        console.log('fortest')
         var oData = utility.getODataInfo(req.url);
         repository.Find(oData, function (err, list) {
             if (err) {
@@ -23,7 +23,6 @@ module.exports = function (option){
     });
 
     router.get('/tree', function (req, res) {
-        console.log('get tree');
         repository.GetTree(function (err, list) {
             if (err) {
                 res.status(500).send(err);
@@ -39,7 +38,18 @@ module.exports = function (option){
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.json(obj);
+                if (viewModel) {
+                    obj = obj.toObject();
+                    viewModel(obj, function (vm, callback) {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            res.json(vm);
+                        }
+                    });
+                } else {
+                    res.json(obj);
+                }
             }
         })
     });

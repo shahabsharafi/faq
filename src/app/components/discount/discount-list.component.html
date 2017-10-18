@@ -70,13 +70,9 @@
                 </div>
             </div>
             <div class="ui-g">
-                <div class="ui-g-12 ui-lg-6">
+                <div class="ui-g-12 ui-lg-12">
                     <span>{{res.discount_type}}</span>
                     <p-dropdown [options]="types" [(ngModel)]="item.type._id" (onChange)="onStateSelect($event)" [style]="{'width':'100%'}"></p-dropdown>
-                </div>
-                <div class="ui-g-12 ui-lg-6">
-                    <span>{{res.discount_orgCode}}</span>
-                    <input pInputText [(ngModel)]="item.orgCode" />
                 </div>
             </div>
             <div class="ui-g">
@@ -84,9 +80,15 @@
                     <span>{{res.discount_beginDate}}</span>
                     <c-datepicker [(value)]="item.beginDate"></c-datepicker>
                 </div>
-                <div class="ui-g-12 ui-lg-6" *ngIf="item && item.type && item.type.value == 'limited'">
+                <div class="ui-g-12 ui-lg-6" *ngIf="limited">
                     <span>{{res.discount_expireDate}}</span>
                     <c-datepicker [(value)]="item.expireDate"></c-datepicker>
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-6">
+                    <p-checkbox binary="true" [label]="res.discount_orgCode" [(ngModel)]="item.isOrganization"></p-checkbox>
+                    <input pInputText [(ngModel)]="item.orgCode" style="margin-top:5px" *ngIf="!item.isOrganization"/>
                 </div>
             </div>
         </div>

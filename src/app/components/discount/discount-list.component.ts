@@ -24,6 +24,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     dropdownTreeviewConfig: any;
     categoryItems: TreeviewItem[];
     accounts: any[];
+    limited: Boolean;
 
     @ViewChild(DropdownTreeviewComponent) dropdownTreeviewComponent: DropdownTreeviewComponent;
     private dropdownTreeviewSelectI18n: DropdownTreeviewSelectI18n;
@@ -39,6 +40,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     {
         super(resourceService, discountService);
         this.dropdownTreeviewSelectI18n = i18n as DropdownTreeviewSelectI18n;
+        this.limited = false;
     }
 
     ngOnInit() {
@@ -150,7 +152,8 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         var type = _.find(this.typeCollection, { '_id': event.value });
         if (type && type.value && this.item.type.value != type.value) {
             this.item.type.value = type.value;
-            if (type.value == 'limited') {
+            this.limited = (type.value == 'limited');
+            if (this.limited) {
                 this.item.expireDate = this.item.beginDate;
             } else {
                 this.item.expireDate = null;

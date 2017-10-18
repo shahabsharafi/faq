@@ -15,6 +15,7 @@ export class Discount {
     total;
     used;
     type: Attribute;
+    isOrganization;
     orgCode;
     beginDate;
     expireDate;

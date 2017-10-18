@@ -35,7 +35,6 @@ var repository = function (model) {
                         return l;
                     }
                     var list = _fn(null);
-                    console.log(list);
                     cb(null, list);
                 } else {
                     cb();
@@ -203,7 +202,6 @@ var repository = function (model) {
                 }
                 */
                 var populate = oData.$expand.join(' ').replace(/\_/g, '.');
-                console.log(populate);
                 option.populate = populate;
             }
         }

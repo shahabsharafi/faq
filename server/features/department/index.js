@@ -4,6 +4,7 @@ var register = function (option) {
     const controller = require('../_infrastructure/controller');
     const utility = require('../_infrastructure/utility');
     const Department = require('./department');
+    const Discount = require('../discount/discount');
     const Attribute = require('../attribute/attribute');
     const URL = require('url');
     const parser = require("odata-parser");
@@ -11,7 +12,11 @@ var register = function (option) {
     var router = option.express.Router();
     var repository = new Repository(Department);
 
-    controller({ router: router, model: Department, repository: repository });
+
+    var viewModel = function (obj, callback) {
+        return obj;
+    }
+    controller({ router: router, model: Department, repository: repository, viewModel: viewModel });
 
     router.get('/setup', function (req, res) {
 
