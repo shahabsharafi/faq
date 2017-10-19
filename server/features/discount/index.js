@@ -80,7 +80,7 @@ var register = function (option) {
     }
     controller({ router: router, model: Discount, repository: repository, mapper: mapper });
 
-    router.get('/select/:department/:orgcode', function (req, res) {
+    router.get('/select/:department', function (req, res) {
         var attrs = {};
 
         var _part1 = function (callback) {
@@ -98,17 +98,31 @@ var register = function (option) {
         }
 
         var _part3 = function (callback) {
-            console.log(attrs);
+            if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+                Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
+                    if (err) {
+                        if (callback) callback(err);
+                    } else {
+                        attrs.orgCode = obj.orgCode || '';
+                        if (callback) callback();
+                    }
+                });
+            } else {
+                if (callback) callback(err);
+            }
+        }
+
+        var _part4 = function (callback) {
             var department = req.params.department;
-            var orgcode = req.params.orgcode || '';
             d = ((new Date()).toJSON()).substr(0, 10) + 'T00:00:00.000Z';
             Discount.findOne({
                 $and: [
-                    { $or: [{ orgCode: null }, { orgCode: '' }, { orgCode: orgcode }] },
+                    { $or: [{ orgCode: null }, { orgCode: '' }, { orgCode: attrs.orgCode }] },
                     { $or: [{ category: null }, { category: department }] },
                     { $or: [{ type: attrs.enabled }, { type: attrs.limited, expireDate: {$gt: d} }] }
                 ]
             })
+            .populate(['type', 'owner', 'category'])
             .sort({ price: -1, expireDate: -1, beginDate: -1, isOrganization: -1 })
             .exec(function(err, data) {
                 attrs.data = data;
@@ -116,7 +130,7 @@ var register = function (option) {
             })
         }
 
-        utility.taskRunner([_part1, _part2, _part3], function(err, data) {
+        utility.taskRunner([_part1, _part2, _part3, _part4], function(err, data) {
             if (err) {
                 res.status(500).send(err);
             } else {
