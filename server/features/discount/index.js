@@ -81,20 +81,49 @@ var register = function (option) {
     controller({ router: router, model: Discount, repository: repository, mapper: mapper });
 
     router.get('/select/:department/:orgcode', function (req, res) {
-        var department = req.params.department;
-        var orgcode = req.params.orgcode;
-        d = ((new Date()).toJSON()).substr(0, 10) + 'T00:00:00.000Z';
-        Discount.find({
-            $and: [
-                { $or: [{ orgCode: null }, { orgCode: '' }, { orgCode: orgcode }] },
-                { $or: [{ category: null }, { category: department }] },
-                { $or: [{ type: '59e85a33b53fb17410729cb7' }, { type: '59e85a33b53fb17410729cb8', expireDate: {$gt: d} }] }
-            ]
-        })
-        .sort({ price: -1, expireDate: -1, beginDate: -1, isOrganization: -1 })
-        .exec(function(err, data) {
-            res.json(data);
-        })
+        var attrs = {};
+
+        var _part1 = function (callback) {
+            Attribute.findOne({ type: 'discount_type', value: 'enabled' }, function (err, obj) {
+                attrs.enabled = obj._id;
+                if (callback) callback(err)
+            });
+        }
+
+        var _part2 = function (callback) {
+            Attribute.findOne({ type: 'discount_type', value: 'limited' }, function (err, obj) {
+                attrs.limited = obj._id;
+                if (callback) callback(err)
+            });
+        }
+
+        var _part3 = function (callback) {
+            console.log(attrs);
+            var department = req.params.department;
+            var orgcode = req.params.orgcode || '';
+            d = ((new Date()).toJSON()).substr(0, 10) + 'T00:00:00.000Z';
+            Discount.findOne({
+                $and: [
+                    { $or: [{ orgCode: null }, { orgCode: '' }, { orgCode: orgcode }] },
+                    { $or: [{ category: null }, { category: department }] },
+                    { $or: [{ type: attrs.enabled }, { type: attrs.limited, expireDate: {$gt: d} }] }
+                ]
+            })
+            .sort({ price: -1, expireDate: -1, beginDate: -1, isOrganization: -1 })
+            .exec(function(err, data) {
+                attrs.data = data;
+                if (callback) callback(err);
+            })
+        }
+
+        utility.taskRunner([_part1, _part2, _part3], function(err, data) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.json(attrs.data);
+            }
+            return;
+        });
     })
 
     option.app.use('/api/discounts', router);
