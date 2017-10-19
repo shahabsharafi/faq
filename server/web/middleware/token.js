@@ -31,6 +31,7 @@ var register = function (option) {
     router.use(function (req, res, next) {
         console.log('check token...');
         var ignoreUrls = [
+            '/discounts/select',
             '/accounts/resetpassword',
             '/accounts/signup',
             '/accounts/sendcode',

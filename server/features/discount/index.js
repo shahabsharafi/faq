@@ -34,13 +34,22 @@ var register = function (option) {
         }
 
         var _part2 = function (callback) {
-            console.log(obj.type);
+            var _plus10Year = function(d) {
+                if (d) {
+                    d = new Date(d);
+                } else {
+                    d = new Date();
+                }
+                var year = d.getFullYear();
+                var month = d.getMonth();
+                var day = d.getDate();
+                return new Date(year + 10, month, day)
+            }
             if (obj.type) {
                 if (obj.type.value != "limited") {
-                    obj.expireDate = null;
+                    obj.expireDate = _plus10Year(obj.beginDate);
                 }
                 obj.type = obj.type._id;
-                console.log(obj.type);
                 if (callback) callback();
             } else {
                 Attribute.findOne({
@@ -51,7 +60,7 @@ var register = function (option) {
                         if (callback) callback(err)
                     } else {
                         obj.type = type._id;
-                        console.log(obj.type);
+                        obj.expireDate = _plus10Year(obj.beginDate);
                         if (callback) callback();
                     }
                 });
@@ -59,7 +68,6 @@ var register = function (option) {
         }
 
         var _part3 = function (callback) {
-            console.log(obj);
             if (obj.category)
                 obj.category = obj.category._id;
             obj.price = obj.price || 0;
@@ -71,16 +79,24 @@ var register = function (option) {
         utility.taskRunner([_part1, _part2, _part3], callback);
     }
     controller({ router: router, model: Discount, repository: repository, mapper: mapper });
-    /*
-    router.get('/select', function (req, res) {
-        Discount.find({type: { $in: ['59e4ed2ae6fcb740d07801ee', '59e4ed2ae6fcb740d07801ec']}})
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.json(null);
-        }
-    }
-    */
+
+    router.get('/select/:department/:orgcode', function (req, res) {
+        var department = req.params.department;
+        var orgcode = req.params.orgcode;
+        d = ((new Date()).toJSON()).substr(0, 10) + 'T00:00:00.000Z';
+        Discount.find({
+            $and: [
+                { $or: [{ orgCode: null }, { orgCode: '' }, { orgCode: orgcode }] },
+                { $or: [{ category: null }, { category: department }] },
+                { $or: [{ type: '59e85a33b53fb17410729cb7' }, { type: '59e85a33b53fb17410729cb8', expireDate: {$gt: d} }] }
+            ]
+        })
+        .sort({ price: -1, expireDate: -1, beginDate: -1, isOrganization: -1 })
+        .exec(function(err, data) {
+            res.json(data);
+        })
+    })
+
     option.app.use('/api/discounts', router);
 }
 
