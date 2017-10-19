@@ -80,7 +80,7 @@
                     <span>{{res.discount_beginDate}}</span>
                     <c-datepicker [(value)]="item.beginDate"></c-datepicker>
                 </div>
-                <div class="ui-g-12 ui-lg-6" *ngIf="limited">
+                <div class="ui-g-12 ui-lg-6" *ngIf="item.type.value == 'limited'">
                     <span>{{res.discount_expireDate}}</span>
                     <c-datepicker [(value)]="item.expireDate"></c-datepicker>
                 </div>
@@ -88,7 +88,7 @@
             <div class="ui-g">
                 <div class="ui-g-6">
                     <p-checkbox binary="true" [label]="res.discount_orgCode" [(ngModel)]="item.isOrganization"></p-checkbox>
-                    <input pInputText [(ngModel)]="item.orgCode" style="margin-top:5px" *ngIf="!item.isOrganization"/>
+                    <input pInputText [(ngModel)]="item.orgCode" style="margin-top:5px" *ngIf="item.isOrganization"/>
                 </div>
             </div>
         </div>

@@ -34,11 +34,13 @@ var register = function (option) {
         }
 
         var _part2 = function (callback) {
+            console.log(obj.type);
             if (obj.type) {
                 if (obj.type.value != "limited") {
                     obj.expireDate = null;
                 }
                 obj.type = obj.type._id;
+                console.log(obj.type);
                 if (callback) callback();
             } else {
                 Attribute.findOne({
@@ -48,7 +50,8 @@ var register = function (option) {
                     if (err) {
                         if (callback) callback(err)
                     } else {
-                        obj.type = type;
+                        obj.type = type._id;
+                        console.log(obj.type);
                         if (callback) callback();
                     }
                 });
@@ -56,6 +59,7 @@ var register = function (option) {
         }
 
         var _part3 = function (callback) {
+            console.log(obj);
             if (obj.category)
                 obj.category = obj.category._id;
             obj.price = obj.price || 0;
@@ -67,7 +71,16 @@ var register = function (option) {
         utility.taskRunner([_part1, _part2, _part3], callback);
     }
     controller({ router: router, model: Discount, repository: repository, mapper: mapper });
-
+    /*
+    router.get('/select', function (req, res) {
+        Discount.find({type: { $in: ['59e4ed2ae6fcb740d07801ee', '59e4ed2ae6fcb740d07801ec']}})
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.json(null);
+        }
+    }
+    */
     option.app.use('/api/discounts', router);
 }
 

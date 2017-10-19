@@ -46,7 +46,6 @@ var register = function (option) {
     controller({ router: router, model: Account, repository: repository, mapper: mapper });
 
     var getAccess = function (model) {
-        console.log(model);//
         var arr = [];
         if (model.isUser)
             arr.push("access_user");

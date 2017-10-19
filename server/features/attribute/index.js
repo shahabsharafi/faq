@@ -260,18 +260,21 @@ var register = function (option) {
                 //discount_state
                 new Attribute({
                     type: 'discount_type',
-                    value: 'enabled',
-                    caption: 'فعال'
+                    value: 'disabled',
+                    caption: 'غیر فعال',
+                    order: 1
                 }),
                 new Attribute({
                     type: 'discount_type',
-                    value: 'disabled',
-                    caption: 'غیر فعال'
+                    value: 'enabled',
+                    caption: 'فعال',
+                    order: 2
                 }),
                 new Attribute({
                     type: 'discount_type',
                     value: 'limited',
-                    caption: 'مدت دار'
+                    caption: 'مدت دار',
+                    order: 3
                 })
 
             ], callback);

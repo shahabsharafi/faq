@@ -13,10 +13,7 @@ var register = function (option) {
     var repository = new Repository(Department);
 
 
-    var viewModel = function (obj, callback) {
-        return obj;
-    }
-    controller({ router: router, model: Department, repository: repository, viewModel: viewModel });
+    controller({ router: router, model: Department, repository: repository });
 
     router.get('/setup', function (req, res) {
 

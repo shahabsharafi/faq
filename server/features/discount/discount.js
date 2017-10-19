@@ -9,10 +9,7 @@ var schema = new mongoose.Schema({
     count: Number,
     total: Number,
     used: Number,
-    type: {
-        type: String,
-        ref: 'Attribute'
-    },
+    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Attribute' },
     isOrganization: Boolean,
     orgCode: String,
     beginDate: Date,

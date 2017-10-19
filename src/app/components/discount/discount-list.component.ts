@@ -24,7 +24,6 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     dropdownTreeviewConfig: any;
     categoryItems: TreeviewItem[];
     accounts: any[];
-    limited: Boolean;
 
     @ViewChild(DropdownTreeviewComponent) dropdownTreeviewComponent: DropdownTreeviewComponent;
     private dropdownTreeviewSelectI18n: DropdownTreeviewSelectI18n;
@@ -40,7 +39,6 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     {
         super(resourceService, discountService);
         this.dropdownTreeviewSelectI18n = i18n as DropdownTreeviewSelectI18n;
-        this.limited = false;
     }
 
     ngOnInit() {
@@ -55,7 +53,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         this.load(null, { expand: 'type,owner,category' });
         this.attributeService.getByType('discount_type', null).then(data => {
             if (data.length) {
-                this._defaultState = data[0];
+                this._defaultState = <Attribute>{ _id: data[0]._id, value: data[0].value };
             }
             this.typeCollection = <Attribute[]>data;
             this.types = ComponentUtility.getDropdownData(data);
@@ -151,9 +149,9 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
     onStateSelect(event){
         var type = _.find(this.typeCollection, { '_id': event.value });
         if (type && type.value && this.item.type.value != type.value) {
+            this.item.type._id = type._id;
             this.item.type.value = type.value;
-            this.limited = (type.value == 'limited');
-            if (this.limited) {
+            if (type.value == 'limited') {
                 this.item.expireDate = this.item.beginDate;
             } else {
                 this.item.expireDate = null;
@@ -177,6 +175,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         this.item.owner = currentInfo.account;
         this.item.category = <Department>{};
         this.item.type = <Attribute>this._defaultState;
+        this.item.isOrganization = true;
         this.item.beginDate = CalendarConvertor.gregorianToJalali(d.toJSON());
         this.item.expireDate = CalendarConvertor.gregorianToJalali(d.toJSON());
     }

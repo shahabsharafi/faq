@@ -6,6 +6,7 @@ var schema = new mongoose.Schema({
     type: String,
     caption: String,
     value: String,
+    order: Number,
     parentId: String
 });
 

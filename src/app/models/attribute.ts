@@ -4,5 +4,6 @@ export interface Attribute {
     type;
     caption;
     value;
+    order;
     children;
 }

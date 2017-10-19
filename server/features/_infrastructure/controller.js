@@ -5,7 +5,6 @@ module.exports = function (option){
     var repository = option.repository;
     var mapper = option.mapper;
     var changed = option.changed;
-    var viewModel = option.viewModel;
 
     if (!router) return;
 
@@ -38,18 +37,7 @@ module.exports = function (option){
             if (err) {
                 res.status(500).send(err);
             } else {
-                if (viewModel) {
-                    obj = obj.toObject();
-                    viewModel(obj, function (vm, callback) {
-                        if (err) {
-                            res.status(500).send(err);
-                        } else {
-                            res.json(vm);
-                        }
-                    });
-                } else {
-                    res.json(obj);
-                }
+                res.json(obj);
             }
         })
     });
