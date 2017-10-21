@@ -72,24 +72,20 @@ module.exports = function (obj, callback) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
-                    var discount_remain = (discount.price * discount.count - discount.used);
+                    console.log(1);
+                    var discount_remain = ((discount.price || 0) * (discount.count || 0) - (discount.used || 0));
                     if (discount_remain > 0) {
+                        console.log(2);
                         var discount_price = discount_remain > discount.price ? discount.price : discount_remain;
                         var used = (discount_price > obj.price) ? obj.price : discount_price;
-                        obj.discount = used;
-                        discount.used = discount.used + used;
-                        Discount.save(function(err, discount) {
+                        discount.used = (discount.used || 0) + used;
+                        discount.save(function(err, discount) {
                             if (err) {
                                 if (callback) callback(err);
                             } else {
-                                Discount.save(function (err) {
-                                    if (err) {
-                                        if (callback) callback(err);
-                                    } else {
-                                        obj.payment = obj.payment - used;
-                                        if (callback) callback();
-                                    }
-                                });
+                                console.log(3);
+                                obj.discount = used;
+                                if (callback) callback();
                             }
                         });
                     } else {
