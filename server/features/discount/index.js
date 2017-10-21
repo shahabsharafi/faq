@@ -53,7 +53,7 @@ var register = function (option) {
                 if (callback) callback();
             } else {
                 Attribute.findOne({
-                    type: 'discount_state',
+                    type: 'discount_type',
                     value: 'enabled'
                 }, function (err, type) {
                     if (err) {

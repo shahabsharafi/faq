@@ -257,7 +257,7 @@ var register = function (option) {
                     type: 'dialect',
                     caption: 'لری'
                 }),
-                //discount_state
+                //discount_type
                 new Attribute({
                     type: 'discount_type',
                     value: 'disabled',
