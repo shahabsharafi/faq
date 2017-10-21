@@ -17,6 +17,7 @@ export interface Discussion {
     price: Number;
     payment: Number;
     wage: Number;
+    discount: Number;
     operatorRead: Boolean;
     userRead: Boolean;
     department: Department;

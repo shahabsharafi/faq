@@ -66,8 +66,45 @@ module.exports = function (obj, callback) {
     });
 
     taskArray.push(function (callback) {
+        obj.discount = 0;
+        if (obj.state == 0 && obj.usedDiscount && obj.usedDiscount._id) {
+            Discount.findOne({ _id: obj.usedDiscount._id }, function(err, discount) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    var discount_remain = (discount.price * discount.count - discount.used);
+                    if (discount_remain > 0) {
+                        var discount_price = discount_remain > discount.price ? discount.price : discount_remain;
+                        var used = (discount_price > obj.price) ? obj.price : discount_price;
+                        obj.discount = used;
+                        discount.used = discount.used + used;
+                        Discount.save(function(err, discount) {
+                            if (err) {
+                                if (callback) callback(err);
+                            } else {
+                                Discount.save(function (err) {
+                                    if (err) {
+                                        if (callback) callback(err);
+                                    } else {
+                                        obj.payment = obj.payment - used;
+                                        if (callback) callback();
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        if (callback) callback();
+                    }
+                }
+            });
+        } else {
+            if (callback) callback();
+        }
+    });
+
+    taskArray.push(function (callback) {
         if (obj.state == 0) {//created
-            obj.payment = obj.price;
+            obj.payment = obj.price - obj.discount;
         //} else if (obj.state == 1) {//recived
         } else if (obj.state == 2) {//finished
             obj.wage = obj.price;
@@ -92,41 +129,6 @@ module.exports = function (obj, callback) {
             obj.wage = 0;
         }
         if (callback) callback();
-    });
-
-    taskArray.push(function (callback) {
-        if (obj.state == 0 && obj.usedDiscount && obj.usedDiscount._id) {
-            Discount.findOne({ _id: obj.usedDiscount._id }, function(err, discount) {
-                if (err) {
-                    if (callback) callback(err);
-                } else {
-                    var discount_remain = (discount.price * discount.count - discount.used);
-                    if (discount_remain > 0) {
-                        var discount_price = discount_remain > discount.price ? discount.price : discount_remain;
-                        var used = (discount_price > obj.price) ? obj.price : discount.price;
-                        discount.used = discount.used + used;
-                        Discount.save(function(err, discount) {
-                            if (err) {
-                                if (callback) callback(err);
-                            } else {
-                                Discount.save(function (err) {
-                                    if (err) {
-                                        if (callback) callback(err);
-                                    } else {
-                                        obj.payment = obj.payment - used;
-                                        if (callback) callback();
-                                    }
-                                });
-                            }
-                        });
-                    } else {
-                        if (callback) callback();
-                    }
-                }
-            });
-        } else {
-            if (callback) callback();
-        }
     });
 
     for (var i = 0; i < obj.items.length; i++) {
