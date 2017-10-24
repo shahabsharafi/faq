@@ -6,6 +6,8 @@ var register = function (option) {
     const utility = require('../_infrastructure/utility');
     const Account = require('./account');
     const Discussion = require('../discussion/discussion');
+    const Discount = require('../discount/discount');
+    const Charge = require('../charge/charge');
     const Attribute = require('../attribute/attribute');
     const request = require("request");
     const constants = require('../../_infrastructure/constants');
@@ -359,31 +361,95 @@ var register = function (option) {
     });
 
     router.get('/me', function (req, res) {
-        if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
-            Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
+
+        var attrs = {};
+
+        var _part1 = function (callback) {
+            if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+                Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
+                    if (err) {
+                        if (callback) callback(err);
+                    } else {
+                        attrs.account = obj.toObject();
+                        if (callback) callback();
+                    }
+                });
+            } else {
+                if (callback) callback(err);
+            }
+        }
+
+        var _part2 = function (callback) {
+            Charge.aggregate([
+                { $match: { account: obj._id + "" }},
+                { $group: {
+                    _id: { account: "$account" },
+                    total: { $sum: "$amount" }
+                }}
+            ], function (err, obj) {
                 if (err) {
-                    res.send_err(err);
+                    if (callback) callback(err);
                 } else {
-                    Discussion.aggregate([
-                        { $match: { from: obj._id + "" }},
-                        { $group: {
-                            _id: { from: "$from" },
-                            total: { $sum: "$payment" }
-                        }}
-                    ], function (err, arr) {
-                        var credit = 20000;
-                        if (arr && arr.length == 1 && arr[0].total) {
-                            credit = credit - arr[0].total;
-                        }
-                        obj = obj.toObject();
-                        obj.credit = credit;
-                        res.send_ok(obj);
-                    });
+                    if (obj && obj.length == 1 && obj[0].total) {
+                        attrs.charge = obj[0].total;
+                    } else {
+                        attrs.charge = 0;
+                    }
+                    if (callback) callback();
                 }
             });
-        } else {
-            res.send_err();
         }
+
+        var _part3 = function (callback) {
+            Discussion.aggregate([
+                { $match: { from: obj._id + "" }},
+                { $group: {
+                    _id: { from: "$from" },
+                    total: { $sum: "$payment" }
+                }}
+            ], function (err, arr) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    if (obj && obj.length == 1 && obj[0].total) {
+                        attrs.peyment = obj[0].total;
+                    } else {
+                        attrs.peyment = 0;
+                    }
+                    if (callback) callback();
+                }
+            });
+        }
+
+        var _part4 = function (callback) {
+            Discount.aggregate([
+                { $match: { owner: obj._id + "" }},
+                { $group: {
+                    _id: { owner: "$owner" },
+                    total: { $sum: "$total" }
+                }}
+            ], function (err, arr) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    if (obj && obj.length == 1 && obj[0].total) {
+                        attrs.buy = obj[0].total;
+                    } else {
+                        attrs.buy = 0;
+                    }
+                    if (callback) callback();
+                }
+            });
+        }
+
+        utility.taskRunner([_part1, _part2, _part3, _part4], function (err) {
+            if (err) {
+                res.send(err);
+            } else {
+                attrs.account.credit = attrs.charge - attrs.buy - attrs.peyment;
+                res.json(attrs.account);
+            }
+        });
     });
 
     router.post('/connect', function (req, res) {
