@@ -381,17 +381,18 @@ var register = function (option) {
 
         var _part2 = function (callback) {
             Charge.aggregate([
-                { $match: { account: obj._id + "" }},
+                { $match: { account: attrs.account._id + "" }},
                 { $group: {
                     _id: { account: "$account" },
                     total: { $sum: "$amount" }
                 }}
-            ], function (err, obj) {
+            ], function (err, arr) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
-                    if (obj && obj.length == 1 && obj[0].total) {
-                        attrs.charge = obj[0].total;
+                    console.log(attrs.account._id)
+                    if (arr && arr.length == 1 && arr[0].total) {
+                        attrs.charge = arr[0].total;
                     } else {
                         attrs.charge = 0;
                     }
@@ -402,7 +403,7 @@ var register = function (option) {
 
         var _part3 = function (callback) {
             Discussion.aggregate([
-                { $match: { from: obj._id + "" }},
+                { $match: { from: attrs.account._id + "" }},
                 { $group: {
                     _id: { from: "$from" },
                     total: { $sum: "$payment" }
@@ -411,8 +412,8 @@ var register = function (option) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
-                    if (obj && obj.length == 1 && obj[0].total) {
-                        attrs.peyment = obj[0].total;
+                    if (arr && arr.length == 1 && arr[0].total) {
+                        attrs.peyment = arr[0].total;
                     } else {
                         attrs.peyment = 0;
                     }
@@ -423,7 +424,7 @@ var register = function (option) {
 
         var _part4 = function (callback) {
             Discount.aggregate([
-                { $match: { owner: obj._id + "" }},
+                { $match: { owner: attrs.account._id + "" }},
                 { $group: {
                     _id: { owner: "$owner" },
                     total: { $sum: "$total" }
@@ -432,8 +433,8 @@ var register = function (option) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
-                    if (obj && obj.length == 1 && obj[0].total) {
-                        attrs.buy = obj[0].total;
+                    if (arr && arr.length == 1 && arr[0].total) {
+                        attrs.buy = arr[0].total;
                     } else {
                         attrs.buy = 0;
                     }
@@ -446,6 +447,7 @@ var register = function (option) {
             if (err) {
                 res.send(err);
             } else {
+                console.log(attrs.charge);
                 attrs.account.credit = attrs.charge - attrs.buy - attrs.peyment;
                 res.json(attrs.account);
             }

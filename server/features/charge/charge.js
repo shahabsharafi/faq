@@ -4,7 +4,7 @@ const mongoosePaginate = require('mongoose-paginate');
 
 var schema = new mongoose.Schema({
     amount: Number,
-    account: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
+    account: { type: String, ref: 'Account' },
     description: String,
     createDate: Date
 });
