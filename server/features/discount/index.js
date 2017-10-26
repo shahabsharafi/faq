@@ -130,7 +130,7 @@ var register = function (option) {
             })
         }
 
-        utility.taskRunner([_part1, _part2, _part3, _part4], function(err, data) {
+        utility.taskRunner([_part1, _part2, _part3, _part4], function(err) {
             if (err) {
                 res.status(500).send(err);
             } else {
