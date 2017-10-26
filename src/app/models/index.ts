@@ -7,3 +7,4 @@ export * from './department';
 export * from './discount';
 export * from './discussion';
 export * from './charge';
+export * from './message';

@@ -7,3 +7,4 @@ export * from './department.service';
 export * from './discount.service';
 export * from './discussion.service';
 export * from './charge.service';
+export * from './message.service';

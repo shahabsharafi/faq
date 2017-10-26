@@ -96,6 +96,13 @@
     "charge_description": "شرح",
     "charge_createDate": "تاریخ",
 
+    "message_owner": "گیرنده",
+    "message_createDate": "تاریخ ایجاد",
+    "message_issueDate": "تاریخ انتشار",
+    "message_expireDate": "تاریخ انقضا",
+    "message_title": "عنوان پیغام",
+    "message_text": "متن پیغام",
+
     "account": "کاربران",
     "account_view": "نمایش",
     "account_modify": "تغییر",

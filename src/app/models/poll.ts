@@ -3,10 +3,14 @@ export interface Answer {
     text: String;
     value: String;
 }
+export interface Condition {
+    no: Number;
+    value: String;
+}
 export interface Question {
     no: Number;
     title: String;
-    condition: <{ no: Number, value: String }>{};
+    condition: Condition;
     answers: Answer[];
 }
 export interface Result {

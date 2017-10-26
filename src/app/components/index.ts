@@ -8,3 +8,4 @@ export * from './department/index';
 export * from './welcome/index';
 export * from './discussion/index';
 export * from './charge/index'
+export * from './message/index'

@@ -45,7 +45,7 @@
             {
                 "name": "message",
                 "access": "access_manager",
-                "url": "/message"
+                "url": "/message-list"
             },
             {
                 "name": "poll",
