@@ -3,6 +3,7 @@ var register = function (option) {
     const Repository = require('../_infrastructure/repository');
     const controller = require('../_infrastructure/controller');
     const utility = require('../_infrastructure/utility');
+    const Account = require('../account/account');
     const Message = require('./message');
     const QMessage = require('./qmessage');
 
@@ -38,6 +39,7 @@ var register = function (option) {
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
                 Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
                     if (err) {
+                        console.log(err);
                         if (callback) callback(err);
                     } else {
                         attrs.owner = obj._id;
@@ -50,24 +52,32 @@ var register = function (option) {
         }
 
         var _part2 = function (callback) {
+            var d = new Date();
             QMessage.find({
-                issueDate : {$lt: d},
-                expireDate: { $gt: d },
-                owner : { owner: attrs.owner }
+                issueDate : {$lte: d},
+                expireDate: { $gte: d },
+                owner : attrs.owner
             }, function (err, list) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
-                    attrs.ql = list;
+                    var l = [];
+                    for (var i = 0; i < list.length; i++) {
+                        var item = list[i];
+                        l.push(item._id);
+                    }
+                    attrs.ql = l;
+                    console.log(l);
                     if (callback) callback();
                 }
             });
         }
 
         var _part3 = function (callback) {
+            var d = new Date();
             Message.find({ $and: [
-                { issueDate : {$lt: d}},
-                { expireDate: { $gt: d }},
+                { issueDate : {$lte: d}},
+                { expireDate: { $gte: d }},
                 { $or: [{ 'owner': null }, { 'owner': attrs.owner }] },
                 { _id : { $nin: attrs.ql }}
             ]}, function (err, list) {
@@ -86,6 +96,7 @@ var register = function (option) {
                         });
                     }
                     QMessage.collection.insertMany(l);
+                    attrs.ml = list;
                     if (callback) callback();
                 }
             });
@@ -95,10 +106,12 @@ var register = function (option) {
             if (err) {
                 res.status(500).send(err);
             } else {
+                console.log(attrs.ml);
                 res.json(attrs.ml);
             }
             return;
         });
+
     });
 
 
@@ -124,12 +137,14 @@ var register = function (option) {
         }
 
         var _part2 = function (callback) {
+            var d = new Date();
             QMessage.find({
-                issueDate : {$lt: d},
-                expireDate: { $gt: d },
-                owner : { owner: attrs.owner }
+                issueDate : {$lte: d},
+                expireDate: { $gte: d },
+                owner : attrs.owner._id
             }, function (err, list) {
                 if (err) {
+                    //console.log(err);
                     if (callback) callback(err);
                 } else {
                     attrs.ql = list;
@@ -138,7 +153,7 @@ var register = function (option) {
             });
         }
 
-        utility.taskRunner([_part1, _part2, _part3], function(err) {
+        utility.taskRunner([_part1, _part2], function(err) {
             if (err) {
                 res.status(500).send(err);
             } else {

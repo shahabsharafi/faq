@@ -118,7 +118,7 @@ var register = function (option) {
             Discount.findOne({
                 $and: [
                     { $or: [{ orgCode: null }, { orgCode: '' }, { orgCode: attrs.orgCode }] },
-                    { $or: [{ category: null }, { category: department }] },
+                    { $or: [{ category: null }, { category: '' }, { category: department }] },
                     { $or: [{ type: attrs.enabled }, { type: attrs.limited, expireDate: {$gt: d} }] }
                 ]
             })
