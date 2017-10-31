@@ -134,11 +134,10 @@ var register = function (option) {
 
         var _part2 = function (callback) {
             var d = new Date();
-            QMessage.find({
-                issueDate : {$lte: d},
-                expireDate: { $gte: d },
-                owner : attrs.owner._id
-            }, function (err, list) {
+            Message.find({ $and: [
+                { issueDate: { $lte: d }},
+                { $or: [{ 'owner': null }, { 'owner': attrs.owner + '' }] }
+            ]}, function (err, list) {
                 if (err) {
                     //console.log(err);
                     if (callback) callback(err);
