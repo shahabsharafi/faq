@@ -39,7 +39,6 @@ var register = function (option) {
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
                 Account.findOne( { username: req.decoded._doc.username }, function (err, obj) {
                     if (err) {
-                        console.log(err);
                         if (callback) callback(err);
                     } else {
                         attrs.owner = obj._id;
@@ -54,9 +53,8 @@ var register = function (option) {
         var _part2 = function (callback) {
             var d = new Date();
             QMessage.find({
-                issueDate : {$lte: d},
-                expireDate: { $gte: d },
-                owner : attrs.owner
+                issueDate : { $lte: d},
+                expireDate: { $gte: d }
             }, function (err, list) {
                 if (err) {
                     if (callback) callback(err);
@@ -64,10 +62,9 @@ var register = function (option) {
                     var l = [];
                     for (var i = 0; i < list.length; i++) {
                         var item = list[i];
-                        l.push(item._id);
+                        l.push(item.message);
                     }
                     attrs.ql = l;
-                    console.log(l);
                     if (callback) callback();
                 }
             });
@@ -76,9 +73,9 @@ var register = function (option) {
         var _part3 = function (callback) {
             var d = new Date();
             Message.find({ $and: [
-                { issueDate : {$lte: d}},
+                { issueDate : { $lte: d}},
                 { expireDate: { $gte: d }},
-                { $or: [{ 'owner': null }, { 'owner': attrs.owner }] },
+                { $or: [{ 'owner': null }, { 'owner': attrs.owner + '' }] },
                 { _id : { $nin: attrs.ql }}
             ]}, function (err, list) {
                 if (err) {
@@ -88,8 +85,8 @@ var register = function (option) {
                     for (var i = 0; i < list.length; i++) {
                         var item = list[i];
                         l.push({
-                            owner: attrs.owner,
-                            message: item._id,
+                            owner: attrs.owner + '',
+                            message: item._id + '',
                             createDate: new Date(),
                             issueDate: item.issueDate,
                             expireDate: item.expireDate
@@ -106,7 +103,6 @@ var register = function (option) {
             if (err) {
                 res.status(500).send(err);
             } else {
-                console.log(attrs.ml);
                 res.json(attrs.ml);
             }
             return;
