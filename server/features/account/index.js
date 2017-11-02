@@ -43,6 +43,10 @@ var register = function (option) {
             _map(obj.education, 'university');
             _map(obj.education, 'level');
         }
+        obj.isOperator = obj.isOperator || false;
+        obj.isUser = obj.isUser || false;
+        obj.isOrganization = obj.isOrganization || false;
+        obj.isManager = obj.isManager || false;
         if (callback) callback();
     }
     controller({ router: router, model: Account, repository: repository, mapper: mapper });
