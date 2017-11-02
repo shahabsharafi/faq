@@ -5,12 +5,14 @@ var register = function (option) {
     const controller = require('../_infrastructure/controller');
     const utility = require('../_infrastructure/utility');
     const Account = require('./account');
+    const Online = require('./online');
     const Discussion = require('../discussion/discussion');
     const Discount = require('../discount/discount');
     const Charge = require('../charge/charge');
     const Attribute = require('../attribute/attribute');
     const request = require("request");
     const constants = require('../../_infrastructure/constants');
+    const _ = require('lodash');
 
     var router = option.express.Router();
     var repository = new Repository(Account);
@@ -61,6 +63,70 @@ var register = function (option) {
             arr.push("access_manager");
         return arr;
     }
+
+    router.get('/online', function (req, res) {
+
+        var attr = {};
+
+        var _part0 = function (callback) {
+            Account.find({ 'isOperator': true }, function (err, list) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    var l = [];
+                    for (var i = 0; i < list.length; i++) {
+                        var item = list[i];
+                        var obj = item.toObject();
+                        obj.state = 0;
+                        l.push(obj);
+                    }
+                    console.log(l);
+                    attr.list = l;
+                    if (callback) callback();
+                }
+            });
+        }
+
+        var _part1 = function (callback) {
+            Online.find({}, function (err, list) {
+                if (err) {
+                    if (callback) callback(err);
+                } else {
+                    var suspend = 0.25*60*60*1000; //15min
+                    var offline = 1*60*60*1000; //1h
+                    var l = attr.list;
+                    for (var i = 0; i < l.length; i++) {
+                        var item = l[i];
+                        var obj = _.find(list, function(o) { return o.username == item.username; });
+                        var state = 0;//offline
+                        var now = new Date();
+                        if (obj && obj.lastRequest){
+                            var d = new Date(obj.lastRequest);
+                            if (new Date(d.setTime( d.getTime() + offline )) > now) {//not offline
+                                if (new Date(d.setTime( d.getTime() + suspend )) < now) {//suspend
+                                    state = 1
+                                } else {//online
+                                    state = 2
+                                }
+                            }
+                        }
+                        item.state = state;
+                    }
+                    if (callback) callback();
+                }
+            });
+        }
+
+        utility.taskRunner([_part0, _part1], function (err) {
+            if (err) {
+                res.send_err(err);
+            } else {
+                res.send_ok(attr.list);
+            }
+        });
+
+
+    })
 
     router.get('/setup', function (req, res) {
 
