@@ -17,10 +17,7 @@ var register = function (option) {
                 if (err) {
                     next();
                 } else {
-                    console.log('bbbbbbbbb');
-                    console.log(obj);
                     if (!obj) {
-                        console.log('aaaaaaaaaaaaa');
                         obj = new Online();
                         obj.username = req.decoded._doc.username;
                     }

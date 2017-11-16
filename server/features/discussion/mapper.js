@@ -72,10 +72,8 @@ module.exports = function (obj, callback) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
-                    console.log(1);
                     var discount_remain = ((discount.price || 0) * (discount.count || 0) - (discount.used || 0));
                     if (discount_remain > 0) {
-                        console.log(2);
                         var discount_price = discount_remain > discount.price ? discount.price : discount_remain;
                         var used = (discount_price > obj.price) ? obj.price : discount_price;
                         discount.used = (discount.used || 0) + used;
@@ -83,7 +81,6 @@ module.exports = function (obj, callback) {
                             if (err) {
                                 if (callback) callback(err);
                             } else {
-                                console.log(3);
                                 obj.discount = used;
                                 if (callback) callback();
                             }

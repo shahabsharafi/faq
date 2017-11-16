@@ -21,23 +21,35 @@ var register = function (option) {
         (function (cb) {
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
                 Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+                    var depList = [];
                     if (err) {
                         cb(err);
                     } else {
                         var asUser = req.params.asuser;
                         var states = [ 0, 1, 2, 3 ];
-                        if (asUser === true) {
+                        if (asUser == 'True') {
+                            /*state: { $in: states }, */
                             Discussion
-                                .find({ state: { $in: states }, from: user._id })
-                                .populate('from to department')
+                                .find({ from: user._id })
+                                .populate('from to department usedDiscount')
                                 .populate('items.owner')
                                 .exec(cb);
                         } else {
-                            Discussion
-                                .find({ state: { $in: states }, to: user._id })
-                                .populate('from to department')
-                                .populate('items.owner')
-                                .exec(cb);
+                            Department.find({ accounts: user._id }, function (err, list) {
+                                if (err) {
+                                    cb(err);
+                                } else {
+                                    for (var i = 0; i < list.length; i++) {
+                                        var item = list[i];
+                                        depList.push(item._id);
+                                    }
+                                    Discussion
+                                        .find({ $or: [{ to: user._id }, { department: { $in: depList } }] })
+                                        .populate('from to department usedDiscount')
+                                        .populate('items.owner')
+                                        .exec(cb);
+                                }
+                            });
                         }
                     }
                 });
@@ -57,23 +69,32 @@ var register = function (option) {
         (function (cb) {
             if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
                 Account.findOne({ username: req.decoded._doc.username }, function (err, user) {
+                    var depList = [];
                     if (err) {
                         cb(err);
                     } else {
                         var asUser = req.params.asuser;
                         var states = [ 0, 1, 2, 3 ];
-                        if (asUser === true) {
+                        console.log(asUser);
+                        if (asUser == 'True') {
+                            /*state: { $in: states }, */
                             Discussion
-                                .count({ state: { $in: states }, from: user._id, userRead: false })
-                                .populate('from to department')
-                                .populate('items.owner')
+                                .count({ from: user._id, userRead: false })
                                 .exec(cb);
                         } else {
-                            Discussion
-                                .count({ state: { $in: states }, to: user._id, operatorRead: false })
-                                .populate('from to department')
-                                .populate('items.owner')
-                                .exec(cb);
+                            Department.find({ accounts: user._id }, function (err, list) {
+                                if (err) {
+                                    cb(err);
+                                } else {
+                                    for (var i = 0; i < list.length; i++) {
+                                        var item = list[i];
+                                        depList.push(item._id);
+                                    }
+                                    Discussion
+                                        .count({ $and: [{ operatorRead: false }, { $or: [{ to: user._id }, { department: { $in: depList } }] }] })
+                                        .exec(cb);
+                                }
+                            });
                         }
                     }
                 });

@@ -11,8 +11,6 @@ var register = function (option) {
     features.register(option);
 
     option.app.use(function (err, req, res, next) {
-        console.error('aaaaaaaaaaaaa');
-        console.error(err.stack);
         res.status(500).send('Something broke!');
     })
 }

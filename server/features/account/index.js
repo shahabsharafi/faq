@@ -80,7 +80,6 @@ var register = function (option) {
                         obj.state = 0;
                         l.push(obj);
                     }
-                    console.log(l);
                     attr.list = l;
                     if (callback) callback();
                 }
@@ -100,6 +99,7 @@ var register = function (option) {
                         var obj = _.find(list, function(o) { return o.username == item.username; });
                         var state = 0;//offline
                         var now = new Date();
+                        console.log(item, list);
                         if (obj && obj.lastRequest){
                             var d = new Date(obj.lastRequest);
                             if (new Date(d.setTime( d.getTime() + offline )) > now) {//not offline
@@ -460,7 +460,6 @@ var register = function (option) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
-                    console.log(attrs.account._id)
                     if (arr && arr.length == 1 && arr[0].total) {
                         attrs.charge = arr[0].total;
                     } else {
@@ -517,7 +516,6 @@ var register = function (option) {
             if (err) {
                 res.send(err);
             } else {
-                console.log(attrs.charge);
                 attrs.account.credit = attrs.charge - attrs.buy - attrs.peyment;
                 res.json(attrs.account);
             }
