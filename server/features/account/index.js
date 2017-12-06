@@ -48,6 +48,7 @@ var register = function (option) {
         obj.isOperator = obj.isOperator || false;
         obj.isUser = obj.isUser || false;
         obj.isOrganization = obj.isOrganization || false;
+        obj.blocked = obj.blocked || false;
         obj.isManager = obj.isManager || false;
         if (callback) callback();
     }
@@ -263,6 +264,7 @@ var register = function (option) {
             var obj = new Account({
                 username: 'admin',
                 password: '123456',
+                blocked: false,
                 email: 'shahab.sharafi@gmail.com',
                 sms: '09124301687',
                 isUser: true,

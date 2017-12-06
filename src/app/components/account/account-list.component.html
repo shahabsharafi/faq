@@ -27,6 +27,11 @@
                         </div>
                     </div>
                     <div class="ui-g">
+                        <div class="ui-g-12">
+                            <p-checkbox binary="true" [label]="res.account_blocked" [(ngModel)]="item.blocked"></p-checkbox>
+                        </div>
+                    </div>
+                    <div class="ui-g">
                         <div class="ui-g-3">
                             <p-checkbox name="groupname" binary="true" [label]="res.account_group_user" [(ngModel)]="item.isUser"></p-checkbox>
                         </div>

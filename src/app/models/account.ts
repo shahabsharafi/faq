@@ -58,6 +58,7 @@ export class Account {
     contact: Contact;
     education: Education;
     extra: Extra;
+    blocked: Boolean;
     isOperator: Boolean;
     isUser: Boolean;
     isManager: Boolean;

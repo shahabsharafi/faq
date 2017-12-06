@@ -11,11 +11,11 @@ var register = function (option) {
         if (req.decoded && req.decoded._doc) {
             if (req.decoded._doc.isAdmin) {
                 list = data;
-            } else {
+            } else if (req.access) {
                 var _checkAccess = function (node) {
                     var hasAccess = false;
-                    for (var k = 0; k < req.decoded._doc.access.length; k++) {
-                        var access = req.decoded._doc.access[k];
+                    for (var k = 0; k < req.access.length; k++) {
+                        var access = req.access[k];
                         if (access == node.access) {
                             hasAccess = true;
                             break;
