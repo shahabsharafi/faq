@@ -70,7 +70,7 @@ var register = function (option) {
         var attr = {};
 
         var _part0 = function (callback) {
-            Account.find({ 'isOperator': true }, function (err, list) {
+            Account.find({ 'isOperator': true, 'blocked': false }, function (err, list) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
