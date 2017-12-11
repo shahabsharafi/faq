@@ -52,7 +52,6 @@ export class Account {
         this.contact = <Contact>{};
         this.education = <Education>{};
         this.extra = <Extra>{};
-        this.comments = AccountComment[];
     }
     _id: String;
     username: String;
