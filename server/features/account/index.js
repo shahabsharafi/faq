@@ -78,6 +78,7 @@ var register = function (option) {
                     for (var i = 0; i < list.length; i++) {
                         var item = list[i];
                         var obj = item.toObject();
+                        delete obj.password;
                         obj.state = 0;
                         l.push(obj);
                     }
@@ -442,7 +443,9 @@ var register = function (option) {
                     if (err) {
                         if (callback) callback(err);
                     } else {
-                        attrs.account = obj.toObject();
+                        var temp = obj.toObject();
+                        delete temp.username;
+                        attrs.account = temp;
                         if (callback) callback();
                     }
                 });

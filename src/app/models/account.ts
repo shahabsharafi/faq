@@ -42,12 +42,17 @@ export interface Extra {
     language: Attribute[];
     dialect: Attribute[];
 }
+export interface AccountComment {
+    createDate: Date;
+    text: String;
+}
 export class Account {
     constructor () {
         this.profile = new Profile();
         this.contact = <Contact>{};
         this.education = <Education>{};
         this.extra = <Extra>{};
+        this.comments = AccountComment[];
     }
     _id: String;
     username: String;
@@ -63,4 +68,5 @@ export class Account {
     isUser: Boolean;
     isManager: Boolean;
     price: Number;
+    comments: [AccountComment];
 }

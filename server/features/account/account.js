@@ -14,6 +14,10 @@ var schema = new mongoose.Schema({
     price: Number,
     isAdmin: Boolean,
     orgCode: String,
+    comments: [{
+        createDate: Date,
+        text: String
+    }],
     profile: {
         firstName: String,
         lastName: String,
