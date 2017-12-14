@@ -54,7 +54,7 @@ var register = function (option) {
                     }
                 });
             } else {
-                cb(err);
+                cb({ success: false });
             }
         })(function (err, list) {
             if (err) {
@@ -99,7 +99,7 @@ var register = function (option) {
                     }
                 });
             } else {
-                cb(err);
+                cb({ success: false });
             }
         })(function (err, count) {
             if (err) {
@@ -122,6 +122,8 @@ var register = function (option) {
                             .exec(cb);
                     }
                 });
+            } else {
+                cb({ success: false })
             }
         })(function (err, list) {
             if (err) {

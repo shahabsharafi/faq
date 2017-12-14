@@ -46,7 +46,7 @@ var register = function (option) {
                     }
                 });
             } else {
-                if (callback) callback(err);
+                if (callback) callback({ success: false });
             }
         }
 
@@ -128,7 +128,7 @@ var register = function (option) {
                     }
                 });
             } else {
-                if (callback) callback(err);
+                if (callback) callback({ success: false });
             }
         }
 

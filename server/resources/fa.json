@@ -65,6 +65,8 @@
     "account_group_organization": "نقش سازمانی",
 
     "account_blocked": "مسدود شده",
+    "account_disabled": "غیر فعال",
+    "account_sexPrevention": "عدم پاسخ به جنس مخالف",
 
     "discount_owner": "اهدا کننده",
     "discount_category": "بخش",

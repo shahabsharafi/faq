@@ -1,6 +1,7 @@
 var register = function (option) {
 
     const jwt = require('jsonwebtoken');
+    const config = require('../../config'); // get our config file
     const Repository = require('../_infrastructure/repository');
     const controller = require('../_infrastructure/controller');
     const utility = require('../_infrastructure/utility');
@@ -49,6 +50,7 @@ var register = function (option) {
         obj.isUser = obj.isUser || false;
         obj.isOrganization = obj.isOrganization || false;
         obj.blocked = obj.blocked || false;
+        obj.disabled = obj.disabled || false;
         obj.isManager = obj.isManager || false;
         if (callback) callback();
     }
@@ -70,7 +72,18 @@ var register = function (option) {
         var attr = {};
 
         var _part0 = function (callback) {
-            Account.find({ 'isOperator': true, 'blocked': false }, function (err, list) {
+            if (req.decoded && req.decoded._doc && req.decoded._doc.username && req.decoded._doc.profile) {
+                attr.sex = req.decoded._doc.profile.sex;
+            } else {
+                if (callback) callback({ success: false });
+            }
+        }
+
+        var _part1 = function (callback) {
+            Account.find({ $and: [
+                { 'isOperator': true, 'disabled': false },
+                { $or: [{ 'sexPrevention': false }, { 'sex': attr.sex + '' }] }
+            ]}, function (err, list) {
                 if (err) {
                     if (callback) callback(err);
                 } else {
@@ -88,7 +101,7 @@ var register = function (option) {
             });
         }
 
-        var _part1 = function (callback) {
+        var _part2 = function (callback) {
             Online.find({}, function (err, list) {
                 if (err) {
                     if (callback) callback(err);
@@ -119,7 +132,7 @@ var register = function (option) {
             });
         }
 
-        utility.taskRunner([_part0, _part1], function (err) {
+        utility.taskRunner([_part0, _part1, _part2], function (err) {
             if (err) {
                 res.send_err(err);
             } else {
@@ -266,6 +279,7 @@ var register = function (option) {
                 username: 'admin',
                 password: '123456',
                 blocked: false,
+                disabled: false,
                 email: 'shahab.sharafi@gmail.com',
                 sms: '09124301687',
                 isUser: true,
@@ -386,6 +400,9 @@ var register = function (option) {
                                 username: account.username,
                                 firstName: '',
                                 lastName: '',
+                                blocked: false,
+                                suportVersion: config.suportVersion,
+                                lastVersion: config.lastVersion,
                                 access: getAccess(account)
                             });
                         }
@@ -420,6 +437,9 @@ var register = function (option) {
                                 username: account.username,
                                 firstName: account.profile.firstName,
                                 lastName: account.profile.lastName,
+                                blocked: account.blocked,
+                                suportVersion: config.suportVersion,
+                                lastVersion: config.lastVersion,
                                 access: getAccess(account)
                             });
                         });
@@ -450,7 +470,7 @@ var register = function (option) {
                     }
                 });
             } else {
-                if (callback) callback(err);
+                if (callback) callback({ success: false });
             }
         }
 
@@ -558,6 +578,9 @@ var register = function (option) {
                             username: account.username,
                             firstName: account.profile.firstName,
                             lastName: account.profile.lastName,
+                            blocked: account.blocked,
+                            suportVersion: config.suportVersion,
+                            lastVersion: config.lastVersion,
                             access: getAccess(account)
                         });
                     }

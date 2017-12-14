@@ -63,9 +63,11 @@ export class Account {
     education: Education;
     extra: Extra;
     blocked: Boolean;
+    disabled: boolean;
     isOperator: Boolean;
     isUser: Boolean;
     isManager: Boolean;
+    sexPrevention: Boolean,
     price: Number;
     comments: [AccountComment];
 }

@@ -22,21 +22,10 @@ var register = function (option) {
     }
 
     router.use(function (req, res, next) {
-        console.log('1');
         if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
-            if (req.decoded._doc.blocked) {
-                console.log('5');
-                return res.json({
-                    success: false,
-                    message: 'User blocked.'
-                });
-            } else {
-                console.log('6');
-                req.access = getAccess(req.decoded._doc);
-                next();
-            }
+            req.access = getAccess(req.decoded._doc);
+            next();
         } else{
-            console.log('7');
             next();
         }
     });

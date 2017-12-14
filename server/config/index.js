@@ -5,6 +5,8 @@ const config = {
     database: 'mongodb://127.0.0.1:27017/faq1',
     port: 4000,
     uploadPath: __dirname + '/../../dist/uploads',
+    suportVersion: '0.8',
+    lastVersion: '0.9',
     email_option: {
         service: 'gmail',
         auth: {

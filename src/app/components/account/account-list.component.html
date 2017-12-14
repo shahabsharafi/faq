@@ -27,11 +27,6 @@
                         </div>
                     </div>
                     <div class="ui-g">
-                        <div class="ui-g-12">
-                            <p-checkbox binary="true" [label]="res.account_blocked" [(ngModel)]="item.blocked"></p-checkbox>
-                        </div>
-                    </div>
-                    <div class="ui-g">
                         <div class="ui-g-3">
                             <p-checkbox name="groupname" binary="true" [label]="res.account_group_user" [(ngModel)]="item.isUser"></p-checkbox>
                         </div>
@@ -45,12 +40,23 @@
                             <p-checkbox name="groupname" binary="true" [label]="res.account_group_organization" [(ngModel)]="item.isOrganization"></p-checkbox>
                         </div>
                     </div>
+                    <div class="ui-g" *ngIf="item.isOperator || item.isUser">
+                        <div class="ui-g-3" *ngIf="item.isOperator">
+                            <p-checkbox binary="true" [label]="res.account_disabled" [(ngModel)]="item.disabled"></p-checkbox>
+                        </div>
+                        <div class="ui-g-3" *ngIf="item.isOperator">
+                            <p-checkbox binary="true" [label]="res.account_sexPrevention" [(ngModel)]="item.sexPrevention"></p-checkbox>
+                        </div>
+                        <div class="ui-g-3" *ngIf="item.isUser">
+                            <p-checkbox binary="true" [label]="res.account_blocked" [(ngModel)]="item.blocked"></p-checkbox>
+                        </div>
+                    </div>
                     <div class="ui-g" *ngIf="item.isOperator || item.isOrganization">
-                        <div class="ui-g-4" *ngIf="item.isOperator">
+                        <div class="ui-g-3" *ngIf="item.isOperator">
                             <span>{{res.account_price}}</span>
                             <input pInputText [(ngModel)]="item.price" />
                         </div>
-                        <div class="ui-g-4" *ngIf="item.isOrganization">
+                        <div class="ui-g-3" *ngIf="item.isOrganization">
                             <span>{{res.account_orgCode}}</span>
                             <input pInputText [(ngModel)]="item.orgCode" />
                         </div>
