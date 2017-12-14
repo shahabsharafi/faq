@@ -402,7 +402,6 @@ var register = function (option) {
                                 lastName: '',
                                 blocked: false,
                                 suportVersion: config.suportVersion,
-                                lastVersion: config.lastVersion,
                                 access: getAccess(account)
                             });
                         }
@@ -439,7 +438,6 @@ var register = function (option) {
                                 lastName: account.profile.lastName,
                                 blocked: account.blocked,
                                 suportVersion: config.suportVersion,
-                                lastVersion: config.lastVersion,
                                 access: getAccess(account)
                             });
                         });
@@ -450,6 +448,13 @@ var register = function (option) {
             });
         }, function () {
             res.send_err();
+        });
+    });
+
+    router.get('/version', function (req, res) {
+        res.json({
+            success: true,
+            message: config.lastVersion
         });
     });
 
@@ -580,7 +585,6 @@ var register = function (option) {
                             lastName: account.profile.lastName,
                             blocked: account.blocked,
                             suportVersion: config.suportVersion,
-                            lastVersion: config.lastVersion,
                             access: getAccess(account)
                         });
                     }
