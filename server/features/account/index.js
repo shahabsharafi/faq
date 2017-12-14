@@ -46,12 +46,19 @@ var register = function (option) {
             _map(obj.education, 'university');
             _map(obj.education, 'level');
         }
-        obj.isOperator = obj.isOperator || false;
-        obj.isUser = obj.isUser || false;
-        obj.isOrganization = obj.isOrganization || false;
-        obj.blocked = obj.blocked || false;
-        obj.disabled = obj.disabled || false;
-        obj.isManager = obj.isManager || false;
+
+        var _init = function (obj, propName) {
+            if (obj[propName] == null || obj[propName] == undefined)
+                obj[propName] = false;
+        }
+
+        _init(obj, 'isOperator');
+        _init(obj, 'isUser');
+        _init(obj, 'isOrganization');
+        _init(obj, 'blocked');
+        _init(obj, 'disabled');
+        _init(obj, 'isManager');
+
         if (callback) callback();
     }
     controller({ router: router, model: Account, repository: repository, mapper: mapper });
@@ -469,8 +476,9 @@ var register = function (option) {
                         if (callback) callback(err);
                     } else {
                         var temp = obj.toObject();
-                        delete temp.username;
+                        delete temp.password;
                         attrs.account = temp;
+                        console.log(attrs.account);
                         if (callback) callback();
                     }
                 });
