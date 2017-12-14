@@ -20,7 +20,7 @@ var register = function (option) {
 
     var mapper = function (obj, callback) {
         var _map = function (obj, propName) {
-            if (obj[propName]) {
+            if (obj[propName] && typeof obj[propName] === 'object') {
                 if (obj[propName]._id) {
                     obj[propName] = obj[propName]._id
                 } else {
@@ -121,7 +121,7 @@ var register = function (option) {
                         var obj = _.find(list, function(o) { return o.username == item.username; });
                         var state = 0;//offline
                         var now = new Date();
-                        console.log(item, list);
+                        //console.log(item, list);
                         if (obj && obj.lastRequest){
                             var d = new Date(obj.lastRequest);
                             if (new Date(d.setTime( d.getTime() + offline )) > now) {//not offline
@@ -475,10 +475,11 @@ var register = function (option) {
                     if (err) {
                         if (callback) callback(err);
                     } else {
+                        //console.log(obj);
                         var temp = obj.toObject();
                         delete temp.password;
                         attrs.account = temp;
-                        console.log(attrs.account);
+                        //console.log(attrs.account);
                         if (callback) callback();
                     }
                 });
