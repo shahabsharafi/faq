@@ -52,7 +52,12 @@ var repository = function (model) {
         }
         */
         self.Model.paginate({ _id: id }, oData.option, function (err, data) {
-            if (cb) cb(err, data.docs[0]);
+            console.log(err);
+            console.log(data);
+            var obj = null;
+            if (data && data.docs && data.docs[0])
+                obj = data.docs[0];
+            if (cb) cb(err, obj);
         });
     };
 

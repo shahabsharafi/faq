@@ -32,6 +32,7 @@ module.exports = function (option){
     });
 
     router.get('/item/:key', function (req, res) {
+        console.log('aaaaaaaaaaaaaaaaa');
         var oData = utility.getODataInfo(req.url);
         repository.FindById(req.params.key, oData, function (err, obj) {
             if (err) {

@@ -27,6 +27,9 @@ var register = function (option) {
                     delete obj[propName];
                 }
             }
+
+            if (obj[propName] == '')
+                delete obj[propName];
         }
         if (obj.profile) {
             _map(obj.profile, 'sex');
