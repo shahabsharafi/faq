@@ -60,6 +60,8 @@ var register = function (option) {
                                 }
                             });
                         }
+                    } else if (req.body.EntityName == 'none') {
+                        res.send_ok({ success: true });
                     }  else {
                         res.send_err();
                     }
