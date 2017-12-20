@@ -78,7 +78,7 @@ var register = function (option) {
     }
 
     router.get('/online', function (req, res) {
-        console.log('a');
+
         var attr = {};
 
         var _part0 = function (callback) {

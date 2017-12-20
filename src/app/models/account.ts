@@ -6,7 +6,7 @@ export class Profile {
         this.jobState = <{ _id: String, caption: String }>{};
         this.religion = <{ _id: String, caption: String }>{};
         this.sect = <{ _id: String, caption: String }>{};
-        this.reference = <{ _id: String, caption: String }>{}
+        this.reference = <{ _id: String, caption: String }>{};
     }
     firstName: String;
     lastName: String;
@@ -67,7 +67,7 @@ export class Account {
     isOperator: Boolean;
     isUser: Boolean;
     isManager: Boolean;
-    sexPrevention: Boolean,
+    sexPrevention: Boolean;
     price: Number;
     comments: [AccountComment];
 }
