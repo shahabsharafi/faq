@@ -78,12 +78,13 @@ var register = function (option) {
     }
 
     router.get('/online', function (req, res) {
-
+        console.log('a');
         var attr = {};
 
         var _part0 = function (callback) {
             if (req.decoded && req.decoded._doc && req.decoded._doc.username && req.decoded._doc.profile) {
                 attr.sex = req.decoded._doc.profile.sex;
+                if (callback) callback();
             } else {
                 if (callback) callback({ success: false });
             }
