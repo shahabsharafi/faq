@@ -8,8 +8,6 @@ var register = function (option) {
     router.post('/send', function (req, res) {
         var transporter = nodemailer.createTransport(config.email_option);
 
-        console.log(req.body);
-
         var mailOptions = {
           from: config.contact_email,
           to: config.contact_email,

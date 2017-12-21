@@ -75,7 +75,6 @@ var register = function (option) {
                     } else {
                         var asUser = req.params.asuser;
                         var states = [ 0, 1, 2, 3 ];
-                        console.log(asUser);
                         if (asUser == 'True') {
                             /*state: { $in: states }, */
                             Discussion

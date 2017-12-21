@@ -13,11 +13,25 @@ var register = function (option) {
     var repository = new Repository(Discount);
 
     var mapper = function (obj, callback) {
+
+        var _map = function (obj, propName) {
+            if (obj[propName] && typeof obj[propName] === 'object') {
+                if (obj[propName]._id) {
+                    obj[propName] = obj[propName]._id + '';
+                } else {
+                    delete obj[propName];
+                }
+            }
+
+            if (obj[propName] == '')
+                delete obj[propName];
+        }
+
         var attrs = {};
 
         var _part1 = function (callback) {
             if (obj.owner && obj.owner._id) {
-                obj.owner = obj.owner._id;
+                obj.owner = obj.owner._id + '';
                 if (callback) callback();
             } else if (obj.owner && obj.owner.username) {
                 Account.findOne({ username: obj.owner.username }, function (err, user) {
@@ -49,7 +63,7 @@ var register = function (option) {
                 if (obj.type.value != "limited") {
                     obj.expireDate = _plus10Year(obj.beginDate);
                 }
-                obj.type = obj.type._id;
+                _map(obj, 'type');
                 if (callback) callback();
             } else {
                 Attribute.findOne({
@@ -59,7 +73,7 @@ var register = function (option) {
                     if (err) {
                         if (callback) callback(err)
                     } else {
-                        obj.type = type._id;
+                        obj.type = type._id + '';
                         obj.expireDate = _plus10Year(obj.beginDate);
                         if (callback) callback();
                     }
@@ -68,8 +82,7 @@ var register = function (option) {
         }
 
         var _part3 = function (callback) {
-            if (obj.category)
-                obj.category = obj.category._id;
+            _map(obj, 'category');
             obj.price = obj.price || 0;
             obj.count = obj.count || 0;
             obj.total = obj.price * obj.count;
@@ -85,14 +98,14 @@ var register = function (option) {
 
         var _part1 = function (callback) {
             Attribute.findOne({ type: 'discount_type', value: 'enabled' }, function (err, obj) {
-                attrs.enabled = obj._id;
+                attrs.enabled = obj._id + '';
                 if (callback) callback(err)
             });
         }
 
         var _part2 = function (callback) {
             Attribute.findOne({ type: 'discount_type', value: 'limited' }, function (err, obj) {
-                attrs.limited = obj._id;
+                attrs.limited = obj._id + '';
                 if (callback) callback(err)
             });
         }
@@ -113,13 +126,13 @@ var register = function (option) {
         }
 
         var _part4 = function (callback) {
-            var department = req.params.department;
+            var department = req.params.department + '';
             d = ((new Date()).toJSON()).substr(0, 10) + 'T00:00:00.000Z';
             Discount.findOne({
                 $and: [
                     { $or: [{ orgCode: null }, { orgCode: '' }, { orgCode: attrs.orgCode }] },
                     { $or: [{ category: null }, { category: '' }, { category: department }] },
-                    { $or: [{ type: attrs.enabled }, { type: attrs.limited, expireDate: {$gt: d} }] }
+                    { $or: [{ type: null }, { type: '' }, { type: attrs.enabled }, { $and: [{ type: attrs.limited }, { expireDate: {$gt: d} } ] } ] }
                 ]
             })
             .populate(['type', 'owner', 'category'])

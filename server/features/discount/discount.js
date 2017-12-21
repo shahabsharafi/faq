@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
 var schema = new mongoose.Schema({
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' },
+    owner: { type: String, ref: 'Account' },
+    category: { type: String, ref: 'Department' },
     price: Number,
     count: Number,
     total: Number,
     used: Number,
-    type: { type: mongoose.Schema.Types.ObjectId, ref: 'Attribute' },
+    type: { type: String, ref: 'Attribute' },
     isOrganization: Boolean,
     orgCode: String,
     beginDate: Date,

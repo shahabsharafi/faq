@@ -6,9 +6,6 @@ var register = function (option) {
     var router = option.express.Router();
 
     router.get('/file/stat/:path', (req, res) => {
-        console.log('stat');
-        console.log(config.uploadPath);
-        console.log(req.params.path);
         var path = config.uploadPath + '/' + req.params.path;
 
         fs.stat(path, function (err, stats) {

@@ -139,7 +139,6 @@ var register = function (option) {
                 { $or: [{ 'owner': null }, { 'owner': attrs.owner + '' }] }
             ]}, function (err, list) {
                 if (err) {
-                    //console.log(err);
                     if (callback) callback(err);
                 } else {
                     attrs.ql = list;
