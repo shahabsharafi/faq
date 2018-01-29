@@ -30,7 +30,7 @@ export class CalendarConvertor {
             var a1 = d.split('-');
             if (a1.length == 3) {
                 var a2 = JalaliDate.jalaliToGregorian(a1[0], a1[1], a1[2]);
-                return a2[0] + '-' + a2[1] + '-' + a2[2];
+                    return a2[0] + '-' + a2[1] + '-' + a2[2] + ' 00:00:00.000z';
             }
         }
         return '';
