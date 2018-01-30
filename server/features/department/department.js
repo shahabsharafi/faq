@@ -10,6 +10,8 @@ var schema = new mongoose.Schema({
     language: String,
     selectable: Boolean,
     price: Number,
+    operatorRule: String,
+    userRule: String,
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }]
 });
 

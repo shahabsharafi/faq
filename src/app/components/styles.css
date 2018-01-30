@@ -389,6 +389,15 @@ department
     font-size: 100px;
 }
 
+.department-tab {
+    height: 200px;
+}
+
+.department-tab textarea {
+    width: 100%;
+    height: 100px;
+}
+
 .department-grid .ui-datagrid-content {
     border: 0px;
 }

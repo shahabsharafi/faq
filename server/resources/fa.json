@@ -94,6 +94,9 @@
     "department_accounts": "کارشناسان مرتبط",
     "department_selectable": "قابل انتخاب در بخش سوالات",
     "department_price": "قیمت",
+    "department_info": "مشخصات",
+    "department_operator_rule": "قوانین پاسخگو",
+    "department_user_rule": "قوانین پرسشگر",
 
     "charge_amount": "مبلغ",
     "charge_account": "کاربر",

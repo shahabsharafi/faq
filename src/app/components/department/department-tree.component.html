@@ -47,15 +47,38 @@
             </div>
         </div>
         <div class="ui-g" *ngIf="item.selectable">
-            <div class="ui-g-12">
-                <div>{{res.department_price}}</div>
-                <input pInputText [(ngModel)]="item.price" />
-            </div>
-        </div>
-        <div class="ui-g" *ngIf="item.selectable">
-            <div class="ui-g-12">
-                <div>{{res.department_accounts}}</div>
-                <p-autoComplete [(ngModel)]="item.accounts" [suggestions]="accounts" (completeMethod)="onSearchAccount($event)" [multiple]="true" field="username"></p-autoComplete>
+            <div class="ui-g-12 department-tab">
+                <p-tabView>
+                    <p-tabPanel [header]="res.department_info">
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <div>{{res.department_price}}</div>
+                                <input pInputText [(ngModel)]="item.price" />
+                            </div>
+                        </div>
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <div>{{res.department_accounts}}</div>
+                                <p-autoComplete [(ngModel)]="item.accounts" [suggestions]="accounts" (completeMethod)="onSearchAccount($event)" [multiple]="true" field="username"></p-autoComplete>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+                    <p-tabPanel [header]="res.department_operator_rule">
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <textarea [(ngModel)]="item.operatorRule" ></textarea>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel [header]="res.department_user_rule">
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <textarea [(ngModel)]="item.userRule" ></textarea>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
             </div>
         </div>
         <div class="ui-g">
@@ -64,5 +87,5 @@
                 <button pButton type="button" icon="fa-trash-o btn-custom" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
             </div>
         </div>
-</p-dialog>
+    </p-dialog>
 </div>

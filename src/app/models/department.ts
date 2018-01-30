@@ -7,6 +7,8 @@ export interface Department {
     language: { _id: String, caption: String };
     selectable: boolean;
     price: number;
+    operatorRule: String;
+    userRule: String;
     children: Department[];
     accounts: Account[];
 }
