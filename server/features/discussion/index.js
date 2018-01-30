@@ -31,7 +31,7 @@ var register = function (option) {
                             /*state: { $in: states }, */
                             Discussion
                                 .find({ from: user._id })
-                                .populate('from to department usedDiscount')
+                                .populate('from to department')
                                 .populate('items.owner')
                                 .exec(cb);
                         } else {
@@ -45,7 +45,7 @@ var register = function (option) {
                                     }
                                     Discussion
                                         .find({ $or: [{ to: user._id }, { department: { $in: depList } }] })
-                                        .populate('from to department usedDiscount')
+                                        .populate('from to department')
                                         .populate('items.owner')
                                         .exec(cb);
                                 }
