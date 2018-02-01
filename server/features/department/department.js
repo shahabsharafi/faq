@@ -9,6 +9,7 @@ var schema = new mongoose.Schema({
     description: String,
     language: String,
     selectable: Boolean,
+    requireAttribute: Boolean,
     price: Number,
     operatorRule: String,
     userRule: String,

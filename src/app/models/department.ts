@@ -6,6 +6,7 @@ export interface Department {
     description: String;
     language: { _id: String, caption: String };
     selectable: boolean;
+    requireAttribute: Boolean;
     price: number;
     operatorRule: String;
     userRule: String;

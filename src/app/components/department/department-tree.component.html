@@ -43,7 +43,12 @@
         </div>
         <div class="ui-g" *ngIf="item.type == 'category'">
             <div class="ui-g-12">
-                <div><p-checkbox name="groupname" binary="true" [(ngModel)]="item.selectable" [label]="res.department_selectable"></p-checkbox></div>
+                <div><p-checkbox name="groupname1" binary="true" [(ngModel)]="item.selectable" [label]="res.department_selectable"></p-checkbox></div>
+            </div>
+        </div>
+        <div class="ui-g"  *ngIf="item.selectable">
+            <div class="ui-g-12">
+                <div><p-checkbox name="groupname2" binary="true" [(ngModel)]="item.requireAttribute" [label]="res.department_require_attribute"></p-checkbox></div>
             </div>
         </div>
         <div class="ui-g" *ngIf="item.selectable">

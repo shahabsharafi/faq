@@ -93,6 +93,7 @@
     "department_description": "توضیحات",
     "department_accounts": "کارشناسان مرتبط",
     "department_selectable": "قابل انتخاب در بخش سوالات",
+    "department_require_attribute": "اجباری بودن تکمیل مشخصات مربوط به مذهب",
     "department_price": "قیمت",
     "department_info": "مشخصات",
     "department_operator_rule": "قوانین پاسخگو",
