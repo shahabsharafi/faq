@@ -9,6 +9,7 @@ export class Discount {
     }
     _id;
     owner: Account;
+    createDate;
     category: Department;
     price;
     count;

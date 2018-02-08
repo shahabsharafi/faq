@@ -176,6 +176,7 @@ export class DiscountListComponent extends CrudComponent<Discount> implements On
         this.item.category = <Department>{};
         this.item.type = <Attribute>this._defaultState;
         this.item.isOrganization = true;
+        this.item.createDate = CalendarConvertor.gregorianToJalali(d.toJSON());
         this.item.beginDate = CalendarConvertor.gregorianToJalali(d.toJSON());
         this.item.expireDate = CalendarConvertor.gregorianToJalali(d.toJSON());
     }

@@ -88,11 +88,13 @@ var register = function (option) {
                 //sex
                 new Attribute({
                     type: 'sex',
-                    caption: 'مرد'
+                    caption: 'مرد',
+                    value: 'male'
                 }),
                 new Attribute({
                     type: 'sex',
-                    caption: 'زن'
+                    caption: 'زن',
+                    value: 'female'
                 }),
                 //status
                 new Attribute({

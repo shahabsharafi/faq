@@ -468,6 +468,22 @@ var register = function (option) {
         });
     });
 
+    router.get('/byusername/:username', function (req, res) {
+		Account.findOne( { username: req.params.username }, function (err, obj) {
+            if (err) {
+				res.send_err(err);
+            } else {
+				if (obj) {
+					var temp = obj.toObject();
+                    delete temp.password;
+					res.send_ok(temp);
+                } else {
+					res.send_err(err);
+                }
+            }
+        });
+    });
+
     router.get('/me', function (req, res) {
 
         var attrs = {};

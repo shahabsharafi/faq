@@ -83,6 +83,7 @@ var register = function (option) {
 
         var _part3 = function (callback) {
             _map(obj, 'category');
+            obj.createDate = obj.createDate || new Date();
             obj.price = obj.price || 0;
             obj.count = obj.count || 0;
             obj.total = obj.price * obj.count;
