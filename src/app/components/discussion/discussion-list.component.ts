@@ -11,7 +11,7 @@ import { LazyLoadEvent } from 'primeng/primeng';
 })
 export class DiscussionListComponent extends CrudComponent<Discussion> implements OnInit {
 
-    extraItem: any;
+    extraItem: { state: String, cancelation: String };
 
     constructor(
         protected authenticationService: AuthenticationService,
@@ -19,6 +19,7 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
         private discussionService: DiscussionService)
     {
         super(resourceService, discussionService);
+        this.extraItem = <{ state: String, cancelation: String }>{};
     }
 
     ngOnInit() {
@@ -41,25 +42,42 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     }
 
     onSelect() {
-        switch (item.cancelation){
+        switch (this.item.cancelation){
             case 1:
-                extraItem.cancelation =
-                    this.resourceService.getValue('cancelation_unclear');
+                this.extraItem.cancelation =
+                    this.resourceService.getValue('discussion_cancelation_unclear');
                 break;
             case 2:
-                extraItem.cancelation =
-                    this.resourceService.getValue('cancelation_unrelated');
+                this.extraItem.cancelation =
+                    this.resourceService.getValue('discussion_cancelation_unrelated');
                 break;
             case 3:
-                extraItem.cancelation =
-                    this.resourceService.getValue('cancelation_annoying');
+                this.extraItem.cancelation =
+                    this.resourceService.getValue('discussion_cancelation_annoying');
                 break;
             case 4:
-                extraItem.cancelation =
-                    this.resourceService.getValue('cancelation_offensiv');
+                this.extraItem.cancelation =
+                    this.resourceService.getValue('discussion_cancelation_offensiv');
                 break;
         }
-
+        switch (this.item.state){
+            case 0:
+                this.extraItem.state =
+                    this.resourceService.getValue('discussion_state_created');
+                break;
+            case 1:
+                this.extraItem.state =
+                    this.resourceService.getValue('discussion_state_recived');
+                break;
+            case 2:
+                this.extraItem.state =
+                    this.resourceService.getValue('discussion_state_finished');
+                break;
+            case 3:
+                this.extraItem.state =
+                    this.resourceService.getValue('discussion_state_report');
+                break;
+        }
     }
 
     onSave() {

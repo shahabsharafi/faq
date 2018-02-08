@@ -68,6 +68,11 @@
     "account_disabled": "غیر فعال",
     "account_sexPrevention": "عدم پاسخ به جنس مخالف",
 
+    "charge_amount": "مبلغ",
+    "charge_account": "کاربر",
+    "charge_description": "شرح",
+    "charge_createDate": "تاریخ",
+
     "discount_owner": "اهدا کننده",
     "discount_category": "بخش",
     "discount_price": "فی",
@@ -87,6 +92,16 @@
     "discussion_department": "دسته بندی",
     "discussion_tags": "برچسب ها",
 
+    "discussion_cancelation_unclear": "مبهم",
+    "discussion_cancelation_unrelated": "غیر مرتبط",
+    "discussion_cancelation_annoying": "مزاحم",
+    "discussion_cancelation_offensiv": "توهین آمیز",
+
+    "discussion_state_created": "توسط پرسشگر مطرح شده",
+    "discussion_state_recived": "توسط کارشناس دریافت شده",
+    "discussion_state_finished": "پاسخ داده شده",
+    "discussion_state_report": "باطل شده",
+
     "department_title": "بخش و طبقه بندی",
     "department_new": "بخش جدید",
     "department_caption": "عنوان",
@@ -98,11 +113,6 @@
     "department_info": "مشخصات",
     "department_operator_rule": "قوانین پاسخگو",
     "department_user_rule": "قوانین پرسشگر",
-
-    "charge_amount": "مبلغ",
-    "charge_account": "کاربر",
-    "charge_description": "شرح",
-    "charge_createDate": "تاریخ",
 
     "message_owner": "گیرنده",
     "message_createDate": "تاریخ ایجاد",
