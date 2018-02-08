@@ -87,7 +87,7 @@ var register = function (option) {
                         var item = list[i];
                         l.push({
                             sourceId: item._id,
-                            description: 'discount_buy',
+                            source: 'discount_buy',
                             date: item.createDate,
                             price: item.price,
                             count: item.count,
@@ -113,7 +113,7 @@ var register = function (option) {
                         var item = list[i];
                         l.push({
                             sourceId: item._id,
-                            description: 'charge',
+                            source: 'charge',
                             date: item.createDate,
                             debit: 0,
                             credit: item.amount,

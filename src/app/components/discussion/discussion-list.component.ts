@@ -11,6 +11,8 @@ import { LazyLoadEvent } from 'primeng/primeng';
 })
 export class DiscussionListComponent extends CrudComponent<Discussion> implements OnInit {
 
+    extraItem: any;
+
     constructor(
         protected authenticationService: AuthenticationService,
         protected resourceService: ResourceService,
@@ -31,7 +33,7 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     }
 
     loadCarsLazy(event: LazyLoadEvent) {
-        this.load(event, { expand: 'state,owner,category' });
+        this.load(event, { expand: 'from,to,department' });
     }
 
     onRowSelect(event) {
@@ -39,6 +41,24 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     }
 
     onSelect() {
+        switch (item.cancelation){
+            case 1:
+                extraItem.cancelation =
+                    this.resourceService.getValue('cancelation_unclear');
+                break;
+            case 2:
+                extraItem.cancelation =
+                    this.resourceService.getValue('cancelation_unrelated');
+                break;
+            case 3:
+                extraItem.cancelation =
+                    this.resourceService.getValue('cancelation_annoying');
+                break;
+            case 4:
+                extraItem.cancelation =
+                    this.resourceService.getValue('cancelation_offensiv');
+                break;
+        }
 
     }
 

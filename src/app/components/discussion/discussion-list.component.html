@@ -13,11 +13,11 @@
                 </div>
             </div>
             <div class="ui-g">
-                <div class="ui-g-12 ui-lg-6">
+                <div class="ui-g-12 ui-lg-6" *ngIf="item.from">
                     <span>{{res.discussion_from}}</span>
                     <input pInputText [(ngModel)]="item.from.username" />
                 </div>
-                <div class="ui-g-12 ui-lg-6">
+                <div class="ui-g-12 ui-lg-6" *ngIf="item.to">
                     <span>{{res.discussion_to}}</span>
                     <input pInputText [(ngModel)]="item.to.username" />
                 </div>
@@ -33,14 +33,14 @@
                 </div>
             </div>
             <div class="ui-g">
-                <div class="ui-g-12 ui-lg-12">
+                <div class="ui-g-12 ui-lg-12" *ngIf="item.department">
                     <span>{{res.discussion_department}}</span>
                     <input pInputText [(ngModel)]="item.department.caption" readonly />
                 </div>
             </div>
             <div class="ui-g">
                 <div class="ui-g-12 ui-lg-6">
-                    <span>{{res.discussion_tag}}</span>
+                    <span>{{res.discussion_tags}}</span>
                     <input pInputText [(ngModel)]="item.tags" readonly />
                 </div>
             </div>
