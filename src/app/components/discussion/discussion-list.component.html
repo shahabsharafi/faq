@@ -1,9 +1,26 @@
 <div class="discussion-list ui-fluid">
     <div class="ui-g list-top">
         <div class="ui-g-6">
-            <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
-                <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [filter]='col.filter' [filterMatchMode]='col.filterMatchMode' [sortable]='col.sortable'></p-column>
-            </p-dataTable>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <span>{{res.discussion_state}}</span>
+                    <p-dropdown [options]="states" [(ngModel)]="search.state" [style]="{'width':'100%'}"></p-dropdown>
+                </div>
+                <div class="ui-g-4">
+                    <span>{{res.discussion_cancelation}}</span>
+                    <p-dropdown [options]="cancelations" [(ngModel)]="search.cancelation" [style]="{'width':'100%'}"></p-dropdown>
+                </div>
+                <div class="ui-g-4">
+                    <button pButton type="button" icon="fa-trash-o" iconPos="right" [label]="res.action_search" (click)="onSearch()"></button>
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <p-dataTable [value]="list" (onRowSelect)="onRowSelect($event)" dataKey="_id" selectionMode="single" [lazy]="true" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadCarsLazy($event)">
+                        <p-column *ngFor="let col of cols" [field]="col.field" [header]="col.header" [sortable]='col.sortable'></p-column>
+                    </p-dataTable>
+                </div>
+            </div>
         </div>
         <div class="ui-g-6" *ngIf="item">
             <div class="ui-g">

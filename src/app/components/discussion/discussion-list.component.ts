@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Discussion } from '../../models/index';
 import { DiscussionService, ResourceService, AuthenticationService } from '../../services/index';
 import { BaseComponent, CrudComponent } from '../index';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { LazyLoadEvent, SelectItem } from 'primeng/primeng';
 
 @Component({
     selector:'discussion-list',
@@ -12,6 +12,9 @@ import { LazyLoadEvent } from 'primeng/primeng';
 export class DiscussionListComponent extends CrudComponent<Discussion> implements OnInit {
 
     extraItem: { state: String, cancelation: String };
+    search: { state: Number, cancelation: Number };
+    states: SelectItem[];
+    cancelations: SelectItem[];
 
     constructor(
         protected authenticationService: AuthenticationService,
@@ -20,16 +23,34 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     {
         super(resourceService, discussionService);
         this.extraItem = <{ state: String, cancelation: String }>{};
+        this.search = <{ state: Number, cancelation: Number }>{};
     }
 
     ngOnInit() {
         super.ngOnInit();
         this.cols = [
-            {field: 'display', header: this.res.discussion_display, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
-            {field: 'from.username', header: this.res.discussion_from, filter: 'true', filterMatchMode: 'contains', sortable: 'true'},
+            {field: 'display', header: this.res.discussion_display, filter: 'false', sortable: 'true'},
+            {field: 'from.username', header: this.res.discussion_from, filter: 'false', sortable: 'true'},
             {field: 'to.username', header: this.res.discussion_to, filter: 'false', sortable: 'true'},
             {field: 'department.caption', header: this.res.discussion_department, filter: 'false', sortable: 'true'}
         ];
+
+        this.states = [
+            { label: "---", value: -1 },
+            { label: this.res.discussion_state_created, value: 0 },
+            { label: this.res.discussion_state_recived, value: 1 },
+            { label: this.res.discussion_state_finished, value: 2 },
+            { label: this.res.discussion_state_report, value: 3 }
+        ];
+        this.cancelations = [
+            { label: "---", value: -1 },
+            { label: this.res.discussion_cancelation_unclear, value: 1 },
+            { label: this.res.discussion_cancelation_unrelated, value: 2 },
+            { label: this.res.discussion_cancelation_annoying, value: 3 },
+            { label: this.res.discussion_cancelation_offensiv, value: 4 },
+        ];
+        this.search = { state: -1, cancelation: -1 };
+
         this.load(null, { expand: 'from,to,department' });
     }
 
@@ -42,42 +63,24 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     }
 
     onSelect() {
-        switch (this.item.cancelation){
-            case 1:
-                this.extraItem.cancelation =
-                    this.resourceService.getValue('discussion_cancelation_unclear');
-                break;
-            case 2:
-                this.extraItem.cancelation =
-                    this.resourceService.getValue('discussion_cancelation_unrelated');
-                break;
-            case 3:
-                this.extraItem.cancelation =
-                    this.resourceService.getValue('discussion_cancelation_annoying');
-                break;
-            case 4:
-                this.extraItem.cancelation =
-                    this.resourceService.getValue('discussion_cancelation_offensiv');
-                break;
+        if (this.item.cancelation && this.item.cancelation > 0 && this.item.cancelation < 5) {
+            this.extraItem.cancelation = this.cancelations[this.item.cancelation - 1].value;
+        } else {
+            this.extraItem.cancelation = '';
         }
-        switch (this.item.state){
-            case 0:
-                this.extraItem.state =
-                    this.resourceService.getValue('discussion_state_created');
-                break;
-            case 1:
-                this.extraItem.state =
-                    this.resourceService.getValue('discussion_state_recived');
-                break;
-            case 2:
-                this.extraItem.state =
-                    this.resourceService.getValue('discussion_state_finished');
-                break;
-            case 3:
-                this.extraItem.state =
-                    this.resourceService.getValue('discussion_state_report');
-                break;
+
+        if (this.item.state != null && this.item.state > -1 && this.item.state < 4) {
+            this.extraItem.state = this.states[this.item.state].value;
+        } else {
+            this.extraItem.state = '';
         }
+    }
+
+    onSearch() {
+        var filters = [];
+    if (this.search.state != -1) filters["state"] = { matchMode: "equals", value: this.search.state };
+    if (this.search.cancelation != -1) filters["cancelation"] = { matchMode: "equals", value: this.search.cancelation };
+        this.load(null, { expand: 'from,to,department', filters: filters });
     }
 
     onSave() {

@@ -59,6 +59,10 @@ export class CrudComponent<T> extends BaseComponent {
             if (option.rows) opt.$skip = option.rows;
         }
         if (extraOption) {
+            if (extraOption.filters) {
+                var filterString = this.getODataFilter(extraOption.filters);
+                if (filterString) opt.$filter = filterString;
+            }
             if (extraOption.select) opt.$select = extraOption.select;
             if (extraOption.expand) opt.$expand = extraOption.expand;
         }
