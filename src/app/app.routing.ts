@@ -1,12 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { SigninComponent, SignupComponent, WelcomeComponent, AccountListComponent, DiscussionListComponent, DiscountListComponent, DepartmentTreeComponent, ChargeListComponent, MessageListComponent } from './components/index';
+import { SigninComponent, SignupComponent, WelcomeComponent, AccountListComponent, DiscussionListComponent, DiscountListComponent, DepartmentTreeComponent, ChargeListComponent, MessageListComponent, BankportComponent } from './components/index';
 import { AuthGuard } from './services/index';
 
 const appRoutes: Routes = [
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: '', component: WelcomeComponent },
+    { path: 'bankport/:id', component: BankportComponent, canActivate: [AuthGuard] },
     { path: 'account-list', component: AccountListComponent, canActivate: [AuthGuard] },
     { path: 'discount-list', component: DiscountListComponent, canActivate: [AuthGuard] },
     { path: 'discussion-list', component: DiscussionListComponent, canActivate: [AuthGuard] },

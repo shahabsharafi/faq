@@ -69,6 +69,9 @@
     "account_disabled": "غیر فعال",
     "account_sexPrevention": "عدم پاسخ به جنس مخالف",
 
+    "bankport_amount": "مبلغ",
+    "bankport_go": "پرداخت",
+
     "charge_amount": "مبلغ",
     "charge_account": "کاربر",
     "charge_description": "شرح",
