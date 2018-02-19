@@ -468,6 +468,30 @@ var register = function (option) {
         });
     });
 
+    router.get('/setuserkey', function() {
+
+        if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
+            utility.createCode(req.decoded._doc.username, function (obj) {
+                res.send_ok(obj.code);
+            });
+        } else {
+            res.send_err({ success: false });
+        }
+    });
+
+    router.get('/finduserbykey', function() {
+
+        getCode(mobile, function (value) {
+            if (value.code == code) {
+                res.send_ok(value.code);
+            } else {
+                res.send_err({ success: false });
+            }
+        }, function () {
+            res.send_err({ success: false });
+        });
+    });
+
     router.get('/byusername/:username', function (req, res) {
 		Account.findOne( { username: req.params.username }, function (err, obj) {
             if (err) {

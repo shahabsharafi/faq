@@ -9,4 +9,3 @@ export * from './welcome/index';
 export * from './discussion/index';
 export * from './charge/index';
 export * from './message/index';
-export * from './bankport/index';

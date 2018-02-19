@@ -31,6 +31,7 @@ var register = function (option) {
     router.use(function (req, res, next) {
         console.log('check token...');
         var ignoreUrls = [
+            '/accounts/finduserbykey',
             '/messages/a101',
             '/accounts/resetpassword',
             '/accounts/signup',
@@ -91,6 +92,7 @@ var register = function (option) {
     });
 
     option.app.use('/api', router);
+
 
 }
 

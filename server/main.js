@@ -42,6 +42,8 @@ app.use(function (req, res, next) {
     }
 });
 */
+
+
 app.listen(app.get('port'), function () {
     console.log('Angular2 fullstack listening on port ' + app.get('port'));
 });

@@ -10,7 +10,7 @@ import { TreeviewModule } from 'ngx-treeview';
 import {MomentModule} from 'angular2-moment';
 import * as $ from 'jquery';
 
-import { AppComponent, WelcomeComponent, AccountListComponent, DiscussionListComponent, DiscountListComponent, ChargeListComponent, MessageListComponent, DepartmentTreeComponent, SigninComponent, SignupComponent, TreeComponent, DatepickerComponent, BankportComponent } from './components/index';
+import { AppComponent, WelcomeComponent, AccountListComponent, DiscussionListComponent, DiscountListComponent, ChargeListComponent, MessageListComponent, DepartmentTreeComponent, SigninComponent, SignupComponent, TreeComponent, DatepickerComponent } from './components/index';
 import { Routing } from './app.routing';
 import { AuthGuard, AuthenticationService, AccountService, AccessService, DepartmentService, DiscussionService, DiscountService, ChargeService, MessageService, AttributeService, MenuService, ResourceService, Logger } from './services/index';
 
@@ -54,7 +54,6 @@ enableProdMode();
         ChargeListComponent,
         MessageListComponent,
         DepartmentTreeComponent,
-        BankportComponent,
         SigninComponent,
         SignupComponent,
         TreeComponent,

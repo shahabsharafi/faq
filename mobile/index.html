@@ -3,6 +3,32 @@
 
 </head>
 <body>
-
+    <input type="text" placeholder="مبلغ مورد نظر" />
+    <input type="button" onclick="go()" />
 </body>
+<script>
+    var getParameterByName = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var getUser = function () {
+        var key = getParameterByName('key');
+        var request = new XMLHttpRequest();
+        request.open("get", "/api/accounts/finduserbykey", false);
+        request.send();
+        return request.responseText;
+    }
+
+    var go = function () {
+        var user = getUser();
+        var message = 'user: ' + user + ' chash: ' + document.getElementById('text').value;
+        alert(message);
+    }
+</script>
 </html>
