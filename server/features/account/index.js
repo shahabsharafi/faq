@@ -468,26 +468,31 @@ var register = function (option) {
         });
     });
 
-    router.get('/setuserkey', function() {
+    router.get('/setuserkey', function(req, res) {
 
         if (req.decoded && req.decoded._doc && req.decoded._doc.username) {
-            utility.createCode(req.decoded._doc.username, function (obj) {
-                res.send_ok(obj.code);
+            utility.saveChche(req.decoded._doc.username, function (key) {
+                res.send_ok({
+                    message: key,
+                    success: true
+                });
             });
         } else {
             res.send_err({ success: false });
         }
     });
 
-    router.get('/finduserbykey', function() {
-
-        getCode(mobile, function (value) {
-            if (value.code == code) {
-                res.send_ok(value.code);
-            } else {
-                res.send_err({ success: false });
-            }
+    router.get('/finduserbykey', function(req, res) {
+        console.log('finduserbykey');
+        var key = req.query.key;
+        utility.recoverChche(key, function (value) {
+            console.log(value);
+            res.send_ok({
+                    message: value,
+                    success: true
+                });
         }, function () {
+            console.log('errrrr');
             res.send_err({ success: false });
         });
     });

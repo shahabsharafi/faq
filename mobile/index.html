@@ -3,7 +3,7 @@
 
 </head>
 <body>
-    <input type="text" placeholder="مبلغ مورد نظر" />
+    <input type="text" id="txt" placeholder="مبلغ مورد نظر" />
     <input type="button" onclick="go()" />
 </body>
 <script>
@@ -20,14 +20,15 @@
     var getUser = function () {
         var key = getParameterByName('key');
         var request = new XMLHttpRequest();
-        request.open("get", "/api/accounts/finduserbykey", false);
+        request.open("get", "/api/accounts/finduserbykey?key=" + key, false);
         request.send();
-        return request.responseText;
+        var obj = JSON.parse(request.responseText);
+        return obj.message;
     }
 
     var go = function () {
         var user = getUser();
-        var message = 'user: ' + user + ' chash: ' + document.getElementById('text').value;
+        var message = 'user: ' + user + ' chash: ' + document.getElementById('txt').value;
         alert(message);
     }
 </script>

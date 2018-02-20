@@ -59,6 +59,27 @@ module.exports.createCode = function (mobile, successHandller, errHandller) {
     })
 }
 
+module.exports.saveChche = function (obj, successHandller, errHandller) {
+    var key = random(1000, 9999);
+    myCache.set(key, obj, 180, function (err, success) {
+        if (!err && success) {
+            if (successHandller) successHandller(key);
+        } else {
+            if (errHandller) errHandller();
+        }
+    });
+}
+
+module.exports.recoverChche = function (key, successHandller, errHandller) {
+    myCache.get(key, function (err, value) {
+        if (!err) {
+            console.log(value);
+            if (successHandller) successHandller(value);
+        } else {
+            if (errHandller) errHandller();
+        }
+    })
+}
 
 module.exports.taskRunner = function (fnList, callback) {
     var _fn = function (fnList, callback) {

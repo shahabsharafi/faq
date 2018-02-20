@@ -4,6 +4,7 @@ var register = function (option) {
     const path = require("path");
 
     option.app.use('/', option.express.static(__dirname + '/../../dist'));
+    option.app.use('/charge', option.express.static(__dirname + '/../../mobile'));
     option.app.use('/scripts', option.express.static(__dirname + '/../../node_modules'));
     option.app.use('/resources', option.express.static(__dirname + '/../resources'));
 
