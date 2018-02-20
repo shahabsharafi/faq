@@ -2,15 +2,17 @@
     <div class="ui-g list-top">
         <div class="ui-g-6">
             <div class="ui-g">
-                <div class="ui-g-4">
+                <div class="ui-g-6">
                     <span>{{res.discussion_state}}</span>
                     <p-dropdown [options]="states" [(ngModel)]="search.state" [style]="{'width':'100%'}"></p-dropdown>
                 </div>
-                <div class="ui-g-4">
+                <div class="ui-g-6">
                     <span>{{res.discussion_cancelation}}</span>
                     <p-dropdown [options]="cancelations" [(ngModel)]="search.cancelation" [style]="{'width':'100%'}"></p-dropdown>
                 </div>
-                <div class="ui-g-4">
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-12">
                     <button pButton type="button" icon="fa-trash-o" iconPos="right" [label]="res.action_search" (click)="onSearch()"></button>
                 </div>
             </div>
@@ -23,44 +25,56 @@
             </div>
         </div>
         <div class="ui-g-6" *ngIf="item">
-            <div class="ui-g">
-                <div class="ui-g-12">
-                    <span>{{res.discussion_display}}</span>
-                    <input pInputText [(ngModel)]="item.display" />
-                </div>
-            </div>
-            <div class="ui-g">
-                <div class="ui-g-12 ui-lg-6" *ngIf="item.from">
-                    <span>{{res.discussion_from}}</span>
-                    <input pInputText [(ngModel)]="item.from.username" />
-                </div>
-                <div class="ui-g-12 ui-lg-6" *ngIf="item.to">
-                    <span>{{res.discussion_to}}</span>
-                    <input pInputText [(ngModel)]="item.to.username" />
-                </div>
-            </div>
-            <div class="ui-g">
-                <div class="ui-g-12 ui-lg-6">
-                    <span>{{res.discussion_state}}</span>
-                    <input pInputText [(ngModel)]="extraItem.state" readonly />
-                </div>
-                <div class="ui-g-12 ui-lg-6">
-                    <span>{{res.discussion_cancelation}}</span>
-                    <input pInputText [(ngModel)]="extraItem.cancelation" readonly />
-                </div>
-            </div>
-            <div class="ui-g">
-                <div class="ui-g-12 ui-lg-12" *ngIf="item.department">
-                    <span>{{res.discussion_department}}</span>
-                    <input pInputText [(ngModel)]="item.department.caption" readonly />
-                </div>
-            </div>
-            <div class="ui-g">
-                <div class="ui-g-12 ui-lg-6">
-                    <span>{{res.discussion_tags}}</span>
-                    <input pInputText [(ngModel)]="item.tags" readonly />
-                </div>
-            </div>
+            <p-tabView>
+                <p-tabPanel [header]="res.discussion_info">
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <span>{{res.discussion_display}}</span>
+                            <input pInputText [(ngModel)]="item.display" />
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-lg-6" *ngIf="item.from">
+                            <span>{{res.discussion_from}}</span>
+                            <input pInputText [(ngModel)]="item.from.username" />
+                        </div>
+                        <div class="ui-g-12 ui-lg-6" *ngIf="item.to">
+                            <span>{{res.discussion_to}}</span>
+                            <input pInputText [(ngModel)]="item.to.username" />
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-lg-6">
+                            <span>{{res.discussion_state}}</span>
+                            <input pInputText [(ngModel)]="extraItem.state" readonly />
+                        </div>
+                        <div class="ui-g-12 ui-lg-6">
+                            <span>{{res.discussion_cancelation}}</span>
+                            <input pInputText [(ngModel)]="extraItem.cancelation" readonly />
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-lg-12" *ngIf="item.department">
+                            <span>{{res.discussion_department}}</span>
+                            <input pInputText [(ngModel)]="item.department.caption" readonly />
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-lg-6">
+                            <span>{{res.discussion_tags}}</span>
+                            <input pInputText [(ngModel)]="item.tags" readonly />
+                        </div>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel [header]="res.discussion_detail">
+                    <ul class="list" *ngIf="item.items">
+                        <li *ngFor="let obj of item.items">
+                            <div>{{obj.text}}</div>
+                            <div *ngIf>{{obj.owner.username}}</div>
+                        </li>
+                    </ul>
+                </p-tabPanel>
+            </p-tabView>
         </div>
     </div>
     <div class="ui-g">

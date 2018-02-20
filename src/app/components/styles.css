@@ -62,6 +62,25 @@ h3 {
     font-family: IranianSans, Tahoma;
 }
 
+/*================================
+list
+==================================*/
+
+.list {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.list li {
+    border-radius: 7px;
+    background: #2399e5;
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    color: whitesmoke;
+}
+
 
 /*================================
 rtl fa
