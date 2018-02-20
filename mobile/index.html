@@ -1,35 +1,13 @@
 <html>
 <head>
-
+    <script src="main.js" type="application/javascript" ></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="font/css/font.css" />
 </head>
 <body>
-    <input type="text" id="txt" placeholder="مبلغ مورد نظر" />
-    <input type="button" onclick="go()" />
+    <div class="panel">
+        <input type="text" id="txt" placeholder="مبلغ مورد نظر" />
+        <input type="button" value="پرداخت" onclick="go()" />
+    </div>
 </body>
-<script>
-    var getParameterByName = function (name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-    var getUser = function () {
-        var key = getParameterByName('key');
-        var request = new XMLHttpRequest();
-        request.open("get", "/api/accounts/finduserbykey?key=" + key, false);
-        request.send();
-        var obj = JSON.parse(request.responseText);
-        return obj.message;
-    }
-
-    var go = function () {
-        var user = getUser();
-        var message = 'user: ' + user + ' chash: ' + document.getElementById('txt').value;
-        alert(message);
-    }
-</script>
 </html>

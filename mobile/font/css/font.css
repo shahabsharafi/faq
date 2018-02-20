@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "IranianSans";
+  src: url("../fonts/iranian-sans.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/iranian-sans.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/iranian-sans.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/iranian-sans.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/iranian-sans.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/iranian-sans.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/iranian-sans.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
