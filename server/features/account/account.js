@@ -14,6 +14,7 @@ var schema = new mongoose.Schema({
     isManager: Boolean,
     sexPrevention: Boolean,
     price: Number,
+    percentage: Number,
     isAdmin: Boolean,
     orgCode: String,
     comments: [{

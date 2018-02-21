@@ -11,6 +11,7 @@ var schema = new mongoose.Schema({
     selectable: Boolean,
     requireAttribute: Boolean,
     price: Number,
+    percentage: Number,
     operatorRule: String,
     userRule: String,
     accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }]

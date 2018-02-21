@@ -56,6 +56,10 @@
                             <span>{{res.account_price}}</span>
                             <input pInputText [(ngModel)]="item.price" />
                         </div>
+                        <div class="ui-g-3" *ngIf="item.isOperator">
+                            <span>{{res.account_percentage}}</span>
+                            <input pInputText [(ngModel)]="item.percentage" />
+                        </div>
                         <div class="ui-g-3" *ngIf="item.isOrganization">
                             <span>{{res.account_orgCode}}</span>
                             <input pInputText [(ngModel)]="item.orgCode" />

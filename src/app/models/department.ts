@@ -8,6 +8,7 @@ export interface Department {
     selectable: boolean;
     requireAttribute: Boolean;
     price: number;
+    percentage: Number;
     operatorRule: String;
     userRule: String;
     children: Department[];

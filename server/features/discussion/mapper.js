@@ -51,6 +51,7 @@ module.exports = function (obj, callback) {
                 if (callback) callback(err);
             } else {
                 obj.price = o.price;
+                obj.percentage = o.percentage;
                 if (callback) callback();
             }
         }
@@ -100,7 +101,10 @@ module.exports = function (obj, callback) {
             obj.payment = obj.price - obj.discount;
         //} else if (obj.state == 1) {//recived
         } else if (obj.state == 2) {//finished
-            obj.wage = obj.price;
+            if (obj.percentage && obj.percentage > 0 && obj.percentage <= 100)
+                obj.wage = obj.price * (obj.percentage / 100);
+            else
+                obj.wage = obj.price;
         } else if (obj.state == 3) {//report
             switch (obj.cancelation) {
                 case 1:

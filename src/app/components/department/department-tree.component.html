@@ -56,9 +56,13 @@
                 <p-tabView>
                     <p-tabPanel [header]="res.department_info">
                         <div class="ui-g">
-                            <div class="ui-g-12">
+                            <div class="ui-g-6">
                                 <div>{{res.department_price}}</div>
                                 <input pInputText [(ngModel)]="item.price" />
+                            </div>
+                            <div class="ui-g-6">
+                                <div>{{res.department_percentage}}</div>
+                                <input pInputText [(ngModel)]="item.percentage" />
                             </div>
                         </div>
                         <div class="ui-g">

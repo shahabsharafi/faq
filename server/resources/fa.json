@@ -22,6 +22,7 @@
     "account_contact": "اطلاعات تماس",
     "account_education": "اطلاعات تحصیلی",
     "account_extra": "اطلاعات تکمیلی",
+    "account_percentage": "درصد",
 
     "account_username": "نام کاربری",
     "account_password": "کلمه عبور",
@@ -120,6 +121,7 @@
     "department_info": "مشخصات",
     "department_operator_rule": "قوانین پاسخگو",
     "department_user_rule": "قوانین پرسشگر",
+    "department_percentage": "درصد",
 
     "message_owner": "گیرنده",
     "message_createDate": "تاریخ ایجاد",

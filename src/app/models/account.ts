@@ -69,5 +69,6 @@ export class Account {
     isManager: Boolean;
     sexPrevention: Boolean;
     price: Number;
+    percentage: Number;
     comments: [AccountComment];
 }
