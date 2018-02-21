@@ -11,6 +11,7 @@
     "action_cancel": "انصراف",
     "action_login": "ورود",
     "action_search": "جستجو",
+    "action_changeState": "تغییر وضعیت",
 
     "services": "خدمات",
     "administration": "مدیریت سامانه",

@@ -15,6 +15,7 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     search: { state: Number, cancelation: Number };
     states: SelectItem[];
     cancelations: SelectItem[];
+    displayState: boolean = false;
 
     constructor(
         protected authenticationService: AuthenticationService,
@@ -59,18 +60,19 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     }
 
     onRowSelect(event) {
+        this.displayState = false;
         this.selectOne(event.data._id, { expand: 'from,to,department' });
     }
 
     onSelect() {
         if (this.item.cancelation && this.item.cancelation > 0 && this.item.cancelation < 5) {
-            this.extraItem.cancelation = this.cancelations[this.item.cancelation - 1].value;
+            this.extraItem.cancelation = this.cancelations[this.item.cancelation].label;
         } else {
             this.extraItem.cancelation = '';
         }
 
         if (this.item.state != null && this.item.state > -1 && this.item.state < 4) {
-            this.extraItem.state = this.states[this.item.state].value;
+            this.extraItem.state = this.states[this.item.state + 1].label;
         } else {
             this.extraItem.state = '';
         }
@@ -94,5 +96,9 @@ export class DiscussionListComponent extends CrudComponent<Discussion> implement
     onNew() {
         //this.clear();
         //this.item = <Discussion>{};
+    }
+
+    changeState() {
+        this.displayState = true;
     }
 }

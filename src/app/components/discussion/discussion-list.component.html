@@ -82,7 +82,19 @@
         </div>
         <div class="ui-g-6" *ngIf="item">
             <button pButton type="button" icon="fa-trash-o" iconPos="right" [label]="res.action_delete" (click)="onRemove()"></button>
+            <button pButton type="button" [label]="res.action_changeState" (click)="changeState()"></button>
             <button pButton type="button" icon="fa-times" iconPos="right" [label]="res.action_cancel" (click)="clear()"></button>
         </div>
     </div>
+    <p-dialog [header]="res.action_changeState" modal="modal" width="300" [(visible)]="displayState" *ngIf="item" [responsive]="true">
+        <div class="ui-g" style="height: 300px;">
+            <div class="ui-g-12">
+                <span>{{res.discussion_state}}</span>
+                <p-dropdown [options]="states" [(ngModel)]="item.state" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+        </div>
+        <p-footer>
+            <button pButton type="button" icon="fa-floppy-o" iconPos="right" [label]="res.action_save" (click)="onSave()"></button>
+        </p-footer>
+    </p-dialog>
 </div>
