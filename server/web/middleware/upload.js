@@ -15,13 +15,13 @@ var register = function (option) {
 
     const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, config.uploadPath)
+			cb(null, config.uploadPath)
         },
         filename: function (req, file, cb) {
-            if (req.body.has_encode && req.body.has_encode == 'true') {
+			if (req.headers['has_encode'] && req.headers['has_encode'] == 'true') {
                 var guid = Guid.create();
                 var ext = file.originalname.split('.').pop();
-                cb(null, guid.value + '.' + ext)
+                cb(null, guid.value + '.' + ext);
             } else {
                 cb(null, file.originalname);
             }
