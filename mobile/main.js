@@ -18,7 +18,11 @@ var getUser = function () {
 }
 
 var go = function () {
-    var user = getUser();
-    var message = 'user: ' + user + ' chash: ' + document.getElementById('txt').value;
-    alert(message);
+    var key = getParameterByName('key');
+    var queryString = '?key=' + key + '&chash=' + document.getElementById('txt').value + '&code=12345';
+    var url = '94.182.227.163:2020' + queryString;
+    request.open("get", url, false);
+    request.send();
+    var obj = JSON.parse(request.responseText);
+    return obj.message;
 }

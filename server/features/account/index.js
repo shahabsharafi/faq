@@ -497,6 +497,22 @@ var register = function (option) {
         });
     });
 
+    router.get('/commitchash', function(req, res) {
+        var key = req.query.key;
+        var price = req.query.price;
+        utility.recoverChche(key, function (value) {
+            console.log(value);
+            res.send_ok({
+                    message: value,
+                    success: true
+                });
+        }, function () {
+            console.log('errrrr');
+            res.send_err({ success: false });
+        });
+    });
+
+
     router.get('/byusername/:username', function (req, res) {
 		Account.findOne( { username: req.params.username }, function (err, obj) {
             if (err) {
