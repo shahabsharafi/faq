@@ -12,16 +12,16 @@ var router = express.Router();
 // route middleware to authenticate and check token
 // ---------------------------------------------------------
 var parseBearerToken = function (req) {
-  var auth;
-  if (!req.headers || !(auth = req.headers.authorization)) {
-    return null;
-  }
-  var parts = auth.split(' ');
-  if (2 > parts.length) return null;
-  var schema = parts.shift().toLowerCase();
-  var token = parts.join(' ');
-  if ('bearer' != schema) return null;
-  return token;
+    var auth;
+    if (!req.headers || !(auth = req.headers.authorization)) {
+        return null;
+    }
+    var parts = auth.split(' ');
+    if (2 > parts.length) return null;
+    var schema = parts.shift().toLowerCase();
+    var token = parts.join(' ');
+    if ('bearer' != schema) return null;
+    return token;
 }
 
 var register = function (option) {
@@ -31,6 +31,7 @@ var register = function (option) {
     router.use(function (req, res, next) {
         console.log('check token...');
         var ignoreUrls = [
+            '/accounts/commitchash',
             '/accounts/finduserbykey',
             '/messages/a101',
             '/accounts/resetpassword',
