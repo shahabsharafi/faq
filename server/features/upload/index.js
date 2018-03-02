@@ -18,6 +18,7 @@ var register = function (option) {
                         if (!obj._id) {
                             var item = {
                                 owner: owner._id,
+                                isAnswer: true,
                                 createDate: new Date(),
                                 text: '',
                                 attachment: file.filename
@@ -46,6 +47,7 @@ var register = function (option) {
                                 } else {
                                     var item = {
                                         owner: owner._id,
+                                        isAnswer: true,
                                         createDate: new Date(),
                                         text: '',
                                         attachment: file.filename

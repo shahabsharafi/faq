@@ -23,6 +23,7 @@ var schema = new mongoose.Schema({
     expDate: Date,
     items: [{
         owner: { type: String, ref: 'Account' },
+        isAnswer: Boolean,
         createDate: Date,
         text: String,
         attachment: String

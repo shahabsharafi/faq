@@ -2,6 +2,7 @@ import { Department } from './department';
 import { Account } from './account';
 export interface DiscussionDetail {
     owner: Account;
+    isAnswer: Boolean;
     createDate: Date;
     text: String;
     attachment: String;
