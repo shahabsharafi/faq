@@ -482,32 +482,38 @@ var register = function (option) {
         }
     });
 
-    router.get('/finduserbykey', function(req, res) {
-        console.log('finduserbykey');
-        var key = req.query.key;
-        utility.recoverChche(key, function (value) {
-            console.log(value);
-            res.send_ok({
-                    message: value,
-                    success: true
-                });
-        }, function () {
-            console.log('errrrr');
-            res.send_err({ success: false });
-        });
-    });
-
     router.get('/commitchash', function(req, res) {
         var key = req.query.key;
         var price = req.query.price;
-        utility.recoverChche(key, function (value) {
-            console.log(value);
-            res.send_ok({
-                    message: value,
-                    success: true
-                });
+        utility.recoverChche(key, function (username) {
+            Account.findOne( { username: username }, function (err, obj) {
+                if (err) {
+                    res.send_err(err);
+                } else {
+                    if (obj) {
+                        var entity = new Charge({
+                            amount: price,
+                            account: obj,
+                            description: '',
+                            createDate: new Date()
+                        });
+                        entity.save(function (err) {
+                            if (err) {
+                                res.send_err(err);
+                            } else {
+                                res.send_ok({
+                                    message: username,
+                                    success: true
+                                });
+                            }
+                        });
+                        res.send_ok(temp);
+                    } else {
+                        res.send_err(err);
+                    }
+                }
+            });
         }, function () {
-            console.log('errrrr');
             res.send_err({ success: false });
         });
     });
