@@ -486,38 +486,46 @@ var register = function (option) {
         var key = req.query.key;
         var price = req.query.price;
         utility.recoverChche(key, function (username) {
-            Account.findOne( { username: username }, function (err, obj) {
-                if (err) {
-                    res.send_err(err);
-                } else {
-                    if (obj) {
-                        var entity = new Charge({
-                            amount: price,
-                            account: obj,
-                            description: '',
-                            createDate: new Date()
-                        });
-                        entity.save(function (err) {
-                            if (err) {
-                                res.send_err(err);
-                            } else {
-                                res.send_ok({
-                                    message: username,
-                                    success: true
-                                });
-                            }
-                        });
-                        res.send_ok(temp);
-                    } else {
-                        res.send_err(err);
-                    }
-                }
-            });
+			if (username) {
+				Account.findOne( { username: username }, function (err, obj) {
+					if (err) {
+						console.log('err: 1');
+						res.send_err(err);
+					} else {
+						if (obj) {
+							var entity = new Charge({
+								amount: price,
+								account: obj._id,
+								description: '',
+								createDate: new Date()
+							});
+							entity.save(function (err) {
+								if (err) {
+									console.log('err: 2');
+									res.send_err(err);
+								} else {
+									console.log('success');
+									res.send_ok({
+										message: username,
+										success: true
+									});
+								}
+							});
+						} else {
+							console.log('err: 3');
+							res.send_err(err);
+						}
+					}
+				});
+			} else {
+				console.log('err: 4');
+				res.send_err({ success: false });
+			}
         }, function () {
+			console.log('err: 5');
             res.send_err({ success: false });
         });
     });
-
 
     router.get('/byusername/:username', function (req, res) {
 		Account.findOne( { username: req.params.username }, function (err, obj) {
